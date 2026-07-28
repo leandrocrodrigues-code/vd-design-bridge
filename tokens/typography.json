@@ -1,0 +1,17 @@
+{
+  "typography": {
+    "font-family": {
+      "base": { "value": "Inter, system-ui, sans-serif", "type": "fontFamily" }
+    },
+    "font-size": {
+      "sm": { "value": "14px", "type": "fontSize" },
+      "md": { "value": "16px", "type": "fontSize" },
+      "lg": { "value": "20px", "type": "fontSize" }
+    },
+    "font-weight": {
+      "regular": { "value": "400", "type": "fontWeight" },
+      "medium": { "value": "500", "type": "fontWeight" },
+      "bold": { "value": "700", "type": "fontWeight" }
+    }
+  }
+}

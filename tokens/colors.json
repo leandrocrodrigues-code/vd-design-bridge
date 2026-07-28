@@ -1,0 +1,20 @@
+{
+  "color": {
+    "brand": {
+      "primary": { "value": "#4F46E5", "type": "color" },
+      "primary-hover": { "value": "#4338CA", "type": "color" },
+      "secondary": { "value": "#0EA5E9", "type": "color" },
+      "secondary-hover": { "value": "#0284C7", "type": "color" }
+    },
+    "neutral": {
+      "0": { "value": "#FFFFFF", "type": "color" },
+      "100": { "value": "#F5F5F5", "type": "color" },
+      "300": { "value": "#D4D4D8", "type": "color" },
+      "900": { "value": "#111111", "type": "color" }
+    },
+    "text": {
+      "default": { "value": "#111111", "type": "color" },
+      "on-brand": { "value": "#FFFFFF", "type": "color" }
+    }
+  }
+}
