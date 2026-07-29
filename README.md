@@ -62,21 +62,22 @@ Storybook já cobre a necessidade de visualizar o componente vivo com
 controles; Chromatic entra depois, numa fase futura de Design QA (regressão
 visual automatizada).
 
-### Configuração manual necessária no GitHub (uma vez só)
+**Repo é público**: GitHub Pages no plano Free só funciona em repositórios
+públicos (Pages em repo privado exige plano pago). Já configurado — Pages
+está habilitado com source "GitHub Actions" e o workflow já rodou com
+sucesso.
 
-1. **Settings → Pages → Build and deployment → Source**: selecionar
-   **"GitHub Actions"** (não "Deploy from a branch").
-2. **Settings → Actions → General → Workflow permissions**: garantir que
-   "Read and write permissions" esteja habilitado (ou ao menos que Pages
-   tenha permissão de deploy — o workflow já declara
-   `permissions: pages: write, id-token: write` no próprio YAML, mas a
-   configuração do repositório precisa permitir Actions rodarem).
-3. Depois do primeiro push em `main`, conferir a aba **Actions** do repo
-   para ver o workflow `Deploy Storybook to GitHub Pages` rodar com sucesso.
+## Sincronização de tokens (Figma → GitHub)
+
+A cada 15 min, [`.github/workflows/sync-tokens.yml`](.github/workflows/sync-tokens.yml)
+lê as Figma Variables via API e atualiza `/tokens/*.json` automaticamente
+(polling, sem webhook por enquanto). Se algo mudou, commita e dispara o
+deploy do Storybook. Detalhes, convenção de nomes das variables no Figma e
+os secrets necessários (`FIGMA_ACCESS_TOKEN`, `FIGMA_FILE_KEY`) estão em
+[`tokens/README.md`](tokens/README.md).
 
 ## Tokens
 
-`/tokens` começa vazio/básico — populado manualmente por enquanto, formato
-JSON simples (não Style Dictionary ainda). O próximo passo é conectar um
-webhook que recebe o export de tokens do Figma e sobrescreve os JSONs desta
-pasta automaticamente. Detalhes em [`tokens/README.md`](tokens/README.md).
+`/tokens` em formato JSON simples (não Style Dictionary ainda), sincronizado
+a partir das Figma Variables — ver seção acima e
+[`tokens/README.md`](tokens/README.md).
