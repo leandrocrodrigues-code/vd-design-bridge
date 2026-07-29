@@ -2,8 +2,13 @@
 
 Plugin interno (TOTVS/V&D), não publicado na comunidade Figma. Lê as
 **Variables locais** do arquivo Figma via Plugin API, converte pro mesmo
-formato que `/tokens/*.json` já usa no repo, e grava direto no GitHub via
+formato que `/tokens/*.json` já usa no repo, e grava no GitHub via
 **Contents API** — sem passar por polling, webhook ou plugin de terceiros.
+
+Não commita direto em `main`: os commits vão pra uma branch fixa
+`tokens-sync` (criada automaticamente se não existir), e o plugin abre um
+Pull Request `tokens-sync -> main` pra revisão. O deploy do Storybook só
+dispara quando esse PR for mergeado — não a cada sincronização.
 
 Reaproveita a mesma lógica de conversão de
 [`scripts/sync-figma-tokens.js`](../scripts/sync-figma-tokens.js) (que lia a
@@ -65,15 +70,18 @@ Se o Figma pedir pra gerar um novo `id` de plugin ao importar, deixe — o
 
 ## 3. Gerar o GitHub Personal Access Token
 
-O plugin precisa de um PAT com permissão de leitura/escrita em
-`tokens/*.json` no repo `leandrocrodrigues-code/vd-design-bridge`. Duas
-opções:
+O plugin precisa de um PAT com permissão de leitura/escrita em conteúdo
+(pra ler/gravar `tokens/*.json` e criar a branch `tokens-sync`) **e** em
+Pull Requests (pra abrir o PR), no repo
+`leandrocrodrigues-code/vd-design-bridge`. Duas opções:
 
 **Fine-grained (recomendado — escopo mínimo):**
 1. https://github.com/settings/personal-access-tokens/new
 2. Resource owner: `leandrocrodrigues-code`
 3. Repository access: **Only select repositories** → `vd-design-bridge`
-4. Permissions → Repository permissions → **Contents: Read and write**
+4. Permissions → Repository permissions:
+   - **Contents: Read and write** (arquivos + criação da branch `tokens-sync`)
+   - **Pull requests: Read and write** (abrir/checar o PR)
 5. Gerar e copiar o token (só aparece uma vez)
 
 **Classic (mais simples, escopo mais largo):**
@@ -91,18 +99,26 @@ O token nunca é commitado nem sai do Figma: fica salvo só localmente via
 2. Na primeira vez, cole o PAT no campo e clique **"Salvar token"** — não
    pede de novo depois nesse arquivo/computador. Pra trocar, use o link
    "trocar" que aparece ao lado de "Token salvo ✓".
-3. Clique **"Sincronizar tokens"**. O plugin lê as Variables locais,
-   converte e faz um `GET` (pra pegar o SHA atual) + `PUT` na Contents API
-   pra cada um dos 5 arquivos (`colors.json`, `spacing.json`,
-   `typography.json`, `radius.json`, `sizing.json`) que tiver mudança.
-4. A área de log mostra, por arquivo: atualizado / sem mudanças / erro (com
-   status HTTP e corpo da resposta do GitHub).
+3. Clique **"Sincronizar tokens"**. O plugin:
+   1. Garante que a branch `tokens-sync` existe (cria a partir do HEAD
+      atual de `main` se for a primeira vez).
+   2. Pra cada um dos 5 arquivos (`colors.json`, `spacing.json`,
+      `typography.json`, `radius.json`, `sizing.json`) que tiver mudança:
+      faz `GET` (SHA atual na branch `tokens-sync`) + `PUT` na Contents
+      API, e loga um resumo do diff por chave (quantas adicionadas,
+      removidas, alteradas — com alguns exemplos).
+   3. Se algum arquivo mudou, verifica se já existe um PR aberto
+      `tokens-sync -> main`: se sim, não mexe nele (o commit que acabou de
+      subir já atualiza o PR sozinho); se não, cria um novo PR (título
+      `Sync de tokens do Figma - AAAA-MM-DD`, corpo listando os arquivos e
+      o resumo do diff de cada um).
+4. A área de log mostra, por arquivo, o resultado (atualizado / sem
+   mudanças / erro com status HTTP e corpo da resposta), e no fim o link
+   clicável do PR pra revisar (**"Revisar: https://github.com/.../pull/N"**).
 
-Cada arquivo alterado vira um commit separado em `main` (mensagem `chore:
-sync design tokens from Figma plugin`), assinado como o dono do token. Isso
-dispara o `deploy-storybook.yml` normalmente (push de usuário real, não do
-`GITHUB_TOKEN` do Actions — não tem o problema de loop que o workflow
-`sync-tokens.yml` precisou contornar).
+Nenhum commit vai direto pra `main`. O `deploy-storybook.yml` só dispara
+quando o PR for revisado e mergeado manualmente — sincronizar tokens no
+Figma não republica o Storybook sozinho.
 
 ## Troubleshooting
 
@@ -111,8 +127,16 @@ dispara o `deploy-storybook.yml` normalmente (push de usuário real, não do
   `https://api.github.com` e se o token não expirou.
 - **404 no GET de um arquivo**: normal se o arquivo ainda não existe no repo
   — o plugin cria via `PUT` sem `sha`.
-- **401/403 no GET ou PUT**: token inválido, expirado, ou sem permissão de
-  Contents no repo — gere um novo (passo 3) e use "trocar" na UI.
+- **401/403 no GET/PUT de arquivo**: token inválido, expirado, ou sem
+  permissão de Contents no repo — gere um novo (passo 3) e use "trocar" na
+  UI.
+- **403/404 ao criar a branch ou o PR**: geralmente falta o escopo **Pull
+  requests: Read and write** no token (Contents sozinho não basta pra abrir
+  PR) — gere um novo token com os dois escopos do passo 3.
+- **409 no PUT**: o plugin já tenta de novo automaticamente uma vez (rele o
+  SHA mais recente na branch `tokens-sync` e reenvia). Se persistir depois
+  do retry, o log mostra o erro real — normalmente indica outra escrita
+  concorrente na mesma branch.
 - **Nenhuma Variable convertida**: confira a convenção de nomes (`color/`,
   `spacing/`, `typography/` como primeiro segmento) — o log lista cada
   Variable ignorada e o motivo.

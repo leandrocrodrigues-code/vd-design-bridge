@@ -73,9 +73,11 @@ sucesso.
 ## Sincronização de tokens (Figma → GitHub)
 
 **Caminho atual**: [`figma-plugin-token-sync/`](figma-plugin-token-sync/) — um
-plugin Figma privado que lê as Variables locais direto no Figma e grava em
-`/tokens/*.json` via GitHub Contents API, sob demanda (botão "Sincronizar
-tokens" na UI do plugin). Ver
+plugin Figma privado que lê as Variables locais direto no Figma e sincroniza
+`/tokens/*.json` sob demanda (botão "Sincronizar tokens" na UI do plugin),
+via GitHub Contents API. Não commita em `main` diretamente: grava numa
+branch `tokens-sync` e abre/atualiza um Pull Request pra revisão — o deploy
+do Storybook só dispara quando esse PR é mergeado. Ver
 [`figma-plugin-token-sync/README.md`](figma-plugin-token-sync/README.md) pra
 instalar e usar.
 

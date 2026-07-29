@@ -79,7 +79,8 @@
 <script>
   var GITHUB_OWNER = 'leandrocrodrigues-code';
   var GITHUB_REPO = 'vd-design-bridge';
-  var GITHUB_BRANCH = 'main';
+  var GITHUB_BASE_BRANCH = 'main';
+  var TOKENS_BRANCH = 'tokens-sync';
   var FILES = [
     { bucket: 'color', path: 'tokens/colors.json', topKey: 'color' },
     { bucket: 'spacing', path: 'tokens/spacing.json', topKey: 'spacing' },
@@ -147,7 +148,10 @@
     return new TextDecoder().decode(bytes);
   }
 
-  function githubRequest(path, options) {
+  // pathSuffix é o caminho da API do GitHub relativo ao repo, ex.
+  // "contents/tokens/colors.json?ref=tokens-sync", "branches/tokens-sync",
+  // "git/refs", "pulls".
+  function githubApi(pathSuffix, options) {
     var opts = options || {};
     var headers = Object.assign({
       'Authorization': 'Bearer ' + githubToken,
@@ -155,15 +159,43 @@
       'X-GitHub-Api-Version': '2022-11-28',
     }, opts.headers || {});
     return fetch(
-      'https://api.github.com/repos/' + GITHUB_OWNER + '/' + GITHUB_REPO + '/contents/' + path,
+      'https://api.github.com/repos/' + GITHUB_OWNER + '/' + GITHUB_REPO + '/' + pathSuffix,
       Object.assign({}, opts, { headers: headers }),
     );
   }
 
-  // GET do SHA/conteúdo atual de um arquivo. Lançado logo antes de cada PUT
-  // (nunca cacheado entre arquivos ou reusado num retry sem reler).
+  // Garante que a branch tokens-sync existe, criando a partir do HEAD atual
+  // da main se ainda não existir.
+  async function ensureTokensBranch() {
+    var checkRes = await githubApi('branches/' + encodeURIComponent(TOKENS_BRANCH));
+    if (checkRes.status === 200) return;
+    if (checkRes.status !== 404) {
+      throw new Error('erro ao checar branch "' + TOKENS_BRANCH + '" (' + checkRes.status + ') ' + (await checkRes.text()));
+    }
+
+    log('Branch "' + TOKENS_BRANCH + '" não existe ainda — criando a partir de "' + GITHUB_BASE_BRANCH + '"...', 'info');
+    var mainRefRes = await githubApi('git/ref/heads/' + GITHUB_BASE_BRANCH);
+    if (!mainRefRes.ok) {
+      throw new Error('erro ao ler HEAD de "' + GITHUB_BASE_BRANCH + '" (' + mainRefRes.status + ') ' + (await mainRefRes.text()));
+    }
+    var mainRef = await mainRefRes.json();
+
+    var createRes = await githubApi('git/refs', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ref: 'refs/heads/' + TOKENS_BRANCH, sha: mainRef.object.sha }),
+    });
+    if (!createRes.ok) {
+      throw new Error('erro ao criar branch "' + TOKENS_BRANCH + '" (' + createRes.status + ') ' + (await createRes.text()));
+    }
+    log('Branch "' + TOKENS_BRANCH + '" criada.', 'ok');
+  }
+
+  // GET do SHA/conteúdo atual de um arquivo, sempre na branch tokens-sync.
+  // Lançado logo antes de cada PUT (nunca cacheado entre arquivos ou
+  // reusado num retry sem reler).
   async function getShaAndContent(path) {
-    var getRes = await githubRequest(path + '?ref=' + GITHUB_BRANCH, { method: 'GET' });
+    var getRes = await githubApi('contents/' + path + '?ref=' + TOKENS_BRANCH, { method: 'GET' });
     if (getRes.status === 200) {
       var data = await getRes.json();
       return { sha: data.sha, content: fromBase64(data.content) };
@@ -179,14 +211,60 @@
     var putBody = {
       message: 'chore: sync design tokens from Figma plugin',
       content: toBase64(contentStr),
-      branch: GITHUB_BRANCH,
+      branch: TOKENS_BRANCH,
     };
     if (sha) putBody.sha = sha;
-    return githubRequest(path, {
+    return githubApi('contents/' + path, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(putBody),
     });
+  }
+
+  // --- Diff por chave (added/removed/changed), só pra relatório no log e
+  // no corpo do PR — a decisão de gravar ou não continua sendo a
+  // comparação de string bruta em syncFile().
+  function flattenLeaves(obj, prefix, out) {
+    out = out || {};
+    if (!obj || typeof obj !== 'object') return out;
+    if ('value' in obj) {
+      out[prefix || ''] = obj;
+      return out;
+    }
+    Object.keys(obj).forEach(function (key) {
+      flattenLeaves(obj[key], prefix ? prefix + '.' + key : key, out);
+    });
+    return out;
+  }
+
+  function diffTokens(oldBucket, newBucket) {
+    var oldLeaves = flattenLeaves(oldBucket);
+    var newLeaves = flattenLeaves(newBucket);
+    var added = [], removed = [], changed = [];
+    Object.keys(newLeaves).forEach(function (key) {
+      if (!(key in oldLeaves)) {
+        added.push(key);
+      } else if (JSON.stringify(oldLeaves[key]) !== JSON.stringify(newLeaves[key])) {
+        changed.push(key);
+      }
+    });
+    Object.keys(oldLeaves).forEach(function (key) {
+      if (!(key in newLeaves)) removed.push(key);
+    });
+    return { added: added, removed: removed, changed: changed };
+  }
+
+  function logDiffSummary(path, diff) {
+    var parts = [];
+    if (diff.added.length) parts.push('+' + diff.added.length + ' adicionada(s)');
+    if (diff.removed.length) parts.push('-' + diff.removed.length + ' removida(s)');
+    if (diff.changed.length) parts.push('~' + diff.changed.length + ' alterada(s)');
+    log(path + ': ' + (parts.length ? parts.join(', ') : 'conteúdo mudou'), 'info');
+
+    var sample = diff.added.slice(0, 3).map(function (k) { return '+ ' + k; })
+      .concat(diff.removed.slice(0, 3).map(function (k) { return '- ' + k; }))
+      .concat(diff.changed.slice(0, 3).map(function (k) { return '~ ' + k; }));
+    sample.forEach(function (line) { log('    ' + line, 'info'); });
   }
 
   async function syncFile(entry, tokens) {
@@ -199,13 +277,24 @@
       current = await getShaAndContent(entry.path);
     } catch (err) {
       log(entry.path + ': erro ao ler arquivo atual — ' + err.message, 'err');
-      return;
+      return null;
     }
 
     if (current.content === newContentStr) {
       log(entry.path + ': sem mudanças.', 'info');
-      return;
+      return null;
     }
+
+    var oldBucket = null;
+    if (current.content) {
+      try {
+        oldBucket = JSON.parse(current.content)[entry.topKey];
+      } catch (e) {
+        oldBucket = null;
+      }
+    }
+    var diff = diffTokens(oldBucket, newObj[entry.topKey]);
+    logDiffSummary(entry.path, diff);
 
     // GET imediatamente seguido do PUT desse mesmo arquivo — par atômico,
     // sem reusar SHA de uma leitura anterior nem de outro arquivo.
@@ -221,21 +310,70 @@
         fresh = await getShaAndContent(entry.path);
       } catch (err) {
         log(entry.path + ': erro ao reler arquivo pro retry — ' + err.message, 'err');
-        return;
+        return null;
       }
       if (fresh.content === newContentStr) {
         log(entry.path + ': sem mudanças (outra escrita já aplicou o mesmo conteúdo).', 'info');
-        return;
+        return null;
       }
       putRes = await putFile(entry.path, newContentStr, fresh.sha);
     }
 
     if (putRes.ok) {
-      log(entry.path + ': atualizado com sucesso.', 'ok');
+      log(entry.path + ': atualizado com sucesso na branch "' + TOKENS_BRANCH + '".', 'ok');
+      return { path: entry.path, diff: diff };
     } else {
       var errBody = await putRes.text();
       log(entry.path + ': erro ao gravar (' + putRes.status + ') ' + errBody, 'err');
+      return null;
     }
+  }
+
+  // Cria o PR tokens-sync -> main se ainda não houver um aberto. Se já
+  // houver, não mexe nele — o push que syncFile() já fez na branch já
+  // atualiza o PR existente automaticamente (comportamento padrão do Git).
+  async function ensurePullRequest(results) {
+    var listRes = await githubApi(
+      'pulls?head=' + encodeURIComponent(GITHUB_OWNER + ':' + TOKENS_BRANCH) +
+      '&base=' + GITHUB_BASE_BRANCH + '&state=open',
+    );
+    if (!listRes.ok) {
+      throw new Error('GET pulls falhou (' + listRes.status + ') ' + (await listRes.text()));
+    }
+    var existing = await listRes.json();
+    if (existing.length > 0) {
+      log('PR já estava aberto — o commit atualizou ele automaticamente.', 'info');
+      return existing[0].html_url;
+    }
+
+    var today = new Date().toISOString().slice(0, 10);
+    var bodyLines = results.map(function (r) {
+      var d = r.diff;
+      var parts = [];
+      if (d.added.length) parts.push(d.added.length + ' adicionada(s)');
+      if (d.removed.length) parts.push(d.removed.length + ' removida(s)');
+      if (d.changed.length) parts.push(d.changed.length + ' alterada(s)');
+      return '- `' + r.path + '`' + (parts.length ? ': ' + parts.join(', ') : '');
+    });
+    var body = 'Sincronização automática de design tokens do Figma via plugin VD Token Sync.\n\n' +
+      'Arquivos alterados:\n' + bodyLines.join('\n');
+
+    var createRes = await githubApi('pulls', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        title: 'Sync de tokens do Figma - ' + today,
+        head: TOKENS_BRANCH,
+        base: GITHUB_BASE_BRANCH,
+        body: body,
+      }),
+    });
+    if (!createRes.ok) {
+      throw new Error('POST pulls falhou (' + createRes.status + ') ' + (await createRes.text()));
+    }
+    var created = await createRes.json();
+    log('PR criado.', 'ok');
+    return created.html_url;
   }
 
   window.onmessage = async function (event) {
@@ -262,6 +400,16 @@
       if (msg.skipped && msg.skipped.length) {
         msg.skipped.forEach(function (s) { log('Ignorado: ' + s, 'info'); });
       }
+
+      try {
+        await ensureTokensBranch();
+      } catch (err) {
+        log('Erro ao preparar a branch "' + TOKENS_BRANCH + '": ' + err.message, 'err');
+        syncBtn.disabled = false;
+        return;
+      }
+
+      var results = [];
       for (var i = 0; i < FILES.length; i++) {
         var entry = FILES[i];
         var bucketData = msg.tokens[entry.bucket];
@@ -269,8 +417,21 @@
           log(entry.path + ': nenhuma variable em "' + entry.bucket + '/*" nesta rodada — arquivo mantido como está.', 'info');
           continue;
         }
-        await syncFile(entry, msg.tokens);
+        var result = await syncFile(entry, msg.tokens);
+        if (result) results.push(result);
       }
+
+      if (results.length === 0) {
+        log('Nenhum arquivo mudou — nada pra abrir PR.', 'info');
+      } else {
+        try {
+          var prUrl = await ensurePullRequest(results);
+          log('Revisar: ' + prUrl, 'ok');
+        } catch (err) {
+          log('Commits feitos em "' + TOKENS_BRANCH + '", mas o PR falhou: ' + err.message, 'err');
+        }
+      }
+
       log('Sincronização concluída.', 'ok');
       syncBtn.disabled = false;
       return;
