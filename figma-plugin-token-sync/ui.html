@@ -160,46 +160,81 @@
     );
   }
 
+  // GET do SHA/conteúdo atual de um arquivo. Lançado logo antes de cada PUT
+  // (nunca cacheado entre arquivos ou reusado num retry sem reler).
+  async function getShaAndContent(path) {
+    var getRes = await githubRequest(path + '?ref=' + GITHUB_BRANCH, { method: 'GET' });
+    if (getRes.status === 200) {
+      var data = await getRes.json();
+      return { sha: data.sha, content: fromBase64(data.content) };
+    }
+    if (getRes.status === 404) {
+      return { sha: undefined, content: null };
+    }
+    var errBody = await getRes.text();
+    throw new Error('GET falhou (' + getRes.status + ') ' + errBody);
+  }
+
+  function putFile(path, contentStr, sha) {
+    var putBody = {
+      message: 'chore: sync design tokens from Figma plugin',
+      content: toBase64(contentStr),
+      branch: GITHUB_BRANCH,
+    };
+    if (sha) putBody.sha = sha;
+    return githubRequest(path, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(putBody),
+    });
+  }
+
   async function syncFile(entry, tokens) {
     var newObj = {};
     newObj[entry.topKey] = tokens[entry.bucket];
     var newContentStr = JSON.stringify(newObj, null, 2) + '\n';
 
-    var getRes = await githubRequest(entry.path + '?ref=' + GITHUB_BRANCH, { method: 'GET' });
-
-    var sha;
-    if (getRes.status === 200) {
-      var data = await getRes.json();
-      sha = data.sha;
-      var currentContent = fromBase64(data.content);
-      if (currentContent === newContentStr) {
-        log(entry.path + ': sem mudanças.', 'info');
-        return;
-      }
-    } else if (getRes.status !== 404) {
-      var errBody1 = await getRes.text();
-      log(entry.path + ': erro ao ler arquivo atual (' + getRes.status + ') ' + errBody1, 'err');
+    var current;
+    try {
+      current = await getShaAndContent(entry.path);
+    } catch (err) {
+      log(entry.path + ': erro ao ler arquivo atual — ' + err.message, 'err');
       return;
     }
 
-    var putBody = {
-      message: 'chore: sync design tokens from Figma plugin',
-      content: toBase64(newContentStr),
-      branch: GITHUB_BRANCH,
-    };
-    if (sha) putBody.sha = sha;
+    if (current.content === newContentStr) {
+      log(entry.path + ': sem mudanças.', 'info');
+      return;
+    }
 
-    var putRes = await githubRequest(entry.path, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(putBody),
-    });
+    // GET imediatamente seguido do PUT desse mesmo arquivo — par atômico,
+    // sem reusar SHA de uma leitura anterior nem de outro arquivo.
+    var putRes = await putFile(entry.path, newContentStr, current.sha);
+
+    if (putRes.status === 409) {
+      // SHA ficou desatualizado entre o GET e o PUT (corrida de milissegundos
+      // com outra escrita). Rele o arquivo pra pegar o SHA mais recente e
+      // tenta de novo, uma única vez.
+      log(entry.path + ': 409 (SHA desatualizado) — relendo e tentando de novo...', 'info');
+      var fresh;
+      try {
+        fresh = await getShaAndContent(entry.path);
+      } catch (err) {
+        log(entry.path + ': erro ao reler arquivo pro retry — ' + err.message, 'err');
+        return;
+      }
+      if (fresh.content === newContentStr) {
+        log(entry.path + ': sem mudanças (outra escrita já aplicou o mesmo conteúdo).', 'info');
+        return;
+      }
+      putRes = await putFile(entry.path, newContentStr, fresh.sha);
+    }
 
     if (putRes.ok) {
       log(entry.path + ': atualizado com sucesso.', 'ok');
     } else {
-      var errBody2 = await putRes.text();
-      log(entry.path + ': erro ao gravar (' + putRes.status + ') ' + errBody2, 'err');
+      var errBody = await putRes.text();
+      log(entry.path + ': erro ao gravar (' + putRes.status + ') ' + errBody, 'err');
     }
   }
 
