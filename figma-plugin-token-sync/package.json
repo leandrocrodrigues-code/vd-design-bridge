@@ -3,8 +3,8 @@
   "private": true,
   "version": "0.1.0",
   "scripts": {
-    "build": "esbuild code.ts --bundle --outfile=code.js --target=es2017 --format=iife",
-    "watch": "esbuild code.ts --bundle --outfile=code.js --target=es2017 --format=iife --watch",
+    "build": "mkdir -p dist && esbuild code.ts --bundle --outfile=dist/code.js --target=es2017 --format=iife && cp ui.html dist/ui.html",
+    "watch": "mkdir -p dist && cp ui.html dist/ui.html && esbuild code.ts --bundle --outfile=dist/code.js --target=es2017 --format=iife --watch",
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {

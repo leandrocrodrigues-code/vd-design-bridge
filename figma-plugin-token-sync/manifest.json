@@ -2,9 +2,9 @@
   "name": "VD Token Sync",
   "id": "vd-token-sync-dev",
   "api": "1.0.0",
-  "main": "code.js",
-  "ui": "ui.html",
-  "editorType": ["figma"],
+  "main": "dist/code.js",
+  "ui": "dist/ui.html",
+  "editorType": ["figma", "dev"],
   "documentAccess": "dynamic-page",
   "networkAccess": {
     "allowedDomains": ["https://api.github.com"],

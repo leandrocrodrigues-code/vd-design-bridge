@@ -31,13 +31,15 @@ mesmo assim só grava se o conteúdo realmente mudou (evita commits vazios).
 ```bash
 cd figma-plugin-token-sync
 npm install
-npm run build       # compila code.ts -> code.js via esbuild
+npm run build       # compila code.ts -> dist/code.js (esbuild) e copia ui.html -> dist/ui.html
 npm run typecheck   # opcional, só checagem de tipos
 ```
 
-`code.js` é gerado (git-ignorado) — precisa existir antes de importar o
-plugin no Figma. Durante desenvolvimento, `npm run watch` recompila a cada
-mudança em `code.ts`.
+`dist/` é gerada (git-ignorada) — precisa existir antes de importar o
+plugin no Figma, já que `manifest.json` aponta `main`/`ui` pra lá
+(`dist/code.js`, `dist/ui.html`). Durante desenvolvimento, `npm run watch`
+recompila a cada mudança em `code.ts` (se editar `ui.html`, rode `npm run
+build` de novo pra copiar a versão nova pra `dist/`).
 
 ## 2. Instalar localmente no Figma
 
