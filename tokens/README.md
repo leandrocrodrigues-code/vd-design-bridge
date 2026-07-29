@@ -8,6 +8,8 @@ JSONs diretamente via [`tokens/index.ts`](./index.ts).
 - `colors.json` — paleta de cores
 - `spacing.json` — escala de espaçamento
 - `typography.json` — família, tamanhos e pesos de fonte
+- `radius.json` — border radius (ainda vazio, aguardando sync)
+- `sizing.json` — larguras e alturas fixas (ainda vazio, aguardando sync)
 
 ## Sincronização com Figma Variables
 
@@ -30,20 +32,40 @@ mudou, de `fetch` pra `figma.variables.*`).
 
 ## Convenção de nomes das Variables no Figma
 
-Vale para os dois caminhos acima: cada Variable/token deve se chamar
-`<grupo>/<...resto>`, onde `<grupo>` é `color`, `spacing` ou `typography` —
-isso decide em qual arquivo ela cai e vira a chave de topo. O resto do nome
-vira o caminho aninhado (ex. `color/brand/primary`,
-`typography/font-size/lg`). Fora dessa convenção, o token é ignorado com
-aviso no log, não quebra a sincronização.
+Cada Variable deve se chamar `<Grupo>/<...resto>`, onde `<Grupo>` é o nome
+do grupo de topo usado no arquivo Figma da TOTVS (**case-insensitive**:
+"Colors", "colors" e "COLORS" caem no mesmo lugar). O resto do nome vira o
+caminho aninhado dentro do arquivo de destino. Mapeamento completo:
+
+| Grupo no Figma       | Arquivo               | Bucket        |
+| --------------------- | ---------------------- | ------------- |
+| `Colors/*`            | `tokens/colors.json`   | `color`       |
+| `Font/*`               | `tokens/typography.json` | `typography` |
+| `Spacing/*`            | `tokens/spacing.json`  | `spacing`     |
+| `Corner radius/*`     | `tokens/radius.json`   | `radius`      |
+| `Widths/*` e `Heights/*` | `tokens/sizing.json` | `sizing`      |
+
+`Widths/*` e `Heights/*` caem **juntos** em `sizing.json`, mas mantêm o
+nome do grupo original como primeiro nível dentro do arquivo pra não
+colidir (ex. `Widths/button/sm` → `sizing.json` →
+`{ sizing: { widths: { button: { sm: {...} } } } }`, e `Heights/icon/lg` →
+`{ sizing: { heights: { icon: { lg: {...} } } } }`).
+
+Para os outros grupos, o nome do grupo é descartado do caminho de saída
+(ele já virou a chave de topo do arquivo): `Colors/brand/primary` →
+`colors.json` → `{ color: { brand: { primary: {...} } } }`.
+
+Variable fora dessa convenção (grupo desconhecido, ou nome sem pelo menos
+`Grupo/token`) é ignorada com aviso no log da UI do plugin — não quebra a
+sincronização dos demais tokens.
 
 **Importante — regeneração é por arquivo inteiro, não por chave:** se
-qualquer variable mapear para `typography/*`, o `typography.json` inteiro é
-regenerado só com o que veio do Figma naquela rodada — não faz merge chave a
-chave. Migre um grupo (`color`, `spacing` ou `typography`) por completo
-antes de sincronizar, ou as chaves ainda não representadas como Variable são
-descartadas. Um arquivo só é preservado intacto se **nenhuma** Variable
-mapear pra ele naquela rodada.
+qualquer Variable mapear pra um bucket, o arquivo correspondente é
+regenerado inteiro só com o que veio do Figma naquela rodada — não faz
+merge chave a chave. Migre um grupo (Colors, Font, Spacing, Corner radius,
+ou Widths/Heights juntos) por completo antes de sincronizar, ou as chaves
+ainda não representadas como Variable são descartadas. Um arquivo só é
+preservado intacto se **nenhuma** Variable mapear pra ele naquela rodada.
 
 Apenas o modo padrão (`defaultModeId`) de cada Variable Collection é usado —
 suporte a múltiplos modos (ex. tema light/dark) fica para depois.

@@ -2,9 +2,8 @@
 
 Plugin interno (TOTVS/V&D), não publicado na comunidade Figma. Lê as
 **Variables locais** do arquivo Figma via Plugin API, converte pro mesmo
-formato que `/tokens/colors.json`, `spacing.json` e `typography.json` já
-usam no repo, e grava direto no GitHub via **Contents API** — sem passar por
-polling, webhook ou plugin de terceiros.
+formato que `/tokens/*.json` já usa no repo, e grava direto no GitHub via
+**Contents API** — sem passar por polling, webhook ou plugin de terceiros.
 
 Reaproveita a mesma lógica de conversão de
 [`scripts/sync-figma-tokens.js`](../scripts/sync-figma-tokens.js) (que lia a
@@ -14,17 +13,29 @@ e montar os JSONs é a mesma.
 
 ## Convenção de nomes das Variables no Figma
 
-Igual ao script antigo: cada Variable deve se chamar `<grupo>/<...resto>`,
-onde `<grupo>` é `color`, `spacing` ou `typography` (decide em qual arquivo
-ela cai). Ex.: `color/brand/primary`, `spacing/md`,
-`typography/font-size/lg`. Variables fora dessa convenção são ignoradas
-(aparecem no log da UI como "Ignorado: ..."), não quebram a sincronização.
-Aliases entre variables são resolvidos automaticamente. Só o modo padrão de
-cada Variable Collection é usado (sem suporte a light/dark ainda).
+Cada Variable deve se chamar `<Grupo>/<...resto>`, onde `<Grupo>` é o nome
+do grupo de topo usado no arquivo Figma da TOTVS (**case-insensitive**).
+Mapeamento pro arquivo de destino:
 
-Um arquivo (`colors.json`, `spacing.json` ou `typography.json`) só é
-sobrescrito se pelo menos uma Variable mapear pra ele nesta sincronização, e
-mesmo assim só grava se o conteúdo realmente mudou (evita commits vazios).
+| Grupo no Figma           | Arquivo                  |
+| ------------------------- | ------------------------- |
+| `Colors/*`                | `tokens/colors.json`      |
+| `Font/*`                   | `tokens/typography.json`  |
+| `Spacing/*`                | `tokens/spacing.json`     |
+| `Corner radius/*`         | `tokens/radius.json`      |
+| `Widths/*` e `Heights/*`  | `tokens/sizing.json` (os dois juntos) |
+
+Detalhes de como o caminho aninhado é montado (inclusive o caso especial de
+`Widths`/`Heights` dividindo o mesmo arquivo) estão em
+[`../tokens/README.md`](../tokens/README.md). Variables fora dessa
+convenção são ignoradas (aparecem no log da UI como "Ignorado: ..."), não
+quebram a sincronização. Aliases entre variables são resolvidos
+automaticamente. Só o modo padrão de cada Variable Collection é usado (sem
+suporte a light/dark ainda).
+
+Cada arquivo de destino só é sobrescrito se pelo menos uma Variable mapear
+pra ele nesta sincronização, e mesmo assim só grava se o conteúdo realmente
+mudou (evita commits vazios).
 
 ## 1. Build local
 
@@ -82,7 +93,8 @@ O token nunca é commitado nem sai do Figma: fica salvo só localmente via
    "trocar" que aparece ao lado de "Token salvo ✓".
 3. Clique **"Sincronizar tokens"**. O plugin lê as Variables locais,
    converte e faz um `GET` (pra pegar o SHA atual) + `PUT` na Contents API
-   pra cada um dos 3 arquivos que tiver mudança.
+   pra cada um dos 5 arquivos (`colors.json`, `spacing.json`,
+   `typography.json`, `radius.json`, `sizing.json`) que tiver mudança.
 4. A área de log mostra, por arquivo: atualizado / sem mudanças / erro (com
    status HTTP e corpo da resposta do GitHub).
 
