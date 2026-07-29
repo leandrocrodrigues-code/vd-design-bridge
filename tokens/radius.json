@@ -1,3 +1,32 @@
 {
-  "radius": {}
+  "radius": {
+    "3xsm": {
+      "value": "4px",
+      "type": "radius"
+    },
+    "smd": {
+      "value": "20px",
+      "type": "radius"
+    },
+    "xsm": {
+      "value": "12px",
+      "type": "radius"
+    },
+    "sm": {
+      "value": "16px",
+      "type": "radius"
+    },
+    "2xsm": {
+      "value": "8px",
+      "type": "radius"
+    },
+    "none": {
+      "value": "0px",
+      "type": "radius"
+    },
+    "md": {
+      "value": "24px",
+      "type": "radius"
+    }
+  }
 }
