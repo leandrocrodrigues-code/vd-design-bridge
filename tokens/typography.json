@@ -1,17 +1,124 @@
 {
   "typography": {
-    "font-family": {
-      "base": { "value": "Inter, system-ui, sans-serif", "type": "fontFamily" }
+    "family": {
+      "title": {
+        "value": "Lato",
+        "type": "family"
+      },
+      "paragraph": {
+        "value": "Lato",
+        "type": "family"
+      },
+      "overline": {
+        "value": "Lato",
+        "type": "family"
+      },
+      "description": {
+        "value": "Lato",
+        "type": "family"
+      },
+      "caption": {
+        "value": "Lato",
+        "type": "family"
+      }
     },
-    "font-size": {
-      "sm": { "value": "14px", "type": "fontSize" },
-      "md": { "value": "16px", "type": "fontSize" },
-      "lg": { "value": "20px", "type": "fontSize" }
+    "weight": {
+      "regular": {
+        "value": "Regular",
+        "type": "weight"
+      },
+      "bold": {
+        "value": "Bold",
+        "type": "weight"
+      }
     },
-    "font-weight": {
-      "regular": { "value": "400", "type": "fontWeight" },
-      "medium": { "value": "500", "type": "fontWeight" },
-      "bold": { "value": "700", "type": "fontWeight" }
+    "size": {
+      "2xlg": {
+        "value": "48",
+        "type": "size"
+      },
+      "xlg": {
+        "value": "40",
+        "type": "size"
+      },
+      "md": {
+        "value": "24",
+        "type": "size"
+      },
+      "lg": {
+        "value": "32",
+        "type": "size"
+      },
+      "xsm": {
+        "value": "12",
+        "type": "size"
+      },
+      "smd": {
+        "value": "20",
+        "type": "size"
+      },
+      "sm": {
+        "value": "16",
+        "type": "size"
+      },
+      "none": {
+        "value": "0",
+        "type": "size"
+      },
+      "sm+": {
+        "value": "18",
+        "type": "size"
+      },
+      "xsm+": {
+        "value": "14",
+        "type": "size"
+      }
+    },
+    "line-height": {
+      "none": {
+        "value": "0",
+        "type": "lineHeight"
+      },
+      "xlg": {
+        "value": "40",
+        "type": "lineHeight"
+      },
+      "lg": {
+        "value": "32",
+        "type": "lineHeight"
+      },
+      "md": {
+        "value": "24",
+        "type": "lineHeight"
+      },
+      "sm": {
+        "value": "16",
+        "type": "lineHeight"
+      },
+      "2xlg": {
+        "value": "48",
+        "type": "lineHeight"
+      },
+      "xsm": {
+        "value": "12",
+        "type": "lineHeight"
+      },
+      "3xlg": {
+        "value": "56",
+        "type": "lineHeight"
+      },
+      "smd": {
+        "value": "20",
+        "type": "lineHeight"
+      },
+      "sm+": {
+        "value": "18",
+        "type": "lineHeight"
+      },
+      "xsm+": {
+        "value": "14",
+        "type": "lineHeight"
+      }
     }
   }
 }
