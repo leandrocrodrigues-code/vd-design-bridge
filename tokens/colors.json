@@ -1,20 +1,272 @@
 {
   "color": {
-    "brand": {
-      "primary": { "value": "#4F46E5", "type": "color" },
-      "primary-hover": { "value": "#4338CA", "type": "color" },
-      "secondary": { "value": "#0EA5E9", "type": "color" },
-      "secondary-hover": { "value": "#0284C7", "type": "color" }
+    "surface": {
+      "brand": {
+        "on-brand": {
+          "value": "#002233",
+          "type": "color"
+        },
+        "container": {
+          "value": "#a0f2ff",
+          "type": "color"
+        },
+        "pure": {
+          "value": "#00dbff",
+          "type": "color"
+        },
+        "highlight": {
+          "value": "#1e3da1",
+          "type": "color"
+        },
+        "card": {
+          "value": "#edfcff",
+          "type": "color"
+        }
+      },
+      "container": {
+        "value": "#dfe4ec",
+        "type": "color"
+      },
+      "inverse": {
+        "value": "#121212",
+        "type": "color"
+      },
+      "card": {
+        "value": "#f7f9f9",
+        "type": "color"
+      },
+      "pure": {
+        "value": "#ffffff",
+        "type": "color"
+      }
     },
-    "neutral": {
-      "0": { "value": "#FFFFFF", "type": "color" },
-      "100": { "value": "#F5F5F5", "type": "color" },
-      "300": { "value": "#D4D4D8", "type": "color" },
-      "900": { "value": "#111111", "type": "color" }
+    "chart": {
+      "rosé": {
+        "highlight": {
+          "value": "#382023",
+          "type": "color"
+        },
+        "container": {
+          "value": "#ffdbe1",
+          "type": "color"
+        },
+        "pure": {
+          "value": "#f58c9b",
+          "type": "color"
+        }
+      },
+      "brown": {
+        "highlight": {
+          "value": "#322824",
+          "type": "color"
+        },
+        "container": {
+          "value": "#eed4c8",
+          "type": "color"
+        },
+        "pure": {
+          "value": "#755749",
+          "type": "color"
+        }
+      },
+      "lime-green-(brand)": {
+        "highlight": {
+          "value": "#273300",
+          "type": "color"
+        },
+        "container": {
+          "value": "#f2ffcc",
+          "type": "color"
+        },
+        "pure": {
+          "value": "#d9ff65",
+          "type": "color"
+        }
+      },
+      "pink-(brand)": {
+        "container": {
+          "value": "#ffaadb",
+          "type": "color"
+        },
+        "pure": {
+          "value": "#ff009e",
+          "type": "color"
+        },
+        "highlight": {
+          "value": "#3d1f2f",
+          "type": "color"
+        }
+      },
+      "violet": {
+        "container": {
+          "value": "#e6b4ee",
+          "type": "color"
+        },
+        "pure": {
+          "value": "#b54ae7",
+          "type": "color"
+        },
+        "highlight": {
+          "value": "#3f1047",
+          "type": "color"
+        }
+      },
+      "orange-(brand)": {
+        "pure": {
+          "value": "#ff8900",
+          "type": "color"
+        },
+        "container": {
+          "value": "#ffc58f",
+          "type": "color"
+        },
+        "highlight": {
+          "value": "#452100",
+          "type": "color"
+        }
+      },
+      "red": {
+        "highlight": {
+          "value": "#581200",
+          "type": "color"
+        },
+        "container": {
+          "value": "#ffc2c2",
+          "type": "color"
+        },
+        "pure": {
+          "value": "#f44336",
+          "type": "color"
+        }
+      },
+      "purple": {
+        "highlight": {
+          "value": "#2b1d69",
+          "type": "color"
+        },
+        "container": {
+          "value": "#ede9ff",
+          "type": "color"
+        },
+        "pure": {
+          "value": "#6b48ff",
+          "type": "color"
+        }
+      },
+      "teal-(brand)": {
+        "pure": {
+          "value": "#00ffd4",
+          "type": "color"
+        },
+        "highlight": {
+          "value": "#183431",
+          "type": "color"
+        },
+        "container": {
+          "value": "#a3ffef",
+          "type": "color"
+        }
+      }
     },
-    "text": {
-      "default": { "value": "#111111", "type": "color" },
-      "on-brand": { "value": "#FFFFFF", "type": "color" }
+    "feedback": {
+      "success": {
+        "highlight": {
+          "value": "#075902",
+          "type": "color"
+        },
+        "container": {
+          "value": "#befade",
+          "type": "color"
+        },
+        "pure": {
+          "value": "#5dba80",
+          "type": "color"
+        },
+        "card": {
+          "value": "#f4fbf8",
+          "type": "color"
+        }
+      },
+      "alert": {
+        "pure": {
+          "value": "#e66a5e",
+          "type": "color"
+        },
+        "highlight": {
+          "value": "#781b12",
+          "type": "color"
+        },
+        "container": {
+          "value": "#fcd6d8",
+          "type": "color"
+        },
+        "card": {
+          "value": "#fef1f2",
+          "type": "color"
+        }
+      },
+      "informative": {
+        "pure": {
+          "value": "#5082ff",
+          "type": "color"
+        },
+        "container": {
+          "value": "#bdcbff",
+          "type": "color"
+        },
+        "highlight": {
+          "value": "#2b2d57",
+          "type": "color"
+        },
+        "card": {
+          "value": "#f5f5ff",
+          "type": "color"
+        }
+      },
+      "warning": {
+        "pure": {
+          "value": "#ffc300",
+          "type": "color"
+        },
+        "highlight": {
+          "value": "#6d4008",
+          "type": "color"
+        },
+        "container": {
+          "value": "#ffe894",
+          "type": "color"
+        },
+        "card": {
+          "value": "#fef9f1",
+          "type": "color"
+        }
+      }
+    },
+    "content": {
+      "01": {
+        "value": "#363636",
+        "type": "color"
+      },
+      "inverse": {
+        "value": "#ffffff",
+        "type": "color"
+      },
+      "03": {
+        "value": "#8e8e8e",
+        "type": "color"
+      },
+      "02": {
+        "value": "#545454",
+        "type": "color"
+      },
+      "on-brand": {
+        "value": "#002233",
+        "type": "color"
+      },
+      "pure": {
+        "value": "#121212",
+        "type": "color"
+      }
     }
   }
 }
