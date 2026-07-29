@@ -25,6 +25,9 @@ design tokens que virão do Figma, documentados automaticamente no Storybook.
 /.storybook   configuração do Storybook
 /.github/workflows
               CI/CD: build + deploy do Storybook
+/figma-plugin-token-sync
+              plugin Figma privado que sincroniza tokens pro repo
+              (projeto Node separado, própria build) — ver seção abaixo
 ```
 
 Nomenclatura dos componentes é própria deste design system, não espelha a
@@ -69,15 +72,27 @@ sucesso.
 
 ## Sincronização de tokens (Figma → GitHub)
 
-A cada 15 min, [`.github/workflows/sync-tokens.yml`](.github/workflows/sync-tokens.yml)
-lê as Figma Variables via API e atualiza `/tokens/*.json` automaticamente
-(polling, sem webhook por enquanto). Se algo mudou, commita e dispara o
-deploy do Storybook. Detalhes, convenção de nomes das variables no Figma e
-os secrets necessários (`FIGMA_ACCESS_TOKEN`, `FIGMA_FILE_KEY`) estão em
-[`tokens/README.md`](tokens/README.md).
+**Caminho atual**: [`figma-plugin-token-sync/`](figma-plugin-token-sync/) — um
+plugin Figma privado que lê as Variables locais direto no Figma e grava em
+`/tokens/*.json` via GitHub Contents API, sob demanda (botão "Sincronizar
+tokens" na UI do plugin). Ver
+[`figma-plugin-token-sync/README.md`](figma-plugin-token-sync/README.md) pra
+instalar e usar.
+
+**Caminho anterior (inativo)**: [`.github/workflows/sync-tokens.yml`](.github/workflows/sync-tokens.yml)
++ [`scripts/sync-figma-tokens.js`](scripts/sync-figma-tokens.js) faziam
+polling a cada 15 min contra a REST API de Variables do Figma
+(`GET /v1/files/:key/variables/local`). Descobrimos que esse endpoint exige
+plano Figma **Enterprise** — nossa conta é Organization, sem acesso. Os
+arquivos continuam no repo como referência (a lógica de conversão foi
+reaproveitada no plugin), mas não funcionam nesse plano; o cron vai
+continuar rodando e falhando até serem desativados/removidos.
+
+Detalhes, convenção de nomes das variables no Figma (igual nos dois
+caminhos) e formato dos JSONs estão em [`tokens/README.md`](tokens/README.md).
 
 ## Tokens
 
 `/tokens` em formato JSON simples (não Style Dictionary ainda), sincronizado
-a partir das Figma Variables — ver seção acima e
+a partir das Figma Variables via o plugin — ver seção acima e
 [`tokens/README.md`](tokens/README.md).

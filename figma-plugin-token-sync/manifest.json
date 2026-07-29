@@ -1,0 +1,13 @@
+{
+  "name": "VD Token Sync",
+  "id": "vd-token-sync-dev",
+  "api": "1.0.0",
+  "main": "code.js",
+  "ui": "ui.html",
+  "editorType": ["figma"],
+  "documentAccess": "dynamic-page",
+  "networkAccess": {
+    "allowedDomains": ["https://api.github.com"],
+    "reasoning": "Sincroniza design tokens (Figma Variables) com o repositório GitHub vd-design-bridge via GitHub Contents API."
+  }
+}

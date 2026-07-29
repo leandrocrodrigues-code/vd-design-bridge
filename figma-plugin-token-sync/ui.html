@@ -1,0 +1,251 @@
+<style>
+  :root { color-scheme: light dark; }
+  body {
+    font: 12px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    margin: 0;
+    padding: 16px;
+    color: #1a1a1a;
+  }
+  h1 { font-size: 13px; margin: 0 0 12px; }
+  .field { margin-bottom: 12px; }
+  label { display: block; font-weight: 600; margin-bottom: 4px; }
+  input[type="password"], input[type="text"] {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 6px 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font: inherit;
+    margin-bottom: 8px;
+  }
+  button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    background: #18a0fb;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    font: inherit;
+  }
+  button:disabled { background: #ccc; cursor: not-allowed; }
+  button.secondary {
+    background: transparent;
+    color: #18a0fb;
+    text-decoration: underline;
+    padding: 0;
+    font-weight: 400;
+  }
+  .token-status { font-size: 11px; color: #666; margin-bottom: 8px; }
+  #sync-btn { width: 100%; }
+  #log {
+    margin-top: 12px;
+    background: #f5f5f5;
+    border-radius: 6px;
+    padding: 8px;
+    height: 220px;
+    overflow-y: auto;
+    font-family: ui-monospace, Menlo, monospace;
+    font-size: 11px;
+    white-space: pre-wrap;
+  }
+  .log-line.ok { color: #0a7a2f; }
+  .log-line.err { color: #c0392b; }
+  .log-line.info { color: #555; }
+  @media (prefers-color-scheme: dark) {
+    body { background: #2c2c2c; color: #eee; }
+    input { background: #1e1e1e; color: #eee; border-color: #444; }
+    #log { background: #1e1e1e; }
+    .log-line.info { color: #aaa; }
+  }
+</style>
+
+<h1>VD Token Sync</h1>
+
+<div id="token-section" class="field">
+  <label for="pat">GitHub Personal Access Token</label>
+  <input id="pat" type="password" placeholder="ghp_..." autocomplete="off" />
+  <button id="save-token-btn">Salvar token</button>
+</div>
+
+<div id="token-saved-section" class="field" style="display:none;">
+  <div class="token-status">Token salvo neste arquivo ✓ &nbsp;<button id="change-token-btn" class="secondary">trocar</button></div>
+</div>
+
+<button id="sync-btn" disabled>Sincronizar tokens</button>
+
+<div id="log"></div>
+
+<script>
+  var GITHUB_OWNER = 'leandrocrodrigues-code';
+  var GITHUB_REPO = 'vd-design-bridge';
+  var GITHUB_BRANCH = 'main';
+  var FILES = [
+    { bucket: 'color', path: 'tokens/colors.json', topKey: 'color' },
+    { bucket: 'spacing', path: 'tokens/spacing.json', topKey: 'spacing' },
+    { bucket: 'typography', path: 'tokens/typography.json', topKey: 'typography' },
+  ];
+
+  var githubToken = null;
+
+  var patInput = document.getElementById('pat');
+  var tokenSection = document.getElementById('token-section');
+  var tokenSavedSection = document.getElementById('token-saved-section');
+  var syncBtn = document.getElementById('sync-btn');
+  var logEl = document.getElementById('log');
+
+  function log(message, level) {
+    var line = document.createElement('div');
+    line.className = 'log-line ' + (level || 'info');
+    line.textContent = message;
+    logEl.appendChild(line);
+    logEl.scrollTop = logEl.scrollHeight;
+  }
+
+  function setTokenUiState(hasToken) {
+    tokenSection.style.display = hasToken ? 'none' : 'block';
+    tokenSavedSection.style.display = hasToken ? 'block' : 'none';
+    syncBtn.disabled = !hasToken;
+  }
+
+  document.getElementById('save-token-btn').addEventListener('click', function () {
+    var value = patInput.value.trim();
+    if (!value) return;
+    githubToken = value;
+    parent.postMessage({ pluginMessage: { type: 'save-token', token: value } }, '*');
+    patInput.value = '';
+    setTokenUiState(true);
+    log('Token salvo neste arquivo Figma (figma.clientStorage).', 'ok');
+  });
+
+  document.getElementById('change-token-btn').addEventListener('click', function () {
+    parent.postMessage({ pluginMessage: { type: 'clear-token' } }, '*');
+    githubToken = null;
+    setTokenUiState(false);
+  });
+
+  syncBtn.addEventListener('click', function () {
+    logEl.innerHTML = '';
+    log('Lendo Variables do Figma...', 'info');
+    syncBtn.disabled = true;
+    parent.postMessage({ pluginMessage: { type: 'sync-request' } }, '*');
+  });
+
+  function toBase64(str) {
+    var bytes = new TextEncoder().encode(str);
+    var binary = '';
+    bytes.forEach(function (b) { binary += String.fromCharCode(b); });
+    return btoa(binary);
+  }
+
+  function fromBase64(b64) {
+    var binary = atob(b64.replace(/\n/g, ''));
+    var bytes = new Uint8Array(binary.length);
+    for (var i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+    return new TextDecoder().decode(bytes);
+  }
+
+  function githubRequest(path, options) {
+    var opts = options || {};
+    var headers = Object.assign({
+      'Authorization': 'Bearer ' + githubToken,
+      'Accept': 'application/vnd.github+json',
+      'X-GitHub-Api-Version': '2022-11-28',
+    }, opts.headers || {});
+    return fetch(
+      'https://api.github.com/repos/' + GITHUB_OWNER + '/' + GITHUB_REPO + '/contents/' + path,
+      Object.assign({}, opts, { headers: headers }),
+    );
+  }
+
+  async function syncFile(entry, tokens) {
+    var newObj = {};
+    newObj[entry.topKey] = tokens[entry.bucket];
+    var newContentStr = JSON.stringify(newObj, null, 2) + '\n';
+
+    var getRes = await githubRequest(entry.path + '?ref=' + GITHUB_BRANCH, { method: 'GET' });
+
+    var sha;
+    if (getRes.status === 200) {
+      var data = await getRes.json();
+      sha = data.sha;
+      var currentContent = fromBase64(data.content);
+      if (currentContent === newContentStr) {
+        log(entry.path + ': sem mudanças.', 'info');
+        return;
+      }
+    } else if (getRes.status !== 404) {
+      var errBody1 = await getRes.text();
+      log(entry.path + ': erro ao ler arquivo atual (' + getRes.status + ') ' + errBody1, 'err');
+      return;
+    }
+
+    var putBody = {
+      message: 'chore: sync design tokens from Figma plugin',
+      content: toBase64(newContentStr),
+      branch: GITHUB_BRANCH,
+    };
+    if (sha) putBody.sha = sha;
+
+    var putRes = await githubRequest(entry.path, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(putBody),
+    });
+
+    if (putRes.ok) {
+      log(entry.path + ': atualizado com sucesso.', 'ok');
+    } else {
+      var errBody2 = await putRes.text();
+      log(entry.path + ': erro ao gravar (' + putRes.status + ') ' + errBody2, 'err');
+    }
+  }
+
+  window.onmessage = async function (event) {
+    var msg = event.data && event.data.pluginMessage;
+    if (!msg) return;
+
+    if (msg.type === 'token-value') {
+      if (msg.token) {
+        githubToken = msg.token;
+        setTokenUiState(true);
+      } else {
+        setTokenUiState(false);
+      }
+      return;
+    }
+
+    if (msg.type === 'token-cleared') {
+      log('Token removido.', 'info');
+      return;
+    }
+
+    if (msg.type === 'tokens-data') {
+      log('Variables lidas. Sincronizando com o GitHub...', 'info');
+      if (msg.skipped && msg.skipped.length) {
+        msg.skipped.forEach(function (s) { log('Ignorado: ' + s, 'info'); });
+      }
+      for (var i = 0; i < FILES.length; i++) {
+        var entry = FILES[i];
+        var bucketData = msg.tokens[entry.bucket];
+        if (!bucketData || Object.keys(bucketData).length === 0) {
+          log(entry.path + ': nenhuma variable em "' + entry.bucket + '/*" nesta rodada — arquivo mantido como está.', 'info');
+          continue;
+        }
+        await syncFile(entry, msg.tokens);
+      }
+      log('Sincronização concluída.', 'ok');
+      syncBtn.disabled = false;
+      return;
+    }
+
+    if (msg.type === 'error') {
+      log('Erro: ' + msg.message, 'err');
+      syncBtn.disabled = false;
+      return;
+    }
+  };
+
+  // Ao abrir o plugin, pergunta pro code.ts se já existe um token salvo.
+  parent.postMessage({ pluginMessage: { type: 'get-token' } }, '*');
+</script>

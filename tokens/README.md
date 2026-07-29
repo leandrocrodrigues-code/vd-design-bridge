@@ -9,50 +9,41 @@ JSONs diretamente via [`tokens/index.ts`](./index.ts).
 - `spacing.json` — escala de espaçamento
 - `typography.json` — família, tamanhos e pesos de fonte
 
-## Sincronização automática com Figma Variables
+## Sincronização com Figma Variables
 
-[`scripts/sync-figma-tokens.js`](../scripts/sync-figma-tokens.js) lê as
-Variables nativas do Figma (`GET /v1/files/:file_key/variables/local`) e
-regenera estes JSONs. Roda via polling a cada 15 min
-([`.github/workflows/sync-tokens.yml`](../.github/workflows/sync-tokens.yml)),
-ou manualmente:
+**Caminho ativo:** [`figma-plugin-token-sync/`](../figma-plugin-token-sync/) —
+plugin Figma privado que lê as Variables locais via Plugin API
+(`figma.variables.getLocalVariablesAsync()`) dentro do próprio Figma e grava
+os JSONs no repo via GitHub Contents API, sob demanda. Instruções completas
+em [`figma-plugin-token-sync/README.md`](../figma-plugin-token-sync/README.md).
 
-```bash
-FIGMA_ACCESS_TOKEN=... FIGMA_FILE_KEY=... npm run sync-tokens
-```
+**Caminho anterior (inativo — não usar):**
+[`scripts/sync-figma-tokens.js`](../scripts/sync-figma-tokens.js) +
+[`.github/workflows/sync-tokens.yml`](../.github/workflows/sync-tokens.yml)
+faziam a mesma conversão, mas lendo a REST API do Figma
+(`GET /v1/files/:file_key/variables/local`) via polling a cada 15 min. Esse
+endpoint exige plano Figma **Enterprise** — nossa conta é Organization, sem
+acesso (erro 403 na prática). Os arquivos ficam no repo só como referência;
+a lógica de conversão foi portada quase 1:1 para o plugin (mesma resolução
+de alias, mesma classificação por tipo/unidade — só a fonte dos dados
+mudou, de `fetch` pra `figma.variables.*`).
 
-**Convenção de nomes no Figma:** cada variable deve se chamar
+## Convenção de nomes das Variables no Figma
+
+Vale para os dois caminhos acima: cada Variable/token deve se chamar
 `<grupo>/<...resto>`, onde `<grupo>` é `color`, `spacing` ou `typography` —
 isso decide em qual arquivo ela cai e vira a chave de topo. O resto do nome
 vira o caminho aninhado (ex. `color/brand/primary`,
-`typography/font-size/lg`). Variables fora dessa convenção são ignoradas com
-aviso no log, não quebram o sync.
+`typography/font-size/lg`). Fora dessa convenção, o token é ignorado com
+aviso no log, não quebra a sincronização.
 
 **Importante — regeneração é por arquivo inteiro, não por chave:** se
 qualquer variable mapear para `typography/*`, o `typography.json` inteiro é
-regenerado só com o que veio do Figma naquela rodada. Durante uma migração
-parcial (ex. você já criou `typography/font-weight/*` no Figma mas ainda não
-`typography/font-size/*`), rodar o sync vai **descartar** as chaves que ainda
-não existem como variable — não faz merge chave a chave. Migre um grupo
-(`color`, `spacing` ou `typography`) por completo antes de deixar o cron
-rodar sobre ele. Um arquivo só é preservado intacto se **nenhuma** variable
-mapear pra ele naquela rodada (ex. você só populou `color/*` — `spacing.json`
-e `typography.json` ficam como estão).
+regenerado só com o que veio do Figma naquela rodada — não faz merge chave a
+chave. Migre um grupo (`color`, `spacing` ou `typography`) por completo
+antes de sincronizar, ou as chaves ainda não representadas como Variable são
+descartadas. Um arquivo só é preservado intacto se **nenhuma** Variable
+mapear pra ele naquela rodada.
 
 Apenas o modo padrão (`defaultModeId`) de cada Variable Collection é usado —
 suporte a múltiplos modos (ex. tema light/dark) fica para depois.
-
-## Secrets necessários (GitHub Actions)
-
-O workflow de sync lê `FIGMA_ACCESS_TOKEN` e `FIGMA_FILE_KEY` de GitHub
-Secrets do repositório — configure com:
-
-```bash
-gh secret set FIGMA_ACCESS_TOKEN --repo leandrocrodrigues-code/vd-design-bridge
-gh secret set FIGMA_FILE_KEY --repo leandrocrodrigues-code/vd-design-bridge
-```
-
-O personal access token do Figma precisa de escopo de leitura de
-file content / variables. A API de Variables historicamente exige que o
-arquivo esteja em um plano Figma Organization/Enterprise — confirme se o seu
-plano dá acesso a esse endpoint antes de depender do sync.

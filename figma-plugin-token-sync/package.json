@@ -1,0 +1,15 @@
+{
+  "name": "vd-token-sync-figma-plugin",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "build": "esbuild code.ts --bundle --outfile=code.js --target=es2017 --format=iife",
+    "watch": "esbuild code.ts --bundle --outfile=code.js --target=es2017 --format=iife --watch",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@figma/plugin-typings": "^1.131.0",
+    "esbuild": "^0.28.1",
+    "typescript": "^7.0.2"
+  }
+}
