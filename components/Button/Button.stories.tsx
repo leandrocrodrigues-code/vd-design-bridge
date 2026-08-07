@@ -3,7 +3,9 @@ import { fn } from 'storybook/test';
 import { TWTButton } from './Button';
 
 const meta = {
-  title: 'Core/TWTButton',
+  // Mantém a rota pública /?path=/docs/components-button--docs já compartilhada.
+  // O nome do componente e seu contrato continuam sendo TWTButton.
+  title: 'Components/Button',
   component: TWTButton,
   tags: ['autodocs'],
   parameters: {
