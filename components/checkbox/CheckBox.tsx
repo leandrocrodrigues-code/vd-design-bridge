@@ -125,6 +125,8 @@ export function TWTCheckBox({
     <label
       className={`inline-flex cursor-pointer items-start gap-2 ${isDisabled ? 'cursor-not-allowed' : ''} ${className ?? ''}`}
       style={{ fontFamily: tokens.typography.family.paragraph.value, color: isDisabled ? palette.muted : palette.content }}
+      onMouseEnter={() => setInteractionState('Hover')}
+      onMouseLeave={() => setInteractionState('Default')}
     >
       <input
         {...rest}
