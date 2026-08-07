@@ -1,68 +1,125 @@
-import type { ButtonHTMLAttributes, CSSProperties } from 'react';
+import type { ButtonHTMLAttributes, CSSProperties, ReactNode } from 'react';
 import { tokens } from '../../tokens';
 
-export type ButtonVariant = 'primary' | 'secondary';
-export type ButtonSize = 'sm' | 'md' | 'lg';
+/** Nome do componente equivalente na biblioteca Delphi. */
+export type TWTButtonVariant = 'Primary' | 'Secondary' | 'Tertiary';
+export type TWTButtonSize = 'LG' | 'MD' | 'SM';
+export type TWTButtonPreviewState = 'Default' | 'Hover' | 'Pressed' | 'Focus' | 'Disabled';
 
-export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  /** Estilo visual do botão */
-  variant?: ButtonVariant;
-  /** Tamanho do botão */
-  size?: ButtonSize;
-  /** Desabilita interação e aplica estado visual de disabled */
-  disabled?: boolean;
+export interface TWTButtonProps
+  extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'children' | 'disabled' | 'onClick'> {
+  /** Texto apresentado pelo TWTButton. */
+  Caption?: ReactNode;
+  /** Hierarquia visual da ação. */
+  Variant?: TWTButtonVariant;
+  /** Tamanho do componente: LG (48px), MD (40px) ou SM (32px). */
+  Size?: TWTButtonSize;
+  /** Equivalente à propriedade Enabled do Delphi. */
+  Enabled?: boolean;
+  /** Ícone que antecede o rótulo. Não deve ser combinado com TrailingIcon. */
+  LeadingIcon?: ReactNode;
+  /** Ícone de continuidade à direita do rótulo. Não deve ser combinado com LeadingIcon. */
+  TrailingIcon?: ReactNode;
+  /** Equivalente ao evento OnClick do Delphi. */
+  OnClick?: ButtonHTMLAttributes<HTMLButtonElement>['onClick'];
+  /** Estado forçado apenas para documentação e inspeção no Storybook. */
+  PreviewState?: TWTButtonPreviewState;
 }
 
-const variantStyles: Record<ButtonVariant, CSSProperties> = {
-  primary: {
-    backgroundColor: tokens.color.brand.primary.value,
-    color: tokens.color.text['on-brand'].value,
-  },
-  secondary: {
-    backgroundColor: tokens.color.brand.secondary.value,
-    color: tokens.color.text['on-brand'].value,
-  },
+const palette = {
+  brand: tokens.color.surface.brand.pure.value,
+  brandContainer: tokens.color.surface.brand.container.value,
+  brandHighlight: tokens.color.surface.brand.highlight.value,
+  content: tokens.color.content['01'].value,
+  contentInverse: tokens.color.content.inverse.value,
+  disabledBackground: tokens.color.surface.container.value,
+  disabledContent: tokens.color.content['03'].value,
+  transparent: 'transparent',
 };
 
-const sizeStyles: Record<ButtonSize, CSSProperties> = {
-  sm: {
-    padding: `${tokens.spacing.xs.value} ${tokens.spacing.md.value}`,
-    fontSize: tokens.typography['font-size'].sm.value,
-  },
-  md: {
-    padding: `${tokens.spacing.sm.value} ${tokens.spacing.lg.value}`,
-    fontSize: tokens.typography['font-size'].md.value,
-  },
-  lg: {
-    padding: `${tokens.spacing.md.value} ${tokens.spacing.xl.value}`,
-    fontSize: tokens.typography['font-size'].lg.value,
-  },
+const sizeStyles: Record<TWTButtonSize, CSSProperties> = {
+  LG: { height: '48px', paddingInline: '20px', fontSize: '16px' },
+  MD: { height: '40px', paddingInline: '16px', fontSize: '16px' },
+  SM: { height: '32px', paddingInline: '12px', fontSize: '14px' },
 };
 
-export function Button({
-  variant = 'primary',
-  size = 'md',
-  disabled = false,
+function getStateStyle(
+  variant: TWTButtonVariant,
+  previewState: TWTButtonPreviewState,
+): CSSProperties {
+  if (previewState === 'Disabled') {
+    return { backgroundColor: palette.disabledBackground, color: palette.disabledContent, cursor: 'not-allowed' };
+  }
+
+  const styles: Record<TWTButtonVariant, Record<Exclude<TWTButtonPreviewState, 'Disabled'>, CSSProperties>> = {
+    Primary: {
+      Default: { backgroundColor: palette.brand, color: palette.content },
+      Hover: { backgroundColor: palette.brandContainer, color: palette.content },
+      Pressed: { backgroundColor: palette.brandHighlight, color: palette.contentInverse },
+      Focus: { backgroundColor: palette.brand, color: palette.content, outline: `2px solid ${palette.brandHighlight}`, outlineOffset: '2px' },
+    },
+    Secondary: {
+      Default: { backgroundColor: palette.brandContainer, color: palette.content },
+      Hover: { backgroundColor: palette.brand, color: palette.content },
+      Pressed: { backgroundColor: palette.brandHighlight, color: palette.contentInverse },
+      Focus: { backgroundColor: palette.brandContainer, color: palette.content, outline: `2px solid ${palette.brandHighlight}`, outlineOffset: '2px' },
+    },
+    Tertiary: {
+      Default: { backgroundColor: palette.transparent, color: palette.brandHighlight },
+      Hover: { backgroundColor: palette.brandContainer, color: palette.content },
+      Pressed: { backgroundColor: palette.brandHighlight, color: palette.contentInverse },
+      Focus: { backgroundColor: palette.transparent, color: palette.brandHighlight, outline: `2px solid ${palette.brandHighlight}`, outlineOffset: '2px' },
+    },
+  };
+
+  return styles[variant][previewState];
+}
+
+/**
+ * Representação web do TWTButton para documentação e inspeção visual.
+ * O componente Delphi continua sendo a implementação nativa de produção.
+ */
+export function TWTButton({
+  Caption,
+  Variant = 'Primary',
+  Size = 'MD',
+  Enabled = true,
+  LeadingIcon,
+  TrailingIcon,
+  OnClick,
+  PreviewState = 'Default',
   className,
   style,
-  children,
+  'aria-label': ariaLabel,
   ...rest
-}: ButtonProps) {
+}: TWTButtonProps) {
+  const isDisabled = !Enabled || PreviewState === 'Disabled';
+  const displayedTrailingIcon = LeadingIcon ? undefined : TrailingIcon;
+
   return (
     <button
+      {...rest}
       type="button"
-      disabled={disabled}
-      className={`inline-flex items-center justify-center rounded-md border-0 font-medium transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${className ?? ''}`}
+      disabled={isDisabled}
+      aria-label={ariaLabel ?? (Caption ? undefined : 'Ação')}
+      className={`inline-flex shrink-0 items-center justify-center gap-2 rounded-[8px] border-0 font-bold leading-none transition-colors ${className ?? ''}`}
       style={{
-        fontFamily: tokens.typography['font-family'].base.value,
-        fontWeight: Number(tokens.typography['font-weight'].medium.value),
-        ...variantStyles[variant],
-        ...sizeStyles[size],
+        fontFamily: tokens.typography.family.paragraph.value,
+        ...sizeStyles[Size],
+        ...getStateStyle(Variant, isDisabled ? 'Disabled' : PreviewState),
         ...style,
       }}
-      {...rest}
+      onClick={OnClick}
     >
-      {children}
+      {LeadingIcon ? <span aria-hidden="true" className="inline-flex text-[1em]">{LeadingIcon}</span> : null}
+      {Caption ? <span>{Caption}</span> : null}
+      {displayedTrailingIcon ? <span aria-hidden="true" className="inline-flex text-[1em]">{displayedTrailingIcon}</span> : null}
     </button>
   );
 }
+
+/** @deprecated Use TWTButton, nome oficial da biblioteca Delphi. */
+export const Button = TWTButton;
+export type ButtonProps = TWTButtonProps;
+export type ButtonVariant = TWTButtonVariant;
+export type ButtonSize = TWTButtonSize;

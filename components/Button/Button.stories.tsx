@@ -1,73 +1,84 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { fn } from 'storybook/test';
-import { Button } from './Button';
+import { TWTButton } from './Button';
 
 const meta = {
-  title: 'Components/Button',
-  component: Button,
+  title: 'Core/TWTButton',
+  component: TWTButton,
   tags: ['autodocs'],
   parameters: {
     layout: 'centered',
+    docs: {
+      description: {
+        component: `Representação visual do **TWTButton** da biblioteca Delphi. O preview reproduz os tamanhos, variantes e estados definidos na especificação. \`PreviewState\` existe somente para documentação; \`Enabled\` e \`OnClick\` representam o contrato Delphi.`,
+      },
+    },
   },
   argTypes: {
-    variant: {
-      control: 'select',
-      options: ['primary', 'secondary'],
-      description: 'Estilo visual do botão',
-      table: { defaultValue: { summary: 'primary' } },
-    },
-    size: {
-      control: 'select',
-      options: ['sm', 'md', 'lg'],
-      description: 'Tamanho do botão',
-      table: { defaultValue: { summary: 'md' } },
-    },
-    disabled: {
-      control: 'boolean',
-      description: 'Desabilita interação e aplica estado visual de disabled',
-    },
-    children: {
-      control: 'text',
-      description: 'Conteúdo do botão',
-    },
-    onClick: { action: 'clicked' },
+    Caption: { control: 'text', description: 'Texto do botão.' },
+    Variant: { control: 'select', options: ['Primary', 'Secondary', 'Tertiary'] },
+    Size: { control: 'select', options: ['LG', 'MD', 'SM'] },
+    Enabled: { control: 'boolean', description: 'Equivalente à propriedade Enabled do Delphi.' },
+    PreviewState: { control: 'select', options: ['Default', 'Hover', 'Pressed', 'Focus', 'Disabled'], description: 'Apenas para inspeção visual no Storybook.' },
+    LeadingIcon: { control: false },
+    TrailingIcon: { control: false },
+    OnClick: { action: 'OnClick' },
   },
   args: {
-    children: 'Button',
-    onClick: fn(),
+    Caption: 'Editar',
+    Variant: 'Primary',
+    Size: 'MD',
+    Enabled: true,
+    PreviewState: 'Default',
+    OnClick: fn(),
   },
-} satisfies Meta<typeof Button>;
+} satisfies Meta<typeof TWTButton>;
 
 export default meta;
-
 type Story = StoryObj<typeof meta>;
 
-export const Primary: Story = {
-  args: {
-    variant: 'primary',
-  },
+export const Playground: Story = {};
+
+export const Variants: Story = {
+  render: () => (
+    <div className="flex flex-wrap items-center gap-3">
+      <TWTButton Caption="Editar" Variant="Primary" />
+      <TWTButton Caption="Editar" Variant="Secondary" />
+      <TWTButton Caption="Editar" Variant="Tertiary" />
+    </div>
+  ),
 };
 
-export const Secondary: Story = {
-  args: {
-    variant: 'secondary',
-  },
+export const Sizes: Story = {
+  render: () => (
+    <div className="flex flex-wrap items-center gap-3">
+      <TWTButton Caption="Editar" Size="LG" />
+      <TWTButton Caption="Editar" Size="MD" />
+      <TWTButton Caption="Editar" Size="SM" />
+    </div>
+  ),
 };
 
-export const Small: Story = {
-  args: {
-    size: 'sm',
-  },
+export const States: Story = {
+  render: () => (
+    <div className="grid grid-cols-2 items-center gap-3 sm:grid-cols-5">
+      <TWTButton Caption="Editar" PreviewState="Default" />
+      <TWTButton Caption="Editar" PreviewState="Hover" />
+      <TWTButton Caption="Editar" PreviewState="Pressed" />
+      <TWTButton Caption="Editar" PreviewState="Focus" />
+      <TWTButton Caption="Editar" Enabled={false} />
+    </div>
+  ),
 };
 
-export const Large: Story = {
-  args: {
-    size: 'lg',
-  },
+export const LeadingIconAndCaption: Story = {
+  args: { Caption: 'Editar', LeadingIcon: '✎' },
 };
 
-export const Disabled: Story = {
-  args: {
-    disabled: true,
-  },
+export const TrailingIconAndCaption: Story = {
+  args: { Caption: 'Continuar', TrailingIcon: '→' },
+};
+
+export const IconOnly: Story = {
+  args: { Caption: undefined, LeadingIcon: '⧉', 'aria-label': 'Copiar' },
 };
