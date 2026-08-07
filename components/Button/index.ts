@@ -2,8 +2,8 @@ export { TWTButton, Button } from './Button';
 export type {
   TWTButtonPreviewState,
   TWTButtonProps,
-  TWTButtonSize,
-  TWTButtonVariant,
+  TButtonSize,
+  TButtonStyle,
   ButtonProps,
   ButtonSize,
   ButtonVariant,

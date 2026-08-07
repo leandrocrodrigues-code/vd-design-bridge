@@ -10,14 +10,14 @@ const meta = {
     layout: 'centered',
     docs: {
       description: {
-        component: `Representação visual do **TWTButton** da biblioteca Delphi. O preview reproduz os tamanhos, variantes e estados definidos na especificação. \`PreviewState\` existe somente para documentação; \`Enabled\` e \`OnClick\` representam o contrato Delphi.`,
+        component: `Representação visual do **TWTButton** da biblioteca Delphi. Os nomes \`Style\`, \`Size\` e \`OnClick\` seguem o contrato nativo. \`PreviewState\`, \`LeadingIcon\` e \`TrailingIcon\` existem somente para a demonstração no Storybook. As medidas seguem o PDF/Figma atual: 48px, 40px e 32px.`,
       },
     },
   },
   argTypes: {
     Caption: { control: 'text', description: 'Texto do botão.' },
-    Variant: { control: 'select', options: ['Primary', 'Secondary', 'Tertiary'] },
-    Size: { control: 'select', options: ['LG', 'MD', 'SM'] },
+    Style: { control: 'select', options: ['bsPrimary', 'bsSecondary', 'bsTertiary', 'bsPrimaryDanger', 'bsTertiaryDanger', 'bsPrimaryPositive'], description: 'Propriedade Style: TButtonStyle.' },
+    Size: { control: 'select', options: ['bsLarge', 'bsMedium', 'bsSmall'], description: 'Propriedade Size: TButtonSize.' },
     Enabled: { control: 'boolean', description: 'Equivalente à propriedade Enabled do Delphi.' },
     PreviewState: { control: 'select', options: ['Default', 'Hover', 'Pressed', 'Focus', 'Disabled'], description: 'Apenas para inspeção visual no Storybook.' },
     LeadingIcon: { control: false },
@@ -26,8 +26,8 @@ const meta = {
   },
   args: {
     Caption: 'Editar',
-    Variant: 'Primary',
-    Size: 'MD',
+    Style: 'bsPrimary',
+    Size: 'bsMedium',
     Enabled: true,
     PreviewState: 'Default',
     OnClick: fn(),
@@ -42,9 +42,12 @@ export const Playground: Story = {};
 export const Variants: Story = {
   render: () => (
     <div className="flex flex-wrap items-center gap-3">
-      <TWTButton Caption="Editar" Variant="Primary" />
-      <TWTButton Caption="Editar" Variant="Secondary" />
-      <TWTButton Caption="Editar" Variant="Tertiary" />
+      <TWTButton Caption="Editar" Style="bsPrimary" />
+      <TWTButton Caption="Editar" Style="bsSecondary" />
+      <TWTButton Caption="Editar" Style="bsTertiary" />
+      <TWTButton Caption="Excluir" Style="bsPrimaryDanger" />
+      <TWTButton Caption="Remover" Style="bsTertiaryDanger" />
+      <TWTButton Caption="Confirmar" Style="bsPrimaryPositive" />
     </div>
   ),
 };
@@ -52,9 +55,9 @@ export const Variants: Story = {
 export const Sizes: Story = {
   render: () => (
     <div className="flex flex-wrap items-center gap-3">
-      <TWTButton Caption="Editar" Size="LG" />
-      <TWTButton Caption="Editar" Size="MD" />
-      <TWTButton Caption="Editar" Size="SM" />
+      <TWTButton Caption="Editar" Size="bsLarge" />
+      <TWTButton Caption="Editar" Size="bsMedium" />
+      <TWTButton Caption="Editar" Size="bsSmall" />
     </div>
   ),
 };
