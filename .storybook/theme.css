@@ -1,0 +1,12 @@
+/**
+ * Superfície de tema do Storybook.
+ *
+ * As custom properties `--vd-color-*` são injetadas em runtime pelo decorator
+ * global (ver `preview.tsx`), a partir de `tokens/colorCssVars(mode)`. A fonte
+ * de verdade continua sendo o JSON dos tokens — nada de hex escrito aqui.
+ */
+
+.vd-theme-root {
+  background-color: var(--vd-color-surface-pure);
+  color: var(--vd-color-content-pure);
+}
