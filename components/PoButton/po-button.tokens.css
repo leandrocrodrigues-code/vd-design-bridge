@@ -1,0 +1,252 @@
+/**
+ * po-button — tokens customizáveis REAIS da PO-UI.
+ *
+ * Os nomes das custom properties abaixo (--text-color, --background-hover,
+ * --color-button-danger, ...) são os documentados oficialmente em
+ * https://po-ui.io/documentation/po-button (seção "Tokens customizáveis") —
+ * não inventar nome novo. Os VALORES apontam para os tokens do V&D
+ * (--vd-color-*, injetados por tema em .storybook/preview.tsx), que é
+ * exatamente o que a lib de tokens vai fazer quando for empacotada.
+ *
+ * As regras de aplicação (.vd-po-button { background: var(--background-color) })
+ * existem só porque este Storybook é um preview React. No Angular real, quem
+ * consome esses tokens é o próprio <po-button>; basta importar a folha.
+ *
+ * Fonte das cores por estado: nós do Figma 3624:6970 (Button), validados
+ * variante a variante via MCP. Regra confirmada nos 9 combos
+ * Hierarchy x Type:
+ *   Default   Primary   -> <type>/pure       + content/on-brand
+ *             Secondary -> <type>/container  + <type>/highlight
+ *             Tertiary  -> surface/pure      + <type>/highlight
+ *   Hover     (os três) -> <type>/highlight  + content/inverse
+ *   Focus     bg do Default + borda 1px + glow 0 0 0 4px rgba(...,0.16)
+ *   Disabled  surface/container + content/03
+ */
+
+.vd-po-button {
+  /* Base — PO-UI: --font-size usa var(--font-size-default). Aqui seguimos a
+     spec do Figma: Lato Regular, line-height MD (24px). */
+  --font-family: 'Lato', sans-serif;
+  --font-size: 16px;
+  --font-weight: 400;
+  --line-height: 24px;
+  --border-radius: 8px; /* Corner radius/2XSM */
+  --border-width: 1px;
+  --padding: 0 16px; /* Spacing/SM */
+  --shadow: none;
+
+  /* Disabled é igual pros três kinds e pros três types. */
+  --text-color-disabled: var(--vd-color-content-03);
+  --color-disabled: var(--vd-color-surface-container);
+  --background-color-disabled: var(--vd-color-surface-container);
+
+  /* Glow do Focus: cor de efeito do Figma, não existe como Variable —
+     por isso é o único hex literal deste arquivo. */
+  --outline-color-focused: rgba(36, 179, 255, 0.16);
+}
+
+/* ---------- Type = Brand (padrão) ---------- */
+
+.vd-po-button[data-kind='primary'] {
+  --background-color: var(--vd-color-surface-brand-pure);
+  --text-color: var(--vd-color-content-on-brand);
+  --border-color: transparent;
+  --border-color-focused: var(--vd-color-surface-brand-highlight);
+}
+
+.vd-po-button[data-kind='secondary'] {
+  --background-color: var(--vd-color-surface-brand-container);
+  --text-color: var(--vd-color-surface-brand-highlight);
+  --border-color: transparent;
+  --border-color-focused: var(--vd-color-surface-brand-pure);
+}
+
+.vd-po-button[data-kind='tertiary'] {
+  --background-color: var(--vd-color-surface-pure);
+  --text-color: var(--vd-color-surface-brand-highlight);
+  --border-color: transparent;
+  --border-color-focused: var(--vd-color-surface-brand-pure);
+}
+
+.vd-po-button {
+  --background-hover: var(--vd-color-surface-brand-highlight);
+  --color-hover: var(--vd-color-content-inverse);
+  --border-color-hover: transparent;
+
+  /* TODO: confirmar com design — Pressed idêntico a Default no Figma
+     (nós 3624:6971 vs 3624:7043, mesmo fill e mesmo text color, sem
+     overlay). Usando Highlight como aproximação temporária, mesmo
+     padrão do Hover, até o time de design confirmar. */
+  --background-pressed: var(--vd-color-surface-brand-highlight);
+  --color-pressed: var(--vd-color-content-inverse);
+}
+
+/* ---------- Type = Alert -> p-danger (equivalente oficial da PO-UI) ---------- */
+
+.vd-po-button[data-danger='true'] {
+  --outline-color-focused: rgba(255, 85, 94, 0.16);
+  --background-danger-hover: var(--vd-color-feedback-alert-highlight);
+  --color-danger-hover: var(--vd-color-content-inverse);
+  --border-color-danger-hover: transparent;
+  /* TODO: confirmar com design — ver nota de Pressed acima. */
+  --background-danger-pressed: var(--vd-color-feedback-alert-highlight);
+  --color-danger-pressed: var(--vd-color-content-inverse);
+
+  --background-hover: var(--background-danger-hover);
+  --color-hover: var(--color-danger-hover);
+  --border-color-hover: var(--border-color-danger-hover);
+  --background-pressed: var(--background-danger-pressed);
+  --color-pressed: var(--color-danger-pressed);
+}
+
+.vd-po-button[data-danger='true'][data-kind='primary'] {
+  --background-color-button-danger: var(--vd-color-feedback-alert-pure);
+  --text-color-danger: var(--vd-color-content-on-brand);
+  --background-color: var(--background-color-button-danger);
+  --text-color: var(--text-color-danger);
+  --border-color-focused: var(--vd-color-feedback-alert-highlight);
+}
+
+.vd-po-button[data-danger='true'][data-kind='secondary'] {
+  --background-color-button-danger: var(--vd-color-feedback-alert-container);
+  --text-color-danger: var(--vd-color-feedback-alert-highlight);
+  --background-color: var(--background-color-button-danger);
+  --text-color: var(--text-color-danger);
+  --border-color-focused: var(--vd-color-feedback-alert-pure);
+}
+
+.vd-po-button[data-danger='true'][data-kind='tertiary'] {
+  --background-color-button-danger: var(--vd-color-surface-pure);
+  --text-color-danger: var(--vd-color-feedback-alert-highlight);
+  --background-color: var(--background-color-button-danger);
+  --text-color: var(--text-color-danger);
+  --border-color-focused: var(--vd-color-feedback-alert-pure);
+}
+
+/* ---------- Type = Success -> EXTENSÃO NOSSA ----------
+   A PO-UI não tem variante "success" no po-button: p-danger é a única
+   variante semântica de cor documentada. Seguindo a decisão registrada no
+   handoff, isso vira classe CSS custom por cima do p-kind mais próximo,
+   e NÃO uma prop inventada. Em Angular:
+   <po-button p-kind="primary" class="vd-po-button--success"> */
+
+.vd-po-button--success {
+  --outline-color-focused: rgba(10, 158, 90, 0.16);
+  --background-hover: var(--vd-color-feedback-success-highlight);
+  --color-hover: var(--vd-color-content-inverse);
+  --border-color-hover: transparent;
+  /* TODO: confirmar com design — ver nota de Pressed acima. */
+  --background-pressed: var(--vd-color-feedback-success-highlight);
+  --color-pressed: var(--vd-color-content-inverse);
+}
+
+.vd-po-button--success[data-kind='primary'] {
+  --background-color: var(--vd-color-feedback-success-pure);
+  --text-color: var(--vd-color-content-on-brand);
+  --border-color-focused: var(--vd-color-feedback-success-highlight);
+}
+
+.vd-po-button--success[data-kind='secondary'] {
+  --background-color: var(--vd-color-feedback-success-container);
+  --text-color: var(--vd-color-feedback-success-highlight);
+  --border-color-focused: var(--vd-color-feedback-success-pure);
+}
+
+.vd-po-button--success[data-kind='tertiary'] {
+  --background-color: var(--vd-color-surface-pure);
+  --text-color: var(--vd-color-feedback-success-highlight);
+  --border-color-focused: var(--vd-color-feedback-success-pure);
+}
+
+/* ---------- Aplicação (shim do preview React) ---------- */
+
+.vd-po-button {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  gap: 8px; /* Spacing/2XSM */
+  box-sizing: border-box;
+  font-family: var(--font-family);
+  font-size: var(--font-size);
+  font-weight: var(--font-weight);
+  line-height: var(--line-height);
+  padding: var(--padding);
+  border-radius: var(--border-radius);
+  border: var(--border-width) solid var(--border-color);
+  background-color: var(--background-color);
+  color: var(--text-color);
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  transition: background-color 120ms ease, color 120ms ease, box-shadow 120ms ease;
+}
+
+/* Alturas da PO-UI (p-size): small 32 / medium 44 / large 56.
+   Divergem do Figma (SM 32 / MD 40 / LG 48) — ver nota na story. */
+.vd-po-button[data-size='small'] {
+  height: 32px;
+  --font-size: 14px;
+  --padding: 0 12px;
+}
+.vd-po-button[data-size='medium'] {
+  height: 44px;
+}
+.vd-po-button[data-size='large'] {
+  height: 56px;
+  --padding: 0 20px;
+}
+
+.vd-po-button:hover:not(:disabled),
+.vd-po-button[data-preview-state='Hover']:not(:disabled) {
+  background-color: var(--background-hover);
+  color: var(--color-hover);
+  border-color: var(--border-color-hover);
+}
+
+.vd-po-button:active:not(:disabled),
+.vd-po-button[data-preview-state='Pressed']:not(:disabled) {
+  background-color: var(--background-pressed);
+  color: var(--color-pressed);
+}
+
+.vd-po-button:focus-visible:not(:disabled),
+.vd-po-button[data-preview-state='Focus']:not(:disabled) {
+  outline: none;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  border-color: var(--border-color-focused);
+  box-shadow: 0 0 0 4px var(--outline-color-focused);
+}
+
+.vd-po-button:disabled {
+  background-color: var(--background-color-disabled);
+  color: var(--text-color-disabled);
+  border-color: transparent;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.vd-po-button__spinner {
+  width: 1em;
+  height: 1em;
+  flex-shrink: 0;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: vd-po-button-spin 700ms linear infinite;
+}
+
+@keyframes vd-po-button-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vd-po-button {
+    transition: none;
+  }
+  .vd-po-button__spinner {
+    animation-duration: 2400ms;
+  }
+}
