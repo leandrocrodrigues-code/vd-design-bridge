@@ -1,30 +1,48 @@
-import { useEffect } from 'react'
+import { useEffect, type CSSProperties, type ReactNode } from 'react'
 import type { Decorator, Preview } from '@storybook/react-vite'
+import { colorCssVars, type ThemeMode } from '../tokens'
 import '../src/index.css'
 import './theme.css'
 
-type VdTheme = 'light' | 'dark'
-
 /**
- * Aplica o tema escolhido na toolbar tanto no <html> do iframe (para o fundo
- * da página) quanto num wrapper local. Fica no preview global, então todo
- * componente novo herda o toggle sem configurar nada.
+ * Aplica o tema escolhido na toolbar. As custom properties `--vd-color-*` vão
+ * tanto no <html> do iframe (pro fundo da página acompanhar) quanto no wrapper
+ * local, que é o que os componentes enxergam. Fica no preview global, então
+ * toda story nova herda o toggle sem configurar nada.
  */
-function ThemeRoot({ theme, children }: { theme: VdTheme; children: React.ReactNode }) {
+function ThemeRoot({ theme, children }: { theme: ThemeMode; children: ReactNode }) {
+  const vars = colorCssVars(theme)
+
   useEffect(() => {
-    document.documentElement.setAttribute('data-vd-theme', theme)
-    return () => document.documentElement.removeAttribute('data-vd-theme')
-  }, [theme])
+    const root = document.documentElement
+    for (const [name, value] of Object.entries(vars)) {
+      root.style.setProperty(name, value)
+    }
+    root.style.colorScheme = theme
+    root.style.backgroundColor = 'var(--vd-color-surface-pure)'
+
+    return () => {
+      for (const name of Object.keys(vars)) {
+        root.style.removeProperty(name)
+      }
+      root.style.removeProperty('color-scheme')
+      root.style.removeProperty('background-color')
+    }
+  }, [theme, vars])
 
   return (
-    <div className="vd-theme-root" data-vd-theme={theme} style={{ padding: '16px' }}>
+    <div
+      className="vd-theme-root"
+      data-vd-theme={theme}
+      style={{ ...(vars as CSSProperties), padding: '16px' }}
+    >
       {children}
     </div>
   )
 }
 
 const withTheme: Decorator = (Story, context) => (
-  <ThemeRoot theme={(context.globals.vdTheme ?? 'light') as VdTheme}>
+  <ThemeRoot theme={(context.globals.vdTheme ?? 'light') as ThemeMode}>
     <Story />
   </ThemeRoot>
 )

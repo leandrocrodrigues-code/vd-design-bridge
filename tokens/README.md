@@ -69,3 +69,26 @@ preservado intacto se **nenhuma** Variable mapear pra ele naquela rodada.
 
 Apenas o modo padrão (`defaultModeId`) de cada Variable Collection é usado —
 suporte a múltiplos modos (ex. tema light/dark) fica para depois.
+
+## Tema dark — solução temporária
+
+**Pendência aberta:** estender o `figma-plugin-token-sync` para ler múltiplos
+Modes das Variable Collections do Figma (hoje só o `defaultModeId`, como
+descrito acima). Enquanto isso não acontece, `colors.json` carrega **apenas a
+paleta light**.
+
+Solução no lugar: [`colors.dark.override.json`](./colors.dark.override.json),
+mantido **à mão** e fora do alcance do plugin — ele só regenera `colors.json`,
+`typography.json`, `spacing.json`, `radius.json` e `sizing.json`. O merge é
+recursivo e acontece em [`index.ts`](./index.ts) (`darkColors`), então o dark
+só sobrepõe as chaves que declara; o que ele não cita (o grupo `chart`, por
+exemplo) cai no valor light.
+
+Consumo: `colorCssVars('light' | 'dark')` achata a árvore em custom properties
+`--vd-color-*`, aplicadas pelo decorator global do Storybook
+([`.storybook/preview.tsx`](../.storybook/preview.tsx)). Componente novo lê
+`var(--vd-color-...)` no seu `.tokens.css` e acompanha o toggle de graça — não
+importar `tokens.color.*` direto em JS, que é o que trava o tema.
+
+Quando o plugin passar a ler os dois Modes, este arquivo deixa de ser
+necessário e `colors.json` volta a ser fonte única.

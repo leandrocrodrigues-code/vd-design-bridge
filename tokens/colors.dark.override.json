@@ -1,0 +1,52 @@
+{
+  "_comment": "Paleta DARK. Arquivo mantido A MAO — o figma-plugin-token-sync NAO escreve aqui (ele so regenera colors.json, typography.json, spacing.json, radius.json e sizing.json). Fonte: PDFs 'Colors Token' do ZeroHeight, via HANDOFF_CLAUDE_CODE.md. Pendencia registrada em tokens/README.md: estender o plugin para ler multiplos Modes do Figma e tornar este arquivo desnecessario.",
+  "color": {
+    "surface": {
+      "pure": { "value": "#121212", "type": "color" },
+      "card": { "value": "#292929", "type": "color" },
+      "container": { "value": "#363636", "type": "color" },
+      "inverse": { "value": "#ffffff", "type": "color" },
+      "brand": {
+        "pure": { "value": "#00dbff", "type": "color" },
+        "card": { "value": "#002233", "type": "color" },
+        "container": { "value": "#004761", "type": "color" },
+        "highlight": { "value": "#a0f2ff", "type": "color" },
+        "on-brand": { "value": "#002233", "type": "color" }
+      }
+    },
+    "content": {
+      "pure": { "value": "#ffffff", "type": "color" },
+      "inverse": { "value": "#121212", "type": "color" },
+      "on-brand": { "value": "#002233", "type": "color" },
+      "01": { "value": "#dddddd", "type": "color" },
+      "02": { "value": "#ababab", "type": "color" },
+      "03": { "value": "#8e8e8e", "type": "color" }
+    },
+    "feedback": {
+      "informative": {
+        "pure": { "value": "#5082ff", "type": "color" },
+        "card": { "value": "#1c1d38", "type": "color" },
+        "container": { "value": "#2b2d57", "type": "color" },
+        "highlight": { "value": "#bdcbff", "type": "color" }
+      },
+      "success": {
+        "pure": { "value": "#5dba80", "type": "color" },
+        "card": { "value": "#172c23", "type": "color" },
+        "container": { "value": "#075902", "type": "color" },
+        "highlight": { "value": "#befade", "type": "color" }
+      },
+      "warning": {
+        "pure": { "value": "#ffc300", "type": "color" },
+        "card": { "value": "#2d2212", "type": "color" },
+        "container": { "value": "#6d4008", "type": "color" },
+        "highlight": { "value": "#ffe894", "type": "color" }
+      },
+      "alert": {
+        "pure": { "value": "#e66a5e", "type": "color" },
+        "card": { "value": "#2d191a", "type": "color" },
+        "container": { "value": "#781b12", "type": "color" },
+        "highlight": { "value": "#fcd6d8", "type": "color" }
+      }
+    }
+  }
+}
