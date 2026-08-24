@@ -1,0 +1,40 @@
+/**
+ * po-progress — tokens reais documentados (--background-color-tray,
+ * --background-color-indicator, --text-color, --text-color-error,
+ * --color-icon-error).
+ *
+ * Fonte das cores: node 321:7834 (Progress Bar, página "Progress Bar ✅").
+ * Confirmado nos 33 combos Size x Value: track surface/container
+ * sempre, fill brand/pure sempre — só a largura do fill e a altura da
+ * trilha mudam (SM 4px, MD 8px, LG 16px).
+ */
+.vd-po-progress {
+  --background-color-tray: var(--vd-color-surface-container);
+  --background-color-indicator: var(--vd-color-surface-brand-pure);
+  --text-color: var(--vd-color-content-pure);
+  --text-color-error: var(--vd-color-feedback-alert-highlight);
+  --color-icon-error: var(--vd-color-feedback-alert-pure);
+}
+
+.vd-po-progress__tray {
+  width: 100%;
+  border-radius: 8px;
+  background: var(--background-color-tray);
+  overflow: hidden;
+}
+.vd-po-progress[data-size='small'] .vd-po-progress__tray { height: 4px; border-radius: 4px; }
+.vd-po-progress[data-size='medium'] .vd-po-progress__tray { height: 8px; border-radius: 4px; }
+.vd-po-progress[data-size='large'] .vd-po-progress__tray { height: 16px; }
+
+.vd-po-progress__indicator {
+  height: 100%;
+  background: var(--background-color-indicator);
+  transition: width 200ms ease;
+}
+
+.vd-po-progress__text {
+  font-family: 'Lato', sans-serif;
+  font-size: 12px;
+  color: var(--text-color);
+  margin-top: 4px;
+}

@@ -1,0 +1,40 @@
+.vd-po-tooltip-wrapper {
+  position: relative;
+  display: inline-flex;
+}
+
+.vd-po-tooltip {
+  position: absolute;
+  z-index: 20;
+  background: var(--vd-color-surface-inverse);
+  opacity: 0.9;
+  color: var(--vd-color-content-inverse);
+  border-radius: 8px;
+  padding: 8px; /* Spacing/2XSM */
+  font-family: 'Lato', sans-serif;
+  font-size: 14px;
+  line-height: 16px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.vd-po-tooltip[data-position='top'] {
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+}
+.vd-po-tooltip[data-position='bottom'] {
+  top: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+}
+.vd-po-tooltip[data-position='left'] {
+  right: calc(100% + 6px);
+  top: 50%;
+  transform: translateY(-50%);
+}
+.vd-po-tooltip[data-position='right'] {
+  left: calc(100% + 6px);
+  top: 50%;
+  transform: translateY(-50%);
+}
