@@ -3,9 +3,10 @@ import { fn } from 'storybook/test';
 import { TWTButton } from './Button';
 
 const meta = {
-  // Mantém a rota pública /?path=/docs/components-button--docs já compartilhada.
-  // O nome do componente e seu contrato continuam sendo TWTButton.
-  title: 'Components/Button',
+  // Menu Delphi da sidebar. O contrato continua sendo o TWTButton nativo.
+  // ATENÇÃO: a rota pública mudou de /?path=/docs/components-button--docs
+  // para /?path=/docs/delphi-button--docs ao separar os menus Delphi/POUi.
+  title: 'Delphi/Button',
   component: TWTButton,
   tags: ['autodocs'],
   parameters: {
