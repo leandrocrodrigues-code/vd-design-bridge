@@ -1,0 +1,40 @@
+/**
+ * po-avatar — a PO-UI real só suporta imagem (`p-src` obrigatório,
+ * `p-size`, `p-loading`) e NÃO documenta CSS custom properties. O Figma
+ * (node 265:594, página "Avatar ✅") tem 4 Types: Initials, Icon, User
+ * Profile e Image — só "Image" tem equivalente oficial no po-avatar.
+ * Initials/Icon/User Profile são extensão V&D (tokens --vd-avatar-*).
+ *
+ * Cores confirmadas nó a nó (Type=Initials):
+ *   Color=Brand    bg surface/brand/container + texto surface/brand/highlight
+ *   Color=Neutral  bg surface/container        + texto content/02
+ */
+.vd-po-avatar {
+  --vd-avatar-bg: var(--vd-color-surface-container);
+  --vd-avatar-text: var(--vd-color-content-02);
+}
+.vd-po-avatar[data-color='brand'] {
+  --vd-avatar-bg: var(--vd-color-surface-brand-container);
+  --vd-avatar-text: var(--vd-color-surface-brand-highlight);
+}
+
+.vd-po-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: var(--vd-avatar-bg);
+  color: var(--vd-avatar-text);
+  font-family: 'Lato', sans-serif;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.vd-po-avatar[data-size='small']  { width: 32px; height: 32px; font-size: 14px; }
+.vd-po-avatar[data-size='medium'] { width: 40px; height: 40px; font-size: 16px; }
+.vd-po-avatar[data-size='large']  { width: 48px; height: 48px; font-size: 20px; }
+
+.vd-po-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

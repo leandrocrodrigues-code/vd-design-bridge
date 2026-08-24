@@ -1,0 +1,46 @@
+/**
+ * NÃO existe po-chip nem po-chips na PO-UI — confirmado tentando
+ * po-ui.io/llms-generated/po-chip.md e po-chips.md, ambos inexistentes
+ * (fallback pro shell da SPA, diferente do que aconteceu com todo
+ * componente real testado até aqui). Extensão V&D pura, tokens
+ * --vd-chip-* (convenção nossa).
+ *
+ * Cores confirmadas nó a nó no Figma (node 2659:3661, página "Chips ✅"):
+ *   Default  bg surface/container #dfe4ec, texto content/01, sem borda
+ *   Active   bg surface/brand/container + borda 1px surface/brand/pure
+ */
+.vd-po-chip {
+  --vd-chip-bg: var(--vd-color-surface-container);
+  --vd-chip-border: transparent;
+  --vd-chip-text: var(--vd-color-content-01);
+}
+.vd-po-chip[data-active='true'] {
+  --vd-chip-bg: var(--vd-color-surface-brand-container);
+  --vd-chip-border: var(--vd-color-surface-brand-pure);
+}
+
+.vd-po-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px; /* Spacing/2XSM */
+  height: 32px;
+  padding: 8px 12px; /* Spacing/2XSM Spacing/XSM */
+  border-radius: 16px;
+  border: 1px solid var(--vd-chip-border);
+  background: var(--vd-chip-bg);
+  color: var(--vd-chip-text);
+  font-family: 'Lato', sans-serif;
+  font-size: 14px;
+  line-height: 16px;
+  cursor: pointer;
+}
+
+.vd-po-chip__remove {
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+  color: inherit;
+  display: inline-flex;
+}
