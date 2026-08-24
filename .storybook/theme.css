@@ -1,0 +1,26 @@
+/**
+ * Superfície de tema do Storybook.
+ *
+ * ATENÇÃO — escopo atual: só as cores de página (Surface/Pure e Content/Pure),
+ * que são as duas únicas com valor Light E Dark já documentado.
+ * `tokens/colors.json` hoje contém APENAS a paleta Light, então os componentes
+ * que leem `tokens.color.*` em JS (ex.: Button.tsx) NÃO acompanham este toggle.
+ * Quando o set Dark existir, expandir daqui.
+ */
+
+[data-vd-theme='light'] {
+  --vd-surface-pure: #ffffff;
+  --vd-content-pure: #121212;
+  color-scheme: light;
+}
+
+[data-vd-theme='dark'] {
+  --vd-surface-pure: #121212;
+  --vd-content-pure: #ffffff;
+  color-scheme: dark;
+}
+
+.vd-theme-root {
+  background-color: var(--vd-surface-pure);
+  color: var(--vd-content-pure);
+}
