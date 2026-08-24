@@ -1,0 +1,19 @@
+.vd-po-loading {
+  display: inline-block;
+  border-radius: 50%;
+  border: 3px solid var(--vd-color-surface-brand-container);
+  border-top-color: var(--vd-color-surface-brand-pure);
+  animation: vd-po-loading-spin 800ms linear infinite;
+}
+
+@keyframes vd-po-loading-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vd-po-loading {
+    animation-duration: 2400ms;
+  }
+}

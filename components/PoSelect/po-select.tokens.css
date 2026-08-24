@@ -1,0 +1,59 @@
+/**
+ * po-select — reaproveita 100% dos tokens do po-input (mesmo campo
+ * visual, confirmado lendo o design context do Dropdown no Figma:
+ * bg surface/pure + border surface/container idênticos ao Text Input).
+ * Aqui só o que é específico do select: chevron e lista suspensa.
+ */
+.vd-po-select__trigger {
+  width: 100%;
+  cursor: pointer;
+  text-align: left;
+}
+.vd-po-select__value {
+  flex: 1 0 0;
+  color: var(--vd-color-content-pure);
+  font-size: 14px;
+}
+.vd-po-select__chevron {
+  color: var(--vd-color-content-01);
+  flex-shrink: 0;
+  transition: transform 120ms ease;
+}
+.vd-po-select[data-open='true'] .vd-po-select__chevron {
+  transform: rotate(180deg);
+}
+
+.vd-po-select {
+  position: relative;
+}
+.vd-po-select__list {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  z-index: 10;
+  margin: 0;
+  padding: 4px;
+  list-style: none;
+  background: var(--vd-color-surface-pure);
+  border: 1px solid var(--vd-color-surface-container);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  max-height: 240px;
+  overflow-y: auto;
+}
+.vd-po-select__option {
+  width: 100%;
+  text-align: left;
+  padding: 8px 12px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  border-radius: 4px;
+  font-family: 'Lato', sans-serif;
+  font-size: 14px;
+  color: var(--vd-color-content-pure);
+}
+.vd-po-select__option:hover {
+  background: var(--vd-color-surface-brand-container);
+}

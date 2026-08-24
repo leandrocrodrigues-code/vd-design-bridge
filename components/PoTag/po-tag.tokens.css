@@ -1,0 +1,88 @@
+/**
+ * po-tag — tokens customizáveis REAIS por status, documentados em
+ * https://po-ui.io/documentation/po-tag: --color-positive/-negative/
+ * -neutral/-tag-warning/-info + --text-color-* correspondentes,
+ * --color-disabled, --border-color-disabled, --outline-color-focused.
+ *
+ * Fonte das cores: node 316:3942 (Tag, página "Tag ✅"). Padrão
+ * confirmado em Brand e Disabled, e consistente com Badge/Button:
+ *   bg <status>/container + texto <status>/highlight
+ *   Disabled: bg surface/container + texto content/03
+ *
+ * ⚠️ p-type do po-tag é `info | success | warning | danger | neutral`
+ * (sem "brand") — o Figma tem Status=Brand, que não tem @Input oficial
+ * equivalente. Mapeado aqui como extensão (--vd-tag-color-brand-*).
+ */
+.vd-po-tag {
+  --border-radius: 999px;
+  --gap: 4px;
+
+  --color-neutral: var(--vd-color-surface-container);
+  --text-color-neutral: var(--vd-color-content-01);
+
+  --color-positive: var(--vd-color-feedback-success-container);
+  --text-color-positive: var(--vd-color-feedback-success-highlight);
+
+  --color-negative: var(--vd-color-feedback-alert-container);
+  --text-color-negative: var(--vd-color-feedback-alert-highlight);
+
+  --color-tag-warning: var(--vd-color-feedback-warning-container);
+  --text-color-warning: var(--vd-color-feedback-warning-highlight);
+
+  --color-info: var(--vd-color-feedback-informative-container);
+  --text-color-info: var(--vd-color-feedback-informative-highlight);
+
+  --vd-tag-color-brand: var(--vd-color-surface-brand-container);
+  --vd-tag-text-brand: var(--vd-color-surface-brand-highlight);
+
+  --color-disabled: var(--vd-color-surface-container);
+  --text-color-disabled: var(--vd-color-content-03);
+
+  --outline-color-focused: rgba(36, 179, 255, 0.16);
+}
+
+.vd-po-tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap);
+  height: 32px;
+  min-width: 48px;
+  padding: 8px 12px; /* Spacing/2XSM Spacing/XSM */
+  border-radius: var(--border-radius);
+  font-family: 'Lato', sans-serif;
+  font-size: 14px;
+  line-height: 16px;
+}
+
+.vd-po-tag[data-type='neutral'] { background: var(--color-neutral); color: var(--text-color-neutral); }
+.vd-po-tag[data-type='success'] { background: var(--color-positive); color: var(--text-color-positive); }
+.vd-po-tag[data-type='danger']  { background: var(--color-negative); color: var(--text-color-negative); }
+.vd-po-tag[data-type='warning'] { background: var(--color-tag-warning); color: var(--text-color-warning); }
+.vd-po-tag[data-type='info']    { background: var(--color-info); color: var(--text-color-info); }
+.vd-po-tag[data-type='brand']   { background: var(--vd-tag-color-brand); color: var(--vd-tag-text-brand); }
+
+.vd-po-tag[data-disabled='true'] {
+  background: var(--color-disabled);
+  color: var(--text-color-disabled);
+}
+
+.vd-po-tag__icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.vd-po-tag__remove {
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+  color: inherit;
+  display: inline-flex;
+}
+.vd-po-tag__remove:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--outline-color-focused);
+  border-radius: 2px;
+}

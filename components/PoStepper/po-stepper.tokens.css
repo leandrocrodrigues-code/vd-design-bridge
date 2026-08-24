@@ -1,0 +1,93 @@
+/**
+ * po-stepper — tokens reais por estado (--background-done/-current,
+ * --color-icon-done/-current/-next, --text-color/-next,
+ * --color-line-done, --font-weight-current).
+ *
+ * Fonte: node 3624:6575 (Stepper, página "Stepper ✅"), 3 estados
+ * confirmados: Done (avatar brand/container + check + linha brand/pure
+ * completa), Current (avatar brand/highlight + número branco + label
+ * bold + linha meio preenchida), Next (avatar surface/container +
+ * número content/03 + linha vazia).
+ */
+.vd-po-stepper {
+  --background-done: var(--vd-color-surface-brand-container);
+  --color-icon-done: var(--vd-color-surface-brand-highlight);
+  --color-line-done: var(--vd-color-surface-brand-pure);
+  --text-color: var(--vd-color-content-01);
+
+  --background-current: var(--vd-color-surface-brand-highlight);
+  --color-icon-current: var(--vd-color-surface-pure);
+  --font-weight-current: 700;
+
+  --color-next: var(--vd-color-content-03);
+  --text-color-next: var(--vd-color-content-03);
+  --background-next: var(--vd-color-surface-container);
+
+  --outline-color-focused: rgba(36, 179, 255, 0.16);
+}
+
+.vd-po-stepper {
+  display: flex;
+  align-items: flex-start;
+}
+
+.vd-po-stepper__item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px; /* Spacing/2XSM */
+  flex: 1;
+}
+
+.vd-po-stepper__line {
+  height: 4px;
+  width: 100%;
+  border-radius: 4px;
+  background: var(--background-next);
+  overflow: hidden;
+}
+.vd-po-stepper__line-fill {
+  height: 100%;
+  background: var(--color-line-done);
+}
+
+.vd-po-stepper__step {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Spacing/2XSM */
+  padding-right: 20px; /* Spacing/SMD */
+}
+
+.vd-po-stepper__circle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-family: 'Lato', sans-serif;
+  font-size: 12px;
+  background: var(--background-next);
+  color: var(--color-next);
+}
+.vd-po-stepper__item[data-state='done'] .vd-po-stepper__circle {
+  background: var(--background-done);
+  color: var(--color-icon-done);
+}
+.vd-po-stepper__item[data-state='current'] .vd-po-stepper__circle {
+  background: var(--background-current);
+  color: var(--color-icon-current);
+}
+
+.vd-po-stepper__label {
+  font-family: 'Lato', sans-serif;
+  font-size: 14px;
+  color: var(--text-color-next);
+}
+.vd-po-stepper__item[data-state='done'] .vd-po-stepper__label,
+.vd-po-stepper__item[data-state='current'] .vd-po-stepper__label {
+  color: var(--text-color);
+}
+.vd-po-stepper__item[data-state='current'] .vd-po-stepper__label {
+  font-weight: var(--font-weight-current);
+}

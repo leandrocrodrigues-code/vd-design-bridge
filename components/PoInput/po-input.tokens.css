@@ -1,0 +1,146 @@
+/**
+ * po-input — tokens customizáveis REAIS da PO-UI.
+ *
+ * Nomes (--background, --color, --text-color-placeholder, --color-hover,
+ * --color-focused, --outline-color-focused, --color-disabled,
+ * --background-disabled, --text-color-disabled, ...) são os documentados
+ * oficialmente em https://po-ui.io/documentation/po-input — não inventar
+ * nome novo. Valores apontam pra --vd-color-* (tema via preview.tsx).
+ *
+ * Fonte das cores por estado: nós do Figma 288:652-760 (Text Input,
+ * página "Forms ✅"), 7 States lidos nó a nó em MD:
+ *   Default    bg surface/pure  + border surface/container + placeholder content/03
+ *   Hover      bg surface/pure  + border brand/highlight    + placeholder content/03
+ *   Focus      bg surface/pure  + border brand/highlight + glow
+ *   Typing     bg surface/pure  + border brand/highlight + glow + texto content/pure
+ *   Filled     bg surface/pure  + border surface/container    + texto content/pure
+ *   Disabled   bg surface/container (sem borda) + texto/label content/03
+ *
+ * ⚠️ Alert/erro: NÃO consta nos tokens customizáveis documentados do
+ * po-input (a doc não lista --color-danger nem equivalente). O Figma tem
+ * um estado "Alert" completo (borda + texto + caption feedback/alert),
+ * implementado aqui como extensão via atributo `data-invalid`, com nomes
+ * --vd-input-* (convenção nossa, não oficial) até confirmar como a PO-UI
+ * realmente expõe esse estado (provavelmente `p-error-message` /
+ * validação de formulário, não uma prop de cor direta).
+ */
+
+.vd-po-input-field {
+  --font-family: 'Lato', sans-serif;
+  --font-size: 14px;
+  --text-color-placeholder: var(--vd-color-content-03);
+  --color: var(--vd-color-surface-container);
+  --background: var(--vd-color-surface-pure);
+  --text-color: var(--vd-color-content-pure);
+
+  --color-hover: var(--vd-color-surface-brand-highlight);
+  --background-hover: var(--vd-color-surface-pure);
+
+  --color-focused: var(--vd-color-surface-brand-highlight);
+  --outline-color-focused: rgba(36, 179, 255, 0.16);
+
+  --color-disabled: transparent;
+  --background-disabled: var(--vd-color-surface-container);
+  --text-color-disabled: var(--vd-color-content-03);
+
+  --vd-input-color-invalid: var(--vd-color-feedback-alert-pure);
+  --vd-input-text-invalid: var(--vd-color-feedback-alert-highlight);
+}
+
+/* ---------- Aplicação (shim do preview React) ---------- */
+
+.vd-po-input {
+  display: flex;
+  flex-direction: column;
+  gap: 8px; /* Spacing/2XSM */
+  width: 400px;
+  font-family: var(--font-family);
+}
+
+.vd-po-input__label {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-family: 'Lato', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 16px;
+  color: var(--vd-color-content-01);
+}
+.vd-po-input[data-disabled='true'] .vd-po-input__label {
+  color: var(--text-color-disabled);
+}
+
+.vd-po-input__required {
+  color: var(--vd-color-feedback-alert-highlight);
+}
+.vd-po-input[data-disabled='true'] .vd-po-input__required {
+  color: var(--text-color-disabled);
+}
+
+.vd-po-input-field {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Spacing/2XSM */
+  height: 40px;
+  padding: 8px 16px; /* Spacing/2XSM Spacing/SM */
+  border-radius: 8px; /* Corner radius/2XSM */
+  border: 1px solid var(--color);
+  background: var(--background);
+  transition: border-color 120ms ease, box-shadow 120ms ease, background-color 120ms ease;
+}
+
+.vd-po-input-field__input {
+  flex: 1 0 0;
+  min-width: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: var(--font-family);
+  font-size: var(--font-size);
+  line-height: 16px;
+  color: var(--text-color);
+}
+.vd-po-input-field__input::placeholder {
+  color: var(--text-color-placeholder);
+}
+
+.vd-po-input:not([data-disabled='true']):hover .vd-po-input-field,
+.vd-po-input[data-preview-state='Hover'] .vd-po-input-field {
+  border-color: var(--color-hover);
+  background: var(--background-hover);
+}
+
+.vd-po-input:not([data-disabled='true']) .vd-po-input-field:focus-within,
+.vd-po-input[data-preview-state='Focus'] .vd-po-input-field,
+.vd-po-input[data-preview-state='Typing'] .vd-po-input-field {
+  border-color: var(--color-focused);
+  box-shadow: 0 0 0 4px var(--outline-color-focused);
+}
+
+.vd-po-input[data-disabled='true'] .vd-po-input-field {
+  border-color: var(--color-disabled);
+  background: var(--background-disabled);
+}
+.vd-po-input[data-disabled='true'] .vd-po-input-field__input {
+  color: var(--text-color-disabled);
+  cursor: not-allowed;
+}
+
+.vd-po-input[data-invalid='true'] .vd-po-input-field {
+  border-color: var(--vd-input-color-invalid);
+}
+.vd-po-input[data-invalid='true'] .vd-po-input-field__input {
+  color: var(--vd-input-text-invalid);
+}
+
+.vd-po-input__caption {
+  font-family: 'Lato', sans-serif;
+  font-size: 12px;
+  line-height: 14px;
+  color: var(--vd-color-content-03);
+}
+.vd-po-input[data-invalid='true'] .vd-po-input__caption {
+  color: var(--vd-input-text-invalid);
+}

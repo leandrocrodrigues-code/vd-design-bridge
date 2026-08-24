@@ -1,0 +1,56 @@
+/**
+ * po-badge — a doc de tokens da PO-UI (po-ui.io/llms-generated/po-badge.md)
+ * NÃO lista nomes de CSS custom property por status (diferente de po-tag,
+ * po-input, etc.) — só documenta p-status/p-color/p-value/p-icon como
+ * @Input. Por isso os nomes abaixo (--vd-badge-*) são convenção V&D, não
+ * tokens oficiais confirmados — pendência registrada na story.
+ *
+ * Fonte das cores: node 11362:16744 (Badge, página "Badge ✅ New!").
+ * Padrão confirmado em Alert Solid=True/False:
+ *   Solid=True   bg <status>/pure      + texto content/pure
+ *   Solid=False  bg <status>/container + texto <status>/highlight
+ */
+.vd-po-badge {
+  --vd-badge-bg: var(--vd-color-surface-container);
+  --vd-badge-text: var(--vd-color-content-01);
+}
+
+.vd-po-badge[data-status='neutral'][data-solid='true']  { --vd-badge-bg: var(--vd-color-content-03); --vd-badge-text: var(--vd-color-content-inverse); }
+.vd-po-badge[data-status='neutral'][data-solid='false'] { --vd-badge-bg: var(--vd-color-surface-container); --vd-badge-text: var(--vd-color-content-01); }
+
+.vd-po-badge[data-status='brand'][data-solid='true']  { --vd-badge-bg: var(--vd-color-surface-brand-pure); --vd-badge-text: var(--vd-color-content-on-brand); }
+.vd-po-badge[data-status='brand'][data-solid='false'] { --vd-badge-bg: var(--vd-color-surface-brand-container); --vd-badge-text: var(--vd-color-surface-brand-highlight); }
+
+.vd-po-badge[data-status='info'][data-solid='true']  { --vd-badge-bg: var(--vd-color-feedback-informative-pure); --vd-badge-text: var(--vd-color-content-pure); }
+.vd-po-badge[data-status='info'][data-solid='false'] { --vd-badge-bg: var(--vd-color-feedback-informative-container); --vd-badge-text: var(--vd-color-feedback-informative-highlight); }
+
+.vd-po-badge[data-status='success'][data-solid='true']  { --vd-badge-bg: var(--vd-color-feedback-success-pure); --vd-badge-text: var(--vd-color-content-pure); }
+.vd-po-badge[data-status='success'][data-solid='false'] { --vd-badge-bg: var(--vd-color-feedback-success-container); --vd-badge-text: var(--vd-color-feedback-success-highlight); }
+
+.vd-po-badge[data-status='warning'][data-solid='true']  { --vd-badge-bg: var(--vd-color-feedback-warning-pure); --vd-badge-text: var(--vd-color-content-pure); }
+.vd-po-badge[data-status='warning'][data-solid='false'] { --vd-badge-bg: var(--vd-color-feedback-warning-container); --vd-badge-text: var(--vd-color-feedback-warning-highlight); }
+
+.vd-po-badge[data-status='alert'][data-solid='true']  { --vd-badge-bg: var(--vd-color-feedback-alert-pure); --vd-badge-text: var(--vd-color-content-pure); }
+.vd-po-badge[data-status='alert'][data-solid='false'] { --vd-badge-bg: var(--vd-color-feedback-alert-container); --vd-badge-text: var(--vd-color-feedback-alert-highlight); }
+
+.vd-po-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 16px;
+  height: 16px;
+  padding: 2px 4px; /* Spacing/3XSM */
+  border-radius: 500px;
+  background: var(--vd-badge-bg);
+  color: var(--vd-badge-text);
+  font-family: 'Lato', sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 12px;
+}
+
+.vd-po-badge[data-type='dot'] {
+  width: 16px;
+  height: 16px;
+  padding: 0;
+}
