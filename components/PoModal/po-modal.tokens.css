@@ -1,0 +1,106 @@
+/**
+ * po-modal — tokens reais (--border-radius, --background, --shadow,
+ * --color-overlay, --opacity-overlay, --padding-header, --padding-body).
+ *
+ * Cores confirmadas nó a nó (Modal Feedback, node 12138:2494, página
+ * "Modal ✅", Type=Success): card `surface/pure`, radius `Corner
+ * radius/XSM` (12px), sombra `0 6px 16px rgba(0,0,0,.08)`, ícone em
+ * círculo `<status>/container` + `<status>/highlight` no glifo, título
+ * `content/pure` bold, parágrafo `content/03`.
+ *
+ * ⚠️ Só validei nó a nó o Type=Success. Os outros 7 Type do Figma
+ * (Brand/Neutral/Informative/Warning/Alert/Processing/Date Success)
+ * seguem o mesmo padrão de cor por analogia com Badge/Tag — Processing
+ * e "Date Success" parecem ilustrações customizadas (não confirmadas).
+ * Modal Progress e Modal Template (as outras 2 variantes do Figma) NÃO
+ * foram implementados nesta rodada — ficam como pendência separada.
+ */
+.vd-po-modal {
+  --border-radius: 12px;
+  --background: var(--vd-color-surface-pure);
+  --shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  --color-overlay: rgba(18, 18, 18, 0.7);
+  --padding-body: 32px; /* Spacing/LG */
+}
+
+.vd-po-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--color-overlay);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+}
+
+.vd-po-modal {
+  position: relative;
+  width: 424px;
+  max-width: calc(100vw - 32px);
+  background: var(--background);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  padding: var(--padding-body);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px; /* Spacing/MD */
+  font-family: 'Lato', sans-serif;
+}
+
+.vd-po-modal__close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  border: none;
+  background: var(--vd-color-surface-pure);
+  color: var(--vd-color-content-01);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vd-po-modal__icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.vd-po-modal[data-status='brand'] .vd-po-modal__icon { background: var(--vd-color-surface-brand-container); color: var(--vd-color-surface-brand-highlight); }
+.vd-po-modal[data-status='neutral'] .vd-po-modal__icon { background: var(--vd-color-surface-container); color: var(--vd-color-content-01); }
+.vd-po-modal[data-status='informative'] .vd-po-modal__icon { background: var(--vd-color-feedback-informative-container); color: var(--vd-color-feedback-informative-highlight); }
+.vd-po-modal[data-status='success'] .vd-po-modal__icon { background: var(--vd-color-feedback-success-container); color: var(--vd-color-feedback-success-highlight); }
+.vd-po-modal[data-status='warning'] .vd-po-modal__icon { background: var(--vd-color-feedback-warning-container); color: var(--vd-color-feedback-warning-highlight); }
+.vd-po-modal[data-status='alert'] .vd-po-modal__icon { background: var(--vd-color-feedback-alert-container); color: var(--vd-color-feedback-alert-highlight); }
+
+.vd-po-modal__header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+}
+.vd-po-modal__title {
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+  color: var(--vd-color-content-pure);
+}
+.vd-po-modal__paragraph {
+  font-size: 16px;
+  line-height: 20px;
+  color: var(--vd-color-content-03);
+}
+
+.vd-po-modal__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
