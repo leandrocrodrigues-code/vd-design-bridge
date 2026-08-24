@@ -1,0 +1,92 @@
+/**
+ * po-toaster — tokens reais por status (--color-success/-error/-warning/
+ * -info + --background-* + --border-color-* correspondentes).
+ *
+ * Fonte: node 318:5338 (Toast, página "Toast ✅"). Confirmado nos 6
+ * Type do Figma: bg <status>/card + border <status>/container.
+ *
+ * ⚠️ p-type oficial do po-toaster é Information | Success | Warning |
+ * Error (sem "Neutral"/"Brand"). Figma tem 6 Type — Neutral e Brand
+ * viraram extensão (--vd-toaster-*).
+ */
+.vd-po-toaster {
+  --font-family: 'Lato', sans-serif;
+  --font-color: var(--vd-color-content-pure);
+  --border-radius: 8px;
+
+  --color-success: var(--vd-color-feedback-success-highlight);
+  --background-success: var(--vd-color-feedback-success-card);
+  --border-color-success: var(--vd-color-feedback-success-container);
+
+  --color-error: var(--vd-color-feedback-alert-highlight);
+  --background-error: var(--vd-color-feedback-alert-card);
+  --border-color-error: var(--vd-color-feedback-alert-container);
+
+  --color-warning: var(--vd-color-feedback-warning-highlight);
+  --background-warning: var(--vd-color-feedback-warning-card);
+  --border-color-warning: var(--vd-color-feedback-warning-container);
+
+  --color-info: var(--vd-color-feedback-informative-highlight);
+  --background-info: var(--vd-color-feedback-informative-card);
+  --border-color-info: var(--vd-color-feedback-informative-container);
+
+  --vd-toaster-color-neutral: var(--vd-color-content-01);
+  --vd-toaster-background-neutral: var(--vd-color-surface-card);
+  --vd-toaster-border-neutral: var(--vd-color-surface-container);
+
+  --vd-toaster-color-brand: var(--vd-color-content-pure);
+  --vd-toaster-background-brand: var(--vd-color-surface-brand-card);
+  --vd-toaster-border-brand: var(--vd-color-surface-brand-container);
+}
+
+.vd-po-toaster {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Spacing/2XSM */
+  min-height: 48px;
+  width: 300px;
+  padding: 8px 16px; /* Spacing/2XSM Spacing/SM */
+  border-radius: var(--border-radius);
+  border: 1px solid transparent;
+  font-family: var(--font-family);
+  color: var(--font-color);
+}
+
+.vd-po-toaster[data-type='success'] { background: var(--background-success); border-color: var(--border-color-success); }
+.vd-po-toaster[data-type='error']   { background: var(--background-error); border-color: var(--border-color-error); }
+.vd-po-toaster[data-type='warning'] { background: var(--background-warning); border-color: var(--border-color-warning); }
+.vd-po-toaster[data-type='information'] { background: var(--background-info); border-color: var(--border-color-info); }
+.vd-po-toaster[data-type='neutral'] { background: var(--vd-toaster-background-neutral); border-color: var(--vd-toaster-border-neutral); }
+.vd-po-toaster[data-type='brand']   { background: var(--vd-toaster-background-brand); border-color: var(--vd-toaster-border-brand); }
+
+.vd-po-toaster__icon {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+}
+
+.vd-po-toaster__message {
+  flex: 1 0 0;
+  font-size: 14px;
+  line-height: 18px;
+}
+
+.vd-po-toaster__actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.vd-po-toaster__button {
+  height: 32px;
+  min-width: 32px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: none;
+  background: var(--vd-color-surface-pure);
+  color: var(--vd-color-surface-brand-highlight);
+  font-family: var(--font-family);
+  font-size: 14px;
+  cursor: pointer;
+}

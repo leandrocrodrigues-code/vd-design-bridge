@@ -1,0 +1,44 @@
+/**
+ * po-breadcrumb — a doc oficial não lista CSS tokens (só @Input:
+ * p-items, p-favorite, p-params). Tokens abaixo (--vd-breadcrumb-*)
+ * são convenção V&D.
+ *
+ * Fonte: node 12288:8527 (Breadcrumb, página "Breadcrumb (Web) 🚧" —
+ * marcada como work-in-progress no Figma). Links sublinhados
+ * content/pure, separador CaretRight.
+ */
+.vd-po-breadcrumb {
+  --vd-breadcrumb-color: var(--vd-color-content-pure);
+  --vd-breadcrumb-border: var(--vd-color-surface-card);
+}
+
+.vd-po-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 0 16px 16px;
+  border-bottom: 1px solid var(--vd-breadcrumb-border);
+}
+
+.vd-po-breadcrumb__item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--vd-breadcrumb-color);
+  font-family: 'Lato', sans-serif;
+  font-size: 14px;
+  text-decoration: none;
+}
+.vd-po-breadcrumb__item[data-current='true'] {
+  font-weight: 700;
+}
+.vd-po-breadcrumb__item:not([data-current='true']) {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.vd-po-breadcrumb__separator {
+  width: 16px;
+  height: 16px;
+  color: var(--vd-breadcrumb-color);
+}

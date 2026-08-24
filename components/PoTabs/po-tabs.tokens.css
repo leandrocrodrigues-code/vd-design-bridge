@@ -1,0 +1,56 @@
+/**
+ * po-tabs — tokens reais (--background, --background-item-default,
+ * --background-item-selected, --background-item-hover, --color,
+ * --color-hover, --color-baseline, --border-radius,
+ * --outline-color-focused).
+ *
+ * Fonte: node 3635:7682 (Tabs, página "Tabs ✅"). Confirmado:
+ *   Default  bg surface/card + texto content/pure
+ *   Active   bg surface/brand/pure + texto content/on-brand
+ *   radius pill (Corner radius/SMD, 20px)
+ */
+.vd-po-tabs {
+  --background: transparent;
+  --background-item-default: var(--vd-color-surface-card);
+  --background-item-selected: var(--vd-color-surface-brand-pure);
+  --background-item-hover: var(--vd-color-surface-brand-container);
+  --color: var(--vd-color-content-pure);
+  --color-baseline: var(--vd-color-content-on-brand);
+  --border-radius: 20px;
+  --outline-color-focused: rgba(36, 179, 255, 0.16);
+}
+
+.vd-po-tabs {
+  display: flex;
+  gap: 8px; /* Spacing/2XSM */
+  overflow-x: auto;
+  background: var(--background);
+}
+
+.vd-po-tabs__item {
+  flex-shrink: 0;
+  height: 40px;
+  padding: 8px 16px; /* Spacing/2XSM Spacing/SM */
+  border-radius: var(--border-radius);
+  border: none;
+  background: var(--background-item-default);
+  color: var(--color);
+  font-family: 'Lato', sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  cursor: pointer;
+}
+
+.vd-po-tabs__item:hover {
+  background: var(--background-item-hover);
+}
+
+.vd-po-tabs__item:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--outline-color-focused);
+}
+
+.vd-po-tabs__item[data-active='true'] {
+  background: var(--background-item-selected);
+  color: var(--color-baseline);
+}
