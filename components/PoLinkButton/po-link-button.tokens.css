@@ -1,0 +1,58 @@
+/**
+ * Link Button — NÃO existe componente oficial da PO-UI equivalente.
+ * A PO-UI só tem `po-button` (p-kind primary/secondary/tertiary); nenhum
+ * kind renderiza como link sublinhado. Esta é uma extensão V&D pura —
+ * os nomes de custom property abaixo são convenção nossa (prefixo
+ * --vd-link-button-*), não documentação oficial da PO-UI.
+ *
+ * Cores por estado confirmadas nó a nó no Figma (node 1528:4063,
+ * página "Buttons ✅"):
+ *   Default/Hover/Focus  content/pure #121212 (sublinhado sempre visível)
+ *   Pressed              surface/brand/highlight #1e3da1
+ *   Disabled             content/03 #8e8e8e
+ */
+
+.vd-link-button {
+  --vd-link-button-color: var(--vd-color-content-pure);
+  --vd-link-button-color-pressed: var(--vd-color-surface-brand-highlight);
+  --vd-link-button-color-disabled: var(--vd-color-content-03);
+  --vd-link-button-outline: rgba(36, 179, 255, 0.16);
+
+  display: inline-flex;
+  align-items: center;
+  gap: 8px; /* Spacing/2XSM */
+  border-radius: 4px;
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: 'Lato', sans-serif;
+  font-weight: 700;
+  text-decoration: underline;
+  cursor: pointer;
+  color: var(--vd-link-button-color);
+}
+
+.vd-link-button[data-size='large'] {
+  font-size: 16px;
+  line-height: 20px;
+}
+.vd-link-button[data-size='small'] {
+  font-size: 14px;
+  line-height: 16px;
+}
+
+.vd-link-button:not([data-disabled='true']):active,
+.vd-link-button[data-preview-state='Pressed']:not([data-disabled='true']) {
+  color: var(--vd-link-button-color-pressed);
+}
+
+.vd-link-button:not([data-disabled='true']):focus-visible,
+.vd-link-button[data-preview-state='Focus']:not([data-disabled='true']) {
+  outline: none;
+  box-shadow: 0 0 0 4px var(--vd-link-button-outline);
+}
+
+.vd-link-button[data-disabled='true'] {
+  color: var(--vd-link-button-color-disabled);
+  cursor: not-allowed;
+}
