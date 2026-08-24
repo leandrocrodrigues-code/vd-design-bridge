@@ -1,0 +1,131 @@
+/**
+ * po-switch — tokens customizáveis REAIS da PO-UI.
+ *
+ * Nomes das custom properties (--track-unchecked, --track-checked,
+ * --color-unchecked, --color-checked, --outline-color-focused, ...) são
+ * os documentados oficialmente em https://po-ui.io/documentation/po-switch
+ * (seção "Tokens customizáveis") — não inventar nome novo. Valores
+ * apontam pra --vd-color-* (injetados por tema em .storybook/preview.tsx).
+ *
+ * NOTA DE NOMENCLATURA: o componente "Toggle" no Figma (node 859:3990,
+ * página "Toggle ✅") é o po-switch da PO-UI — não existe "po-toggle".
+ *
+ * Fonte das cores: os 3 estados (Off/On/Disabled) do Figma são SVGs
+ * únicos (sem CSS var exposta) — extraí as cores direto do path/circle:
+ *   Off       track surface/container #dfe4ec  + knob surface/pure (branco)
+ *   On        track brand/container   #a0f2ff  + knob brand/highlight #1e3da1
+ *   Disabled  track surface/container #dfe4ec  + knob content/03     #8e8e8e
+ * O Figma NÃO tem Sub-state Hover/Focused pro Toggle (só 3 States, sem
+ * variante extra) — diferente de Button/Checkbox/Radio. Hover/Focus
+ * abaixo são inferência nossa (mesmo padrão de escurecer no hover que os
+ * outros componentes usam), não confirmados nó a nó porque não existem
+ * no Figma.
+ */
+
+.vd-po-switch {
+  --border-color: var(--vd-color-surface-container);
+  --color-unchecked: var(--vd-color-surface-pure);
+  --track-unchecked: var(--vd-color-surface-container);
+
+  --color-checked: var(--vd-color-surface-brand-highlight);
+  --track-checked: var(--vd-color-surface-brand-container);
+
+  --color-unchecked-hover: var(--vd-color-surface-card);
+  --color-checked-hover: var(--vd-color-surface-brand-highlight);
+
+  --outline-color-focused: rgba(36, 179, 255, 0.16);
+
+  --color-unchecked-disabled: var(--vd-color-content-03);
+  --color-checked-disabled: var(--vd-color-content-03);
+}
+
+/* ---------- Aplicação (shim do preview React) ---------- */
+
+.vd-po-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px; /* Spacing/2XSM */
+  font-family: 'Lato', sans-serif;
+}
+
+.vd-po-switch__track {
+  box-sizing: border-box;
+  position: relative;
+  flex-shrink: 0;
+  width: 40px; /* SM */
+  height: 24px;
+  border-radius: 999px;
+  background-color: var(--track-unchecked);
+  cursor: pointer;
+  transition: background-color 120ms ease, box-shadow 120ms ease;
+}
+
+.vd-po-switch[data-size='medium'] .vd-po-switch__track {
+  width: 56px; /* MD, escala proporcional — não confirmado nó a nó no Figma */
+  height: 32px;
+}
+
+.vd-po-switch__knob {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: var(--color-unchecked);
+  transition: transform 120ms ease, background-color 120ms ease;
+}
+
+.vd-po-switch[data-size='medium'] .vd-po-switch__knob {
+  top: 4px;
+  left: 4px;
+  width: 24px;
+  height: 24px;
+}
+
+.vd-po-switch[data-state='on'] .vd-po-switch__track {
+  background-color: var(--track-checked);
+}
+.vd-po-switch[data-state='on'] .vd-po-switch__knob {
+  background-color: var(--color-checked);
+  transform: translateX(16px); /* 40 - 4*2 - 16 */
+}
+.vd-po-switch[data-size='medium'][data-state='on'] .vd-po-switch__knob {
+  transform: translateX(24px); /* 56 - 4*2 - 24 */
+}
+
+.vd-po-switch:not([data-disabled='true']):hover .vd-po-switch__knob {
+  background-color: var(--color-unchecked-hover);
+}
+.vd-po-switch[data-state='on']:not([data-disabled='true']):hover .vd-po-switch__knob {
+  background-color: var(--color-checked-hover);
+}
+
+.vd-po-switch:not([data-disabled='true']):focus-within .vd-po-switch__track {
+  box-shadow: 0 0 0 4px var(--outline-color-focused);
+}
+
+.vd-po-switch[data-disabled='true'] .vd-po-switch__track {
+  cursor: not-allowed;
+}
+.vd-po-switch[data-disabled='true'] .vd-po-switch__knob {
+  background-color: var(--color-unchecked-disabled);
+}
+.vd-po-switch[data-disabled='true'][data-state='on'] .vd-po-switch__knob {
+  background-color: var(--color-checked-disabled);
+}
+
+.vd-po-switch__input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.vd-po-switch__label {
+  font-size: 14px;
+  color: var(--vd-color-content-pure);
+}
+.vd-po-switch[data-disabled='true'] .vd-po-switch__label {
+  color: var(--vd-color-content-03);
+}
