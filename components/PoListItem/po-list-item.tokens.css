@@ -1,0 +1,97 @@
+/**
+ * Item de po-list-view — a doc oficial de po-list-view não lista tokens
+ * CSS (só @Input p-items/p-actions/etc), então os nomes abaixo
+ * (--vd-list-item-*) são convenção V&D. Cores/tipografia confirmadas
+ * no Figma (node 10145:7645): overline content/02, primary
+ * content/pure, secondary content/03, divider surface/card.
+ */
+.vd-po-list-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Spacing/2XSM */
+  min-height: 24px;
+  padding: 12px 16px; /* Spacing/XSM Spacing/SM */
+  font-family: 'Lato', sans-serif;
+}
+.vd-po-list-item[data-divider='true']::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: var(--vd-color-surface-card);
+}
+
+.vd-po-list-item__leading {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+
+.vd-po-list-item__content {
+  flex: 1 0 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+.vd-po-list-item__trailing-content {
+  flex: 1 0 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.vd-po-list-item__overline {
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--vd-color-content-02);
+}
+.vd-po-list-item__primary {
+  font-size: 14px;
+  line-height: 18px;
+  color: var(--vd-color-content-pure);
+}
+.vd-po-list-item__secondary {
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--vd-color-content-03);
+}
+
+.vd-po-list-item__checkbox,
+.vd-po-list-item__radio {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--vd-color-surface-brand-pure);
+  flex-shrink: 0;
+}
+
+.vd-po-list-item__toggle {
+  position: relative;
+  width: 40px;
+  height: 24px;
+  border-radius: 999px;
+  border: none;
+  background: var(--vd-color-surface-container);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.vd-po-list-item__toggle[data-on='true'] {
+  background: var(--vd-color-surface-brand-container);
+}
+.vd-po-list-item__toggle-knob {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--vd-color-surface-pure);
+  transition: transform 120ms ease;
+}
+.vd-po-list-item__toggle[data-on='true'] .vd-po-list-item__toggle-knob {
+  transform: translateX(16px);
+  background: var(--vd-color-surface-brand-highlight);
+}
