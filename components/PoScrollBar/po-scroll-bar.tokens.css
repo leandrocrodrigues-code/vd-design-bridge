@@ -1,0 +1,56 @@
+.vd-po-scrollbar {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  background: var(--vd-color-surface-card);
+  border-radius: 8px;
+  padding: 16px 0;
+}
+.vd-po-scrollbar[data-orientation='vertical'] {
+  flex-direction: column;
+  width: 16px;
+  height: 216px;
+  padding: 16px 0;
+}
+.vd-po-scrollbar[data-orientation='horizontal'] {
+  flex-direction: row;
+  height: 16px;
+  width: 216px;
+  padding: 0 16px;
+}
+
+.vd-po-scrollbar__button {
+  border: none;
+  background: none;
+  color: var(--vd-color-content-01);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.vd-po-scrollbar__track {
+  flex: 1;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.vd-po-scrollbar__thumb {
+  position: absolute;
+  background: var(--vd-color-surface-container);
+  border-radius: 4px;
+}
+.vd-po-scrollbar[data-orientation='vertical'] .vd-po-scrollbar__thumb {
+  left: 25%;
+  right: 25%;
+  top: 20%;
+  bottom: 20%;
+}
+.vd-po-scrollbar[data-orientation='horizontal'] .vd-po-scrollbar__thumb {
+  top: 25%;
+  bottom: 25%;
+  left: 20%;
+  right: 20%;
+}

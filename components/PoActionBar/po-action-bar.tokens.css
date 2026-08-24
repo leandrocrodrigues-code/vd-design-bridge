@@ -1,0 +1,28 @@
+.vd-po-action-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+  background: var(--vd-color-surface-pure);
+  padding: 8px 16px;
+}
+
+.vd-po-action-bar__group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.vd-po-action-bar__icon-button {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  border: none;
+  background: var(--vd-color-surface-container);
+  color: var(--vd-color-content-01);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
