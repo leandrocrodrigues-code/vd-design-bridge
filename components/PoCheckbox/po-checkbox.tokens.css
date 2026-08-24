@@ -1,0 +1,146 @@
+/**
+ * po-checkbox — tokens customizáveis REAIS da PO-UI.
+ *
+ * Nomes das custom properties (--border-color, --color-checked,
+ * --color-hover, --outline-color-focused, ...) são os documentados
+ * oficialmente em https://po-ui.io/documentation/po-checkbox (seção
+ * "Tokens customizáveis") — não inventar nome novo. Valores apontam pra
+ * --vd-color-* (injetados por tema em .storybook/preview.tsx).
+ *
+ * Fonte das cores por estado: nós do Figma 236:328-366 (Checkbox,
+ * node 236:134), validados variante a variante via MCP, nas 12 combos
+ * State x Sub-state confirmadas em SM (MD só muda escala, cor idêntica):
+ *
+ *   Unchecked  Default   surface/pure bg  + surface/container border
+ *              Hover     surface/card bg  + surface/brand/highlight border
+ *              Focused   surface/card bg  + brand/highlight border + glow
+ *              Disabled  surface/container bg (preenchido, sem borda)
+ *   Checked    Default   surface/brand/pure bg + ícone Check
+ *              Hover     surface/brand/highlight bg + ícone Check
+ *              Focused   surface/brand/pure bg + ícone Check + glow
+ *              Disabled  surface/container bg + ícone Check
+ *   Indeterminate — mesmo padrão de Checked, ícone Minus no lugar de Check.
+ *     EXTENSÃO V&D: ver nota abaixo, p-indeterminate não é @Input
+ *     documentado do po-checkbox.
+ */
+
+.vd-po-checkbox {
+  --border-color: var(--vd-color-surface-container);
+  --color-unchecked: var(--vd-color-surface-pure);
+  --color-checked: var(--vd-color-surface-brand-pure);
+
+  --color-hover: var(--vd-color-surface-brand-highlight);
+  --shadow-color-hover: var(--vd-color-surface-card);
+
+  --outline-color-focused: rgba(36, 179, 255, 0.16);
+
+  --color-unchecked-disabled: var(--vd-color-surface-container);
+  --color-checked-disabled: var(--vd-color-surface-container);
+}
+
+/* ---------- Aplicação (shim do preview React) ---------- */
+
+.vd-po-checkbox {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 8px; /* Spacing/2XSM */
+  font-family: 'Lato', sans-serif;
+  cursor: pointer;
+}
+
+.vd-po-checkbox__box {
+  box-sizing: border-box;
+  flex-shrink: 0;
+  width: 16px; /* Widths/SM */
+  height: 16px;
+  border-radius: 4px; /* Corner radius/3XSM */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px;
+  border: 1px solid var(--border-color);
+  background-color: var(--color-unchecked);
+  transition: background-color 120ms ease, border-color 120ms ease, box-shadow 120ms ease;
+}
+
+.vd-po-checkbox[data-size='medium'] .vd-po-checkbox__box {
+  width: 24px; /* Widths/MD */
+  height: 24px;
+  padding: 4px; /* Spacing/3XSM */
+}
+
+.vd-po-checkbox__icon {
+  width: 75%;
+  height: 75%;
+  display: block;
+}
+
+.vd-po-checkbox[data-state='checked'] .vd-po-checkbox__box,
+.vd-po-checkbox[data-state='indeterminate'] .vd-po-checkbox__box {
+  border-color: transparent;
+  background-color: var(--color-checked);
+}
+
+.vd-po-checkbox:not([data-disabled='true']):hover .vd-po-checkbox__box,
+.vd-po-checkbox[data-preview-state='Hover'] .vd-po-checkbox__box {
+  background-color: var(--color-hover);
+  border-color: var(--color-hover);
+}
+.vd-po-checkbox[data-state='unchecked']:not([data-disabled='true']):hover .vd-po-checkbox__box,
+.vd-po-checkbox[data-state='unchecked'][data-preview-state='Hover'] .vd-po-checkbox__box {
+  background-color: var(--shadow-color-hover);
+}
+
+.vd-po-checkbox:not([data-disabled='true']):focus-visible .vd-po-checkbox__box,
+.vd-po-checkbox[data-preview-state='Focused'] .vd-po-checkbox__box {
+  outline: none;
+  border-color: var(--vd-color-surface-brand-highlight);
+  box-shadow: 0 0 0 4px var(--outline-color-focused);
+}
+.vd-po-checkbox[data-state='checked']:not([data-disabled='true']):focus-visible .vd-po-checkbox__box,
+.vd-po-checkbox[data-state='checked'][data-preview-state='Focused'] .vd-po-checkbox__box,
+.vd-po-checkbox[data-state='indeterminate']:not([data-disabled='true']):focus-visible .vd-po-checkbox__box,
+.vd-po-checkbox[data-state='indeterminate'][data-preview-state='Focused'] .vd-po-checkbox__box {
+  border-color: transparent;
+}
+
+.vd-po-checkbox[data-disabled='true'] {
+  cursor: not-allowed;
+}
+.vd-po-checkbox[data-disabled='true'] .vd-po-checkbox__box {
+  border-color: transparent;
+  background-color: var(--color-unchecked-disabled);
+}
+.vd-po-checkbox[data-disabled='true'][data-state='checked'] .vd-po-checkbox__box,
+.vd-po-checkbox[data-disabled='true'][data-state='indeterminate'] .vd-po-checkbox__box {
+  background-color: var(--color-checked-disabled);
+}
+
+.vd-po-checkbox__content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px; /* Spacing/3XSM */
+  min-width: 0;
+}
+
+.vd-po-checkbox__label {
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16px;
+  color: var(--vd-color-content-pure);
+}
+.vd-po-checkbox[data-disabled='true'] .vd-po-checkbox__label {
+  color: var(--vd-color-content-03);
+}
+
+/* EXTENSÃO V&D — texto secundário abaixo do label (nó Figma
+   "Has Secondary Text"). Sem @Input equivalente documentado no
+   po-checkbox — ver nota em PoCheckbox.tsx. */
+.vd-po-checkbox__secondary {
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14px;
+  color: var(--vd-color-content-03);
+}
