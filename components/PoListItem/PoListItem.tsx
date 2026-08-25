@@ -10,6 +10,8 @@ export interface PoListItemProps {
   primaryValue?: string;
   secondaryValue?: string;
   leadingIcon?: ReactNode;
+  /** EXTENSÃO V&D — cobre a variante "List Item / Buttons Group" (tags antes da ação), confirmada no PDF Componentespdf/list/List Item.pdf */
+  trailingTags?: string[];
   action?: PoListItemAction;
   checked?: boolean;
   onActionChange?: (checked: boolean) => void;
@@ -40,6 +42,7 @@ export function PoListItem({
   primaryValue,
   secondaryValue,
   leadingIcon,
+  trailingTags,
   action = 'none',
   checked = false,
   onActionChange,
@@ -58,6 +61,15 @@ export function PoListItem({
         <div className="vd-po-list-item__trailing-content">
           {primaryValue && <span className="vd-po-list-item__primary" style={{ textAlign: 'right' }}>{primaryValue}</span>}
           {secondaryValue && <span className="vd-po-list-item__secondary" style={{ textAlign: 'right' }}>{secondaryValue}</span>}
+        </div>
+      )}
+      {trailingTags && trailingTags.length > 0 && (
+        <div className="vd-po-list-item__tags">
+          {trailingTags.map((tag, index) => (
+            <span key={tag} className="vd-po-list-item__tag" data-solid={index === trailingTags.length - 1 ? 'true' : undefined}>
+              {tag}
+            </span>
+          ))}
         </div>
       )}
       {action === 'checkbox' && (

@@ -1,0 +1,39 @@
+/**
+ * Grupo de po-list-view — sem tokens `po-*` próprios (herda os do
+ * po-list-item). Layout horizontal é extensão de composição, confirmada
+ * no PDF Componentespdf/list/List Item Group.pdf (linha de colunas no
+ * rodapé do exemplo).
+ */
+
+.vd-po-list-item-group {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--vd-color-surface-container);
+  border-radius: 12px; /* Corner radius/2XSM */
+  overflow: hidden;
+  background-color: var(--vd-color-surface-pure);
+}
+
+.vd-po-list-item-group--horizontal {
+  flex-direction: row;
+  border: none;
+  border-top: 1px solid var(--vd-color-surface-card);
+  border-radius: 0;
+  gap: 32px; /* Spacing/LG */
+  padding-top: 16px; /* Spacing/SM */
+}
+
+.vd-po-list-item-group__column {
+  display: flex;
+  flex-direction: column;
+}
+.vd-po-list-item-group__primary {
+  font-family: 'Lato', sans-serif;
+  font-size: 14px;
+  color: var(--vd-color-content-pure);
+}
+.vd-po-list-item-group__secondary {
+  font-family: 'Lato', sans-serif;
+  font-size: 12px;
+  color: var(--vd-color-content-03);
+}
