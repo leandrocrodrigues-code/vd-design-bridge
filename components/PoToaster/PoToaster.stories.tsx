@@ -12,7 +12,7 @@ Doc oficial: https://po-ui.io/documentation/po-toaster
 `;
 
 const meta = {
-  title: 'POUi/Toaster (Toast)',
+  title: 'Componentes/POUi/Toaster (Toast)',
   component: PoToaster,
   tags: ['autodocs'],
   parameters: {

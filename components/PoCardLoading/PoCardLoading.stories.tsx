@@ -13,7 +13,7 @@ progresso genérico: título + subtítulo, percentual + fechar, progress bar.
 `;
 
 const meta = {
-  title: 'POUi/Cards/Loading',
+  title: 'Componentes/POUi/Cards/Loading',
   component: PoCardLoading,
   tags: ['autodocs'],
   parameters: {

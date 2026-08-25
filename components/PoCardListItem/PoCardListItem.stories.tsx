@@ -16,7 +16,7 @@ sem card próprio) — aqui é um bloco isolado com fundo e padding de card.
 `;
 
 const meta = {
-  title: 'POUi/Cards/List Item',
+  title: 'Componentes/POUi/Cards/List Item',
   component: PoCardListItem,
   tags: ['autodocs'],
   parameters: {

@@ -35,7 +35,7 @@ const items = [
 ];
 
 const meta = {
-  title: 'POUi/Charts/Bar Chart',
+  title: 'Componentes/POUi/Charts/Bar Chart',
   component: PoBarChart,
   tags: ['autodocs'],
   parameters: {

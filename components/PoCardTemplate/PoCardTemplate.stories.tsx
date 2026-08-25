@@ -14,7 +14,7 @@ como base de composição — não é um card final com dados reais.
 `;
 
 const meta = {
-  title: 'POUi/Cards/Template',
+  title: 'Componentes/POUi/Cards/Template',
   component: PoCardTemplate,
   tags: ['autodocs'],
   parameters: {

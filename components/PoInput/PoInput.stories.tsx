@@ -28,7 +28,7 @@ que seja assim que a PO-UI real expõe validação (provável candidato:
 `;
 
 const meta = {
-  title: 'POUi/Input',
+  title: 'Componentes/POUi/Input',
   component: PoInput,
   tags: ['autodocs'],
   parameters: {

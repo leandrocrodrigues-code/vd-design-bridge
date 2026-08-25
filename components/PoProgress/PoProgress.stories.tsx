@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { PoProgress } from './PoProgress';
 
 const meta = {
-  title: 'POUi/Progress',
+  title: 'Componentes/POUi/Progress',
   component: PoProgress,
   tags: ['autodocs'],
   parameters: {

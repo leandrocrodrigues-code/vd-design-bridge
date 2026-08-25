@@ -53,7 +53,7 @@ const items = [
 ];
 
 const meta = {
-  title: 'POUi/Table (Grid)',
+  title: 'Componentes/POUi/Table (Grid)',
   component: PoTable,
   tags: ['autodocs'],
   parameters: {

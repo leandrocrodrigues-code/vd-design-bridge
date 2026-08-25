@@ -27,7 +27,7 @@ componente equivalente.
 `;
 
 const meta = {
-  title: 'POUi/Link Button (extensão)',
+  title: 'Componentes/POUi/Link Button (extensão)',
   component: PoLinkButton,
   tags: ['autodocs'],
   parameters: {

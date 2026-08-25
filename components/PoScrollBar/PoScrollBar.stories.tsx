@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { PoScrollBar } from './PoScrollBar';
 
 const meta = {
-  title: 'POUi/Scroll Bar (referência de estilo)',
+  title: 'Componentes/POUi/Scroll Bar (referência de estilo)',
   component: PoScrollBar,
   tags: ['autodocs'],
   parameters: {

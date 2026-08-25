@@ -3,7 +3,7 @@ import { fn } from 'storybook/test';
 import { TWTCheckBox } from './CheckBox';
 
 const meta = {
-  title: 'Delphi/Checkbox',
+  title: 'Componentes/Delphi/Checkbox',
   component: TWTCheckBox,
   tags: ['autodocs'],
   parameters: {

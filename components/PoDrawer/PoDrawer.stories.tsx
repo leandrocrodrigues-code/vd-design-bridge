@@ -33,7 +33,7 @@ const items = [
 ];
 
 const meta = {
-  title: 'POUi/Drawer',
+  title: 'Componentes/POUi/Drawer',
   component: PoDrawer,
   tags: ['autodocs'],
   parameters: {

@@ -18,7 +18,7 @@ bg \`surface/container\` + texto \`content/02\`.
 `;
 
 const meta = {
-  title: 'POUi/Avatar',
+  title: 'Componentes/POUi/Avatar',
   component: PoAvatar,
   tags: ['autodocs'],
   parameters: {

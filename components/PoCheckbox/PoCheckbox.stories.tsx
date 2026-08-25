@@ -44,7 +44,7 @@ como extensão, não mapeada pra nenhum \`p-*\` existente.
 `;
 
 const meta = {
-  title: 'POUi/Checkbox',
+  title: 'Componentes/POUi/Checkbox',
   component: PoCheckbox,
   tags: ['autodocs'],
   parameters: {

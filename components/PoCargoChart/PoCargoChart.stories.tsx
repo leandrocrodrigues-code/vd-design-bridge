@@ -32,7 +32,7 @@ const items = [
 ];
 
 const meta = {
-  title: 'POUi/Charts/Cargo Chart',
+  title: 'Componentes/POUi/Charts/Cargo Chart',
   component: PoCargoChart,
   tags: ['autodocs'],
   parameters: {

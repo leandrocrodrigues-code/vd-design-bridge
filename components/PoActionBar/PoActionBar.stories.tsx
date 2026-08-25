@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { PoActionBar } from './PoActionBar';
 
 const meta = {
-  title: 'POUi/Action Bar (composição)',
+  title: 'Componentes/POUi/Action Bar (composição)',
   component: PoActionBar,
   tags: ['autodocs'],
   parameters: {

@@ -14,7 +14,7 @@ cima/baixo). 5 tonalidades × 2 níveis de ênfase.
 `;
 
 const meta = {
-  title: 'POUi/Cards/Data',
+  title: 'Componentes/POUi/Cards/Data',
   component: PoCardData,
   tags: ['autodocs'],
   parameters: {

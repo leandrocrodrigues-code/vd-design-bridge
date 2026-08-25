@@ -20,7 +20,7 @@ const options = [
 ];
 
 const meta = {
-  title: 'POUi/Select (Dropdown)',
+  title: 'Componentes/POUi/Select (Dropdown)',
   component: PoSelect,
   tags: ['autodocs'],
   parameters: {

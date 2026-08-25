@@ -14,7 +14,7 @@ valor + botão de copiar (com \`navigator.clipboard\`), feedback visual
 `;
 
 const meta = {
-  title: 'POUi/Cards/Copy',
+  title: 'Componentes/POUi/Cards/Copy',
   component: PoCardCopy,
   tags: ['autodocs'],
   parameters: {

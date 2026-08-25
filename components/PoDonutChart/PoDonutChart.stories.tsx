@@ -30,7 +30,7 @@ const items = [
 ];
 
 const meta = {
-  title: 'POUi/Charts/Donut Chart',
+  title: 'Componentes/POUi/Charts/Donut Chart',
   component: PoDonutChart,
   tags: ['autodocs'],
   parameters: {

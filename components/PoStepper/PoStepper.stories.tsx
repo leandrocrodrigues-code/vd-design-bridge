@@ -4,7 +4,7 @@ import { PoStepper } from './PoStepper';
 const steps = [{ label: 'Label' }, { label: 'Label' }, { label: 'Label' }];
 
 const meta = {
-  title: 'POUi/Stepper',
+  title: 'Componentes/POUi/Stepper',
   component: PoStepper,
   tags: ['autodocs'],
   parameters: {

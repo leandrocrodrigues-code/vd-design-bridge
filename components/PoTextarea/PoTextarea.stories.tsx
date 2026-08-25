@@ -15,7 +15,7 @@ estava validada.
 `;
 
 const meta = {
-  title: 'POUi/Textarea',
+  title: 'Componentes/POUi/Textarea',
   component: PoTextarea,
   tags: ['autodocs'],
   parameters: {

@@ -15,7 +15,7 @@ Doc oficial: https://po-ui.io/documentation/po-modal
 `;
 
 const meta = {
-  title: 'POUi/Modal (Template)',
+  title: 'Componentes/POUi/Modal (Template)',
   component: PoModalTemplate,
   tags: ['autodocs'],
   parameters: {

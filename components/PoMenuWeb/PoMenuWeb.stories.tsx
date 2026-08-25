@@ -50,7 +50,7 @@ const groups: PoMenuWebGroup[] = [
 ];
 
 const meta = {
-  title: 'POUi/Menu (Web)',
+  title: 'Componentes/POUi/Menu (Web)',
   component: PoMenuWeb,
   tags: ['autodocs'],
   parameters: {

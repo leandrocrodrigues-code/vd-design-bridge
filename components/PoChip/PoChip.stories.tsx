@@ -15,7 +15,7 @@ Active → bg \`surface/brand/container\` + borda 1px \`surface/brand/pure\`.
 `;
 
 const meta = {
-  title: 'POUi/Chips (extensão)',
+  title: 'Componentes/POUi/Chips (extensão)',
   component: PoChip,
   tags: ['autodocs'],
   parameters: {

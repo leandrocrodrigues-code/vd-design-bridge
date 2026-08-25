@@ -17,7 +17,7 @@ Cor confirmada: bg \`surface/inverse\` #121212 a 90% de opacidade, texto
 `;
 
 const meta = {
-  title: 'POUi/Tooltip (extensão)',
+  title: 'Componentes/POUi/Tooltip (extensão)',
   component: PoTooltip,
   tags: ['autodocs'],
   parameters: {

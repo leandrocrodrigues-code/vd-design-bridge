@@ -17,7 +17,7 @@ web, mais simples.
 `;
 
 const meta = {
-  title: 'POUi/Top Bar (Web)',
+  title: 'Componentes/POUi/Top Bar (Web)',
   component: PoTopBarWeb,
   tags: ['autodocs'],
   parameters: {

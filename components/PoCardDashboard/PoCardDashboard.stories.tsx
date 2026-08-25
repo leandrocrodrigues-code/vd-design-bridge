@@ -14,7 +14,7 @@ de apoio com valor de variação.
 `;
 
 const meta = {
-  title: 'POUi/Cards/Dashboard',
+  title: 'Componentes/POUi/Cards/Dashboard',
   component: PoCardDashboard,
   tags: ['autodocs'],
   parameters: {

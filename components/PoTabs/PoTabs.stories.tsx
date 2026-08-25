@@ -9,7 +9,7 @@ const items = [
 ];
 
 const meta = {
-  title: 'POUi/Tabs',
+  title: 'Componentes/POUi/Tabs',
   component: PoTabs,
   tags: ['autodocs'],
   parameters: {
