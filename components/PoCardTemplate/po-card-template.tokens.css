@@ -1,0 +1,44 @@
+/**
+ * Card Template — sem tokens `po-*` oficiais (ver nota em
+ * PoCardTemplate.tsx). Cores das zonas (rosa/ciano/vermelho) refletem
+ * as guias visuais do próprio Figma (não é paleta de produto).
+ */
+
+.vd-po-card-template {
+  display: flex;
+  flex-direction: column;
+  gap: 12px; /* Spacing/XSM */
+  width: 280px;
+  padding: 16px; /* Spacing/SM */
+  border-radius: 12px; /* Corner radius/2XSM */
+  background-color: var(--vd-color-surface-card);
+  font-family: 'Lato', sans-serif;
+  box-sizing: border-box;
+}
+
+.vd-po-card-template__zone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px dashed;
+  font-size: 13px;
+  min-height: 32px;
+}
+
+.vd-po-card-template__zone--header {
+  border-color: #ff2fa0;
+  background-color: #fce8f5;
+  color: #ff2fa0;
+}
+.vd-po-card-template__zone--content {
+  border-color: #00a3b4;
+  background-color: #e5f6f8;
+  color: #00a3b4;
+}
+.vd-po-card-template__zone--action {
+  border-color: var(--vd-color-feedback-alert-pure);
+  background-color: var(--vd-color-feedback-alert-container);
+  color: var(--vd-color-feedback-alert-highlight);
+}

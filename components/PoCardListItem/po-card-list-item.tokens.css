@@ -1,0 +1,41 @@
+/**
+ * Card List Item — sem tokens `po-*` oficiais (ver nota em
+ * PoCardListItem.tsx).
+ */
+
+.vd-po-card-list-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px; /* Spacing/SM */
+  padding: 16px; /* Spacing/SM */
+  border-radius: 12px; /* Corner radius/2XSM */
+  background-color: var(--vd-color-surface-card);
+  font-family: 'Lato', sans-serif;
+}
+
+.vd-po-card-list-item__text {
+  display: flex;
+  flex-direction: column;
+}
+.vd-po-card-list-item__label {
+  font-size: 16px;
+  color: var(--vd-color-content-pure);
+}
+.vd-po-card-list-item__description {
+  font-size: 13px;
+  color: var(--vd-color-content-03);
+}
+
+.vd-po-card-list-item__tag {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px; /* Spacing/2XSM Spacing/SM */
+  border-radius: 500px;
+  border: 1px solid var(--vd-color-surface-container);
+  background-color: var(--vd-color-surface-pure);
+  color: var(--vd-color-content-pure);
+  font-size: 13px;
+}

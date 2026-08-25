@@ -1,0 +1,50 @@
+/**
+ * Card Copy — sem tokens `po-*` oficiais (ver nota em PoCardCopy.tsx).
+ */
+
+.vd-po-card-copy {
+  display: flex;
+  align-items: center;
+  gap: 16px; /* Spacing/SM */
+  padding: 16px; /* Spacing/SM */
+  border-radius: 12px; /* Corner radius/2XSM */
+  background-color: var(--vd-color-surface-card);
+  font-family: 'Lato', sans-serif;
+}
+
+.vd-po-card-copy__text {
+  display: flex;
+  flex-direction: column;
+}
+.vd-po-card-copy__overline {
+  font-size: 12px;
+  color: var(--vd-color-content-03);
+}
+.vd-po-card-copy__value {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--vd-color-surface-brand-highlight);
+}
+
+.vd-po-card-copy__button {
+  all: unset;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px; /* Spacing/2XSM */
+  padding: 8px 16px; /* Spacing/2XSM Spacing/SM */
+  border-radius: 500px;
+  background-color: var(--vd-color-surface-brand-container);
+  color: var(--vd-color-surface-brand-highlight);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.vd-po-card-copy__button[data-copied='true'] {
+  background-color: var(--vd-color-feedback-success-container);
+  color: var(--vd-color-feedback-success-highlight);
+}
+.vd-po-card-copy__button:focus-visible {
+  outline: 2px solid var(--vd-color-surface-brand-highlight);
+  outline-offset: 2px;
+}

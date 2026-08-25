@@ -1,0 +1,96 @@
+/**
+ * Card Status — sem tokens `po-*` oficiais (não é componente nativo,
+ * ver nota em PoCardStatus.tsx). Valores usam --vd-color-* diretamente.
+ */
+
+.vd-po-card-status {
+  display: flex;
+  align-items: center;
+  gap: 12px; /* Spacing/XSM */
+  width: 320px;
+  padding: 16px; /* Spacing/SM */
+  border-radius: 12px; /* Corner radius/2XSM */
+  border: 1px solid transparent;
+  background-color: var(--vd-color-surface-card);
+  font-family: 'Lato', sans-serif;
+  box-sizing: border-box;
+}
+
+.vd-po-card-status__icon {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--vd-color-surface-container);
+  color: var(--vd-color-content-pure);
+}
+
+.vd-po-card-status__text {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+.vd-po-card-status__overline {
+  font-size: 12px;
+  color: var(--vd-color-content-03);
+}
+.vd-po-card-status__label {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--vd-color-content-pure);
+}
+
+.vd-po-card-status__track {
+  flex: 1;
+  height: 4px;
+  border-radius: 4px;
+  background-color: var(--vd-color-surface-container);
+  overflow: hidden;
+}
+.vd-po-card-status__fill {
+  height: 100%;
+  background-color: var(--vd-color-content-pure);
+  border-radius: 4px;
+}
+
+/* ---------- Tons ---------- */
+.vd-po-card-status[data-tone='informative'] .vd-po-card-status__icon,
+.vd-po-card-status[data-tone='informative'] .vd-po-card-status__label,
+.vd-po-card-status[data-tone='informative'] .vd-po-card-status__fill { color: var(--vd-color-feedback-informative-pure); background-color: var(--vd-color-feedback-informative-pure); }
+.vd-po-card-status[data-tone='informative'] .vd-po-card-status__label { background: none; color: var(--vd-color-feedback-informative-highlight); }
+.vd-po-card-status[data-tone='informative'] .vd-po-card-status__icon { background-color: var(--vd-color-feedback-informative-container); color: var(--vd-color-feedback-informative-highlight); }
+
+.vd-po-card-status[data-tone='brand'] .vd-po-card-status__fill { background-color: var(--vd-color-surface-brand-pure); }
+.vd-po-card-status[data-tone='brand'] .vd-po-card-status__label { color: var(--vd-color-surface-brand-highlight); }
+.vd-po-card-status[data-tone='brand'] .vd-po-card-status__icon { background-color: var(--vd-color-surface-brand-container); color: var(--vd-color-surface-brand-highlight); }
+
+.vd-po-card-status[data-tone='success'] .vd-po-card-status__fill { background-color: var(--vd-color-feedback-success-pure); }
+.vd-po-card-status[data-tone='success'] .vd-po-card-status__label { color: var(--vd-color-feedback-success-highlight); }
+.vd-po-card-status[data-tone='success'] .vd-po-card-status__icon { background-color: var(--vd-color-feedback-success-container); color: var(--vd-color-feedback-success-highlight); }
+
+.vd-po-card-status[data-tone='warning'] .vd-po-card-status__fill { background-color: var(--vd-color-feedback-warning-pure); }
+.vd-po-card-status[data-tone='warning'] .vd-po-card-status__label { color: var(--vd-color-feedback-warning-highlight); }
+.vd-po-card-status[data-tone='warning'] .vd-po-card-status__icon { background-color: var(--vd-color-feedback-warning-container); color: var(--vd-color-feedback-warning-highlight); }
+
+.vd-po-card-status[data-tone='alert'] .vd-po-card-status__fill { background-color: var(--vd-color-feedback-alert-pure); }
+.vd-po-card-status[data-tone='alert'] .vd-po-card-status__label { color: var(--vd-color-feedback-alert-highlight); }
+.vd-po-card-status[data-tone='alert'] .vd-po-card-status__icon { background-color: var(--vd-color-feedback-alert-container); color: var(--vd-color-feedback-alert-highlight); }
+
+/* ---------- Ênfase ---------- */
+.vd-po-card-status[data-emphasis='tint'] { background-color: var(--vd-color-surface-container); }
+.vd-po-card-status[data-tone='informative'][data-emphasis='tint'] { background-color: var(--vd-color-feedback-informative-container); }
+.vd-po-card-status[data-tone='brand'][data-emphasis='tint'] { background-color: var(--vd-color-surface-brand-container); }
+.vd-po-card-status[data-tone='success'][data-emphasis='tint'] { background-color: var(--vd-color-feedback-success-container); }
+.vd-po-card-status[data-tone='warning'][data-emphasis='tint'] { background-color: var(--vd-color-feedback-warning-container); }
+.vd-po-card-status[data-tone='alert'][data-emphasis='tint'] { background-color: var(--vd-color-feedback-alert-container); }
+
+.vd-po-card-status[data-emphasis='selected'] { border-color: var(--vd-color-content-pure); }
+.vd-po-card-status[data-tone='informative'][data-emphasis='selected'] { border-color: var(--vd-color-feedback-informative-pure); background-color: var(--vd-color-feedback-informative-container); }
+.vd-po-card-status[data-tone='brand'][data-emphasis='selected'] { border-color: var(--vd-color-surface-brand-pure); background-color: var(--vd-color-surface-brand-container); }
+.vd-po-card-status[data-tone='success'][data-emphasis='selected'] { border-color: var(--vd-color-feedback-success-pure); background-color: var(--vd-color-feedback-success-container); }
+.vd-po-card-status[data-tone='warning'][data-emphasis='selected'] { border-color: var(--vd-color-feedback-warning-pure); background-color: var(--vd-color-feedback-warning-container); }
+.vd-po-card-status[data-tone='alert'][data-emphasis='selected'] { border-color: var(--vd-color-feedback-alert-pure); background-color: var(--vd-color-feedback-alert-container); }
