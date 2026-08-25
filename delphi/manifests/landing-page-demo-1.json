@@ -1,0 +1,120 @@
+{
+  "$schema": "vd-design-bridge/delphi-screen-manifest/v1",
+  "generatedAt": "2026-08-25",
+  "source": {
+    "figmaFileKey": "LO37QXwojd3vklS4R2mGqJ",
+    "figmaFile": "MCP Design System V&D - UI KIT Desktop Versão Beta",
+    "nodeId": "20545:43164",
+    "nodeName": "Landing page demo 1",
+    "figmaUrl": "https://www.figma.com/design/LO37QXwojd3vklS4R2mGqJ/MCP-Design-System-V-D---UI-KIT-Desktop-Vers%C3%A3o-Beta?node-id=20545-43164"
+  },
+  "screen": {
+    "name": "Landing page demo 1",
+    "width": 1024,
+    "height": 704,
+    "note": "Mesma tela já reconstruída em React/POUi em Templates POUi/Dashboard Financeiro e Construtor de Template ao Vivo neste Storybook — use como referência visual: https://leandrocrodrigues-code.github.io/vd-design-bridge/"
+  },
+  "elements": [
+    {
+      "figmaNodeId": "20545:43165",
+      "figmaName": "Top Bar (Wallpaper Delphi)",
+      "role": "header",
+      "position": { "x": 0, "y": 0 },
+      "size": { "width": 1024, "height": 48 },
+      "delphiComponent": null,
+      "delphiNote": "Sem componente Delphi próprio ainda no catálogo (só TWTButton e TWTCheckBox existem hoje). Referência visual: Componentes/POUi/Top Bar, variante 'Top Bar (Wallpaper Delphi)' no Storybook — é a barra real usada em telas desktop Delphi/TOTVS (logo + versão + ações + controles de janela).",
+      "pouiReference": "PoTopBar (Componentes/POUi/Top Bar)"
+    },
+    {
+      "figmaNodeId": "20545:43167",
+      "figmaName": "Hero",
+      "role": "page-header",
+      "position": { "x": 0, "y": 48 },
+      "size": { "width": 1024, "height": 82 },
+      "delphiComponent": null,
+      "delphiNote": "Sem componente Delphi. Composição (não é um único componente nem em POUi): botão voltar + título + busca + tag + toggle + botões secundário/primário.",
+      "pouiReference": "PoHero (Componentes/POUi/Hero (composição))"
+    },
+    {
+      "figmaNodeId": "20545:43169",
+      "figmaName": "Tabs",
+      "role": "navigation",
+      "position": { "x": 20, "y": 154 },
+      "size": { "width": 804, "height": 40 },
+      "delphiComponent": null,
+      "delphiNote": "Sem componente Delphi.",
+      "pouiReference": "PoTabs (Componentes/POUi/Tabs)"
+    },
+    {
+      "figmaNodeId": "20545:43170",
+      "figmaName": "Filter",
+      "role": "action",
+      "position": { "x": 848, "y": 154 },
+      "size": { "width": 156, "height": 40 },
+      "delphiComponent": null,
+      "delphiNote": "PENDÊNCIA REAL — nenhum componente 'Filter' dedicado existe ainda, nem em Delphi nem em POUi neste catálogo. Nos templates React foi aproximado com um botão secundário genérico; não é o componente real. Não inventar — sinalizar antes de usar em produção.",
+      "pouiReference": null
+    },
+    {
+      "figmaNodeId": "20545:43171",
+      "figmaName": "Card Status (x4: Brand, Success, Alert, Error)",
+      "role": "summary-cards",
+      "position": { "x": 20, "y": 170 },
+      "size": { "width": 984, "height": 92 },
+      "itemSize": { "width": 240, "height": 92 },
+      "itemCount": 4,
+      "delphiComponent": null,
+      "delphiNote": "Sem componente Delphi. Tons confirmados: brand (selecionado/outline), success, warning (rotulado 'Alert' no Figma), alert (rotulado 'Error' no Figma).",
+      "pouiReference": "PoCardStatus (Componentes/POUi/Cards/Status)"
+    },
+    {
+      "figmaNodeId": "20545:43177",
+      "figmaName": "Action Bar",
+      "role": "toolbar",
+      "position": { "x": 20, "y": 286 },
+      "size": { "width": 984, "height": 32 },
+      "delphiComponent": null,
+      "delphiNote": "Sem componente Delphi. Composição: busca + filtro + botão primário.",
+      "pouiReference": "PoActionBar (Componentes/POUi/Action Bar (composição))"
+    },
+    {
+      "figmaNodeId": "20545:43178",
+      "figmaName": "Table (Grid)",
+      "role": "data-table",
+      "position": { "x": 20, "y": 334 },
+      "size": { "width": 984, "height": 306 },
+      "columns": [
+        { "figmaName": "Antecipação", "width": 126 },
+        { "figmaName": "Filial", "width": 105 },
+        { "figmaName": "CNPJ", "width": 173, "hidden": true },
+        { "figmaName": "Cliente", "width": 120 },
+        { "figmaName": "Limite", "width": 137 },
+        { "figmaName": "Solicitação", "width": 126 },
+        { "figmaName": "Limite", "width": 173 },
+        { "figmaName": "Limite", "width": 158, "hidden": true },
+        { "figmaName": "Limite", "width": 78 }
+      ],
+      "delphiComponent": null,
+      "delphiNote": "Sem componente Delphi. Coluna 'Status' no exemplo real usa tag colorida por linha — o PoTable atual (React) só aceita texto puro por célula ainda, não ReactNode/tag.",
+      "pouiReference": "PoTable (Componentes/POUi/Table (Grid))"
+    }
+  ],
+  "gaps": [
+    {
+      "element": "Filter",
+      "issue": "Nenhum componente Filter dedicado no catálogo (nem Delphi, nem POUi deste repo).",
+      "recommendation": "Antes de usar em tela real: perguntar/confirmar o componente Angular oficial (po-*) correspondente na doc po-ui.io, e só então implementar — não aproximar com botão genérico em produção."
+    },
+    {
+      "element": "Table (Grid) — coluna Status",
+      "issue": "PoTable (implementação React deste repo) não aceita célula rica (tag colorida), só texto.",
+      "recommendation": "Extensão futura do componente PoTable pra aceitar ReactNode por célula, documentada como tal."
+    }
+  ],
+  "references": {
+    "storybook": "https://leandrocrodrigues-code.github.io/vd-design-bridge/",
+    "repo": "https://github.com/leandrocrodrigues-code/vd-design-bridge",
+    "reconstructedTemplate": "Templates POUi/Dashboard Financeiro",
+    "liveBuilder": "Construtor de Template ao Vivo/Dashboard Financeiro"
+  }
+}
