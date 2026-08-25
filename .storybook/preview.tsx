@@ -74,6 +74,11 @@ const preview: Preview = {
         date: /Date$/i,
       },
     },
+    options: {
+      storySort: {
+        order: ['Guia de Uso', 'Fundamentals', 'Delphi', 'POUi'],
+      },
+    },
   },
 };
 
