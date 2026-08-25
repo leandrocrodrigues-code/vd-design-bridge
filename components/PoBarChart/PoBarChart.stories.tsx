@@ -22,6 +22,8 @@ Paleta: 5 cores confirmadas visualmente no PDF (Color 01-05), mapeadas
 pros tokens de feedback existentes (\`--vd-color-feedback-*\`) + brand
 pure. O doc menciona 14 cores de gráfico no total ("incluindo as
 definidas para feedback") — as 9 restantes não foram confirmadas.
+
+**Doc PO-UI:** https://po-ui.io — não há uma página específica pra este componente (composição própria, sem \`po-*\` direto).
 `;
 
 const items = [

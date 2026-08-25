@@ -29,6 +29,8 @@ Os ícones (voltar, notificação, menu contextual, controles de janela)
 foram recriados como SVG inline aproximando o visual do Figma — os
 assets originais exportados (Stack, Bell, DotsThreeVertical, Browser, X)
 não foram baixados byte-a-byte nesta rodada.
+
+**Doc PO-UI:** https://po-ui.io — não há uma página específica pra este componente (composição própria, sem \`po-*\` direto).
 `;
 
 const meta = {

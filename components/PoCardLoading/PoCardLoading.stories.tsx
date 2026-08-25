@@ -8,6 +8,8 @@ Preview do **Card Loading** com os tokens do Design System V&D.
 progresso genérico: título + subtítulo, percentual + fechar, progress bar.
 
 **Não é um componente \`po-*\`** — sem equivalente na PO-UI.
+
+**Doc PO-UI:** https://po-ui.io — não há uma página específica pra este componente (composição própria, sem \`po-*\` direto).
 `;
 
 const meta = {

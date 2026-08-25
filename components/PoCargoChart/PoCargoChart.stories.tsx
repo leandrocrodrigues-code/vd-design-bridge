@@ -21,6 +21,8 @@ simplificado — não é o asset original exportado.
 Cor por faixa de ocupação, confirmada no PDF: 100% = \`feedback/success\`,
 60-80% = \`feedback/informative\`, 20-40% = \`feedback/warning\`, 0% =
 \`surface/container\` (cinza/vazio).
+
+**Doc PO-UI:** https://po-ui.io — não há uma página específica pra este componente (composição própria, sem \`po-*\` direto).
 `;
 
 const items = [

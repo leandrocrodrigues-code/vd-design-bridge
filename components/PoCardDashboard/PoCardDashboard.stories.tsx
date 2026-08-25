@@ -9,6 +9,8 @@ Preview do **Card Dashboard** com os tokens do Design System V&D.
 de apoio com valor de variação.
 
 **Não é um componente \`po-*\`** — sem equivalente na PO-UI.
+
+**Doc PO-UI:** https://po-ui.io — não há uma página específica pra este componente (composição própria, sem \`po-*\` direto).
 `;
 
 const meta = {

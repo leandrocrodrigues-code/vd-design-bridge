@@ -14,6 +14,8 @@ tonalidades × 3 níveis de ênfase (subtle/tint/selected).
 a doc oficial não lista esse componente). Tag "Component / Core" no
 Figma indica que é peça fundamental do Design System V&D, não um
 wrapper de biblioteca externa.
+
+**Doc PO-UI:** https://po-ui.io — não há uma página específica pra este componente (composição própria, sem \`po-*\` direto).
 `;
 
 const meta = {

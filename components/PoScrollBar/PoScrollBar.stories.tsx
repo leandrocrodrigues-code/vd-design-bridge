@@ -10,7 +10,7 @@ const meta = {
     docs: {
       description: {
         component:
-          '⚠️ Não é componente Angular da PO-UI — scrollbar costuma ser nativa do navegador. Preview espelha a especificação visual do Figma (node `10993:47825`, página "Scroll Bar ✅ New!") como referência (ex. `::-webkit-scrollbar`).',
+          '⚠️ Não é componente Angular da PO-UI — scrollbar costuma ser nativa do navegador. Preview espelha a especificação visual do Figma (node `10993:47825`, página "Scroll Bar ✅ New!") como referência (ex. `::-webkit-scrollbar`). **Doc PO-UI:** https://po-ui.io — nenhuma página específica corresponde a este componente.',
       },
     },
   },

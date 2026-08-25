@@ -8,6 +8,8 @@ Preview do **Card Invoice** com os tokens do Design System V&D.
 topo + lista de pares Overline/Label. 5 tonalidades confirmadas no PDF.
 
 **Não é um componente \`po-*\`** — sem equivalente na PO-UI.
+
+**Doc PO-UI:** https://po-ui.io — não há uma página específica pra este componente (composição própria, sem \`po-*\` direto).
 `;
 
 const meta = {

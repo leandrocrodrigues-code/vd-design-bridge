@@ -9,6 +9,8 @@ colorido + Overline/Label + valor com indicador de tendência (seta pra
 cima/baixo). 5 tonalidades × 2 níveis de ênfase.
 
 **Não é um componente \`po-*\`** — sem equivalente na PO-UI.
+
+**Doc PO-UI:** https://po-ui.io — não há uma página específica pra este componente (composição própria, sem \`po-*\` direto).
 `;
 
 const meta = {

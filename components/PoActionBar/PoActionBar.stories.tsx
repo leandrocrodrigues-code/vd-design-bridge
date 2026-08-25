@@ -10,7 +10,7 @@ const meta = {
     docs: {
       description: {
         component:
-          '⚠️ Composição de po-button (ícone) + po-button (primário) — não é `po-action-bar`. Figma node `12198:51636`, página "Action Bar ✅".',
+          '⚠️ Composição de po-button (ícone) + po-button (primário) — não é `po-action-bar`. Figma node `12198:51636`, página "Action Bar ✅". **Doc PO-UI:** https://po-ui.io/documentation/po-button (componente reaproveitado internamente).',
       },
     },
   },

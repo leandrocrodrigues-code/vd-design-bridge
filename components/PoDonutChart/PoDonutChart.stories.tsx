@@ -17,6 +17,8 @@ não SVG/canvas real — sem animação de entrada nem tooltip por fatia).
 
 Mesma paleta de 5 cores do Bar Chart (Color 01-05 → tokens de feedback +
 brand pure).
+
+**Doc PO-UI:** https://po-ui.io — não há uma página específica pra este componente (composição própria, sem \`po-*\` direto).
 `;
 
 const items = [
