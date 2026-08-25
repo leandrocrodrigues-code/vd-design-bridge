@@ -227,7 +227,7 @@ Object.entries(vars).forEach(([key, value]) => {
 }
 
 const meta = {
-  title: 'Fundamentals/Guia de Uso',
+  title: 'Guia de Uso',
   tags: ['autodocs'],
   parameters: {
     layout: 'padded',
