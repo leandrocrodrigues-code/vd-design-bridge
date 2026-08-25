@@ -12,9 +12,10 @@ card \`surface/pure\`, radius 12px, sombra \`0 6px 16px rgba(0,0,0,.08)\`,
 
 ⚠️ **Pendência**: os outros 7 Type do Figma (Brand/Neutral/Informative/
 Warning/Alert/Processing/Date Success) seguem o padrão de cor por
-analogia — só Success foi lido nó a nó. **Modal Progress** e **Modal
-Template** (as outras 2 variantes do Figma) não foram implementados
-nesta rodada.
+analogia — só Success foi lido nó a nó.
+
+As outras 2 variantes do Figma já estão implementadas: **Modal
+(Progress)** e **Modal (Template)**, cada uma com sua própria story.
 
 Doc oficial: https://po-ui.io/documentation/po-modal
 `;

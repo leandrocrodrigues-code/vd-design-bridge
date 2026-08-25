@@ -1,0 +1,175 @@
+/**
+ * Menu (Web) — sem tokens `po-*` oficiais (ver nota em PoMenuWeb.tsx).
+ * Fundo `surface/brand/highlight` (#1E3DA1) em toda a trilha + painel,
+ * item ativo `surface/brand/pure` (ciano) na trilha e no grupo expandido
+ * (azul mais escuro), fonte: PDF Componentespdf/menu web/Menu (Web).pdf
+ * — página marcada 🚧 no Figma.
+ */
+
+.vd-po-menu-web {
+  display: flex;
+  height: 640px;
+  font-family: 'Lato', sans-serif;
+  box-sizing: border-box;
+}
+
+.vd-po-menu-web__rail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px; /* Spacing/2XSM */
+  width: 64px;
+  flex-shrink: 0;
+  padding: 20px 0;
+  background-color: var(--vd-color-surface-brand-highlight);
+}
+
+.vd-po-menu-web__logo {
+  display: flex;
+  margin-bottom: 24px; /* Spacing/MD */
+  color: var(--vd-color-content-inverse);
+}
+.vd-po-menu-web__logo-placeholder {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-color: var(--vd-color-content-inverse);
+}
+
+.vd-po-menu-web__nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px; /* Spacing/2XSM */
+  flex: 1;
+}
+
+.vd-po-menu-web__nav-item {
+  all: unset;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  color: var(--vd-color-content-inverse);
+  cursor: pointer;
+}
+.vd-po-menu-web__nav-item[data-active='true'] {
+  background-color: var(--vd-color-surface-brand-pure);
+  color: var(--vd-color-content-on-brand);
+}
+.vd-po-menu-web__settings {
+  margin-top: auto;
+}
+
+.vd-po-menu-web__panel {
+  display: flex;
+  flex-direction: column;
+  width: 296px;
+  padding: 24px 20px; /* Spacing/MD Spacing/SM */
+  background-color: var(--vd-color-surface-brand-highlight);
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+.vd-po-menu-web__panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px; /* Spacing/MD */
+}
+.vd-po-menu-web__title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--vd-color-content-inverse);
+}
+.vd-po-menu-web__collapse {
+  all: unset;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-color: var(--vd-color-surface-brand-pure);
+  color: var(--vd-color-content-on-brand);
+  cursor: pointer;
+}
+
+.vd-po-menu-web__section-label {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--vd-color-content-inverse);
+}
+
+.vd-po-menu-web__quick-access {
+  display: flex;
+  flex-direction: column;
+  gap: 12px; /* Spacing/XSM */
+  margin-bottom: 20px; /* Spacing/MD */
+}
+.vd-po-menu-web__quick-button {
+  all: unset;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px; /* Spacing/XSM Spacing/SM */
+  border-radius: 8px;
+  background-color: var(--vd-color-surface-brand-container);
+  color: var(--vd-color-content-inverse);
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.vd-po-menu-web__divider {
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.2);
+  margin-bottom: 20px; /* Spacing/MD */
+}
+
+.vd-po-menu-web__groups {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Spacing/MD */
+}
+
+.vd-po-menu-web__group-header {
+  all: unset;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  cursor: pointer;
+  color: var(--vd-color-content-inverse);
+}
+
+.vd-po-menu-web__group-items {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 12px; /* Spacing/XSM */
+}
+.vd-po-menu-web__group-item {
+  all: unset;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Spacing/2XSM */
+  padding: 12px 16px; /* Spacing/XSM Spacing/SM */
+  border-radius: 8px;
+  color: var(--vd-color-content-inverse);
+  font-size: 15px;
+  cursor: pointer;
+}
+.vd-po-menu-web__group-item[data-active='true'] {
+  background-color: rgba(255, 255, 255, 0.16);
+  font-weight: 700;
+}
+.vd-po-menu-web__group-item-code {
+  opacity: 0.8;
+}

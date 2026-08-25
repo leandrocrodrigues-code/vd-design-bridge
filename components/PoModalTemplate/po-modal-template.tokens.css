@@ -1,0 +1,73 @@
+/**
+ * Modal Template — scaffold genérico, sem dados reais. Cores das zonas
+ * (rosa/ciano/vermelho) refletem as guias visuais do Figma, mesmo
+ * padrão de PoCardTemplate.
+ */
+
+.vd-po-modal-template-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(18, 18, 18, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+}
+
+.vd-po-modal-template {
+  position: relative;
+  width: 424px;
+  max-width: calc(100vw - 32px);
+  background: var(--vd-color-surface-pure);
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  padding: 24px; /* Spacing/MD */
+  display: flex;
+  flex-direction: column;
+  gap: 12px; /* Spacing/XSM */
+  font-family: 'Lato', sans-serif;
+  box-sizing: border-box;
+}
+
+.vd-po-modal-template__close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  color: var(--vd-color-surface-brand-highlight);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vd-po-modal-template__zone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px dashed;
+  font-size: 14px;
+  min-height: 40px;
+}
+.vd-po-modal-template__zone--header {
+  border-color: #ff2fa0;
+  background-color: #fce8f5;
+  color: #ff2fa0;
+  padding-right: 40px;
+}
+.vd-po-modal-template__zone--content {
+  border-color: #00a3b4;
+  background-color: #e5f6f8;
+  color: #00a3b4;
+}
+.vd-po-modal-template__zone--action {
+  border-color: var(--vd-color-feedback-alert-pure);
+  background-color: var(--vd-color-feedback-alert-container);
+  color: var(--vd-color-feedback-alert-highlight);
+}

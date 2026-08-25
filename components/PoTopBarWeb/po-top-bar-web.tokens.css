@@ -1,0 +1,80 @@
+/**
+ * Top Bar (Web) — sem tokens `po-*` oficiais (ver nota em
+ * PoTopBarWeb.tsx). Fonte: PDF Componentespdf/menu web/topbar web/
+ * Top Bar (Web).pdf — página marcada 🚧 no Figma.
+ */
+
+.vd-po-top-bar-web {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px; /* Spacing/SM Spacing/MD */
+  background-color: var(--vd-color-surface-pure);
+  border-bottom: 1px solid var(--vd-color-surface-container);
+  font-family: 'Lato', sans-serif;
+  box-sizing: border-box;
+}
+
+.vd-po-top-bar-web__leading {
+  display: flex;
+  align-items: center;
+  gap: 16px; /* Spacing/SM */
+}
+
+.vd-po-top-bar-web__logo-placeholder {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background-color: var(--vd-color-surface-container);
+}
+
+.vd-po-top-bar-web__label {
+  font-size: 16px;
+  color: var(--vd-color-content-pure);
+}
+
+.vd-po-top-bar-web__trailing {
+  display: flex;
+  align-items: center;
+  gap: 16px; /* Spacing/SM */
+}
+
+.vd-po-top-bar-web__icon-button {
+  all: unset;
+  box-sizing: border-box;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  color: var(--vd-color-surface-brand-highlight);
+  cursor: pointer;
+}
+
+.vd-po-top-bar-web__badge {
+  position: absolute;
+  top: 2px;
+  right: 4px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--vd-color-feedback-alert-pure);
+  border: 1.5px solid var(--vd-color-surface-pure);
+}
+
+.vd-po-top-bar-web__avatar {
+  all: unset;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: var(--vd-color-surface-brand-container);
+  color: var(--vd-color-surface-brand-highlight);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
