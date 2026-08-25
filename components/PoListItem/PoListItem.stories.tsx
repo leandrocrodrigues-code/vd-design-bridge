@@ -11,8 +11,9 @@ especificação visual de cada linha, não um componente Angular avulso.
 Este representa uma linha isolada e reaproveitável.
 
 5 Action confirmadas: List item, Checkbox Select, Radio Select, Toggle
-(Switch), Buttons Group (esse último fica de fora — já tem componente
-próprio, PoButtonsGroup).
+(Switch), Buttons Group. As 4 primeiras via prop \`action\`; Buttons
+Group via \`trailingTags\` (extensão V&D — tags antes do chevron, ver
+PDF \`Componentespdf/list/List Item.pdf\`).
 
 Doc oficial: https://po-ui.io/documentation/po-list-view
 `;
@@ -44,7 +45,7 @@ export const Actions: Story = {
       <PoListItem {...args} action="checkbox" />
       <PoListItem {...args} action="radio" />
       <PoListItem {...args} action="toggle" checked />
-      <PoListItem {...args} action="chevron" divider={false} />
+      <PoListItem {...args} action="chevron" trailingTags={['Label', 'Label']} divider={false} />
     </div>
   ),
 };
