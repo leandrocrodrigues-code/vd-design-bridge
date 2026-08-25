@@ -1,0 +1,93 @@
+/**
+ * Donut Chart — sem tokens `po-*` oficiais (não é componente nativo da
+ * PO-UI, ver nota de divergência em PoDonutChart.tsx).
+ */
+
+.vd-po-donut-chart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px; /* Spacing/SM */
+  width: 100%;
+  max-width: 280px;
+  padding: 16px; /* Spacing/SM */
+  border: 1px solid var(--vd-color-surface-container);
+  border-radius: 12px; /* Corner radius/2XSM */
+  background-color: var(--vd-color-surface-pure);
+  font-family: 'Lato', sans-serif;
+  box-sizing: border-box;
+}
+
+.vd-po-donut-chart__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.vd-po-donut-chart__title {
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--vd-color-content-pure);
+}
+.vd-po-donut-chart__label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--vd-color-surface-brand-highlight);
+  background-color: var(--vd-color-surface-brand-container);
+  padding: 4px 8px;
+  border-radius: 500px;
+}
+
+.vd-po-donut-chart__ring {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.vd-po-donut-chart__ring::before {
+  content: '';
+  position: absolute;
+  inset: 18px;
+  border-radius: 50%;
+  background-color: var(--vd-color-surface-pure);
+}
+
+.vd-po-donut-chart__center {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.vd-po-donut-chart__total {
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--vd-color-content-pure);
+}
+.vd-po-donut-chart__caption {
+  font-size: 11px;
+  color: var(--vd-color-content-03);
+}
+
+.vd-po-donut-chart__legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px; /* Spacing/XSM */
+}
+.vd-po-donut-chart__legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: var(--vd-color-content-03);
+}
+.vd-po-donut-chart__legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
