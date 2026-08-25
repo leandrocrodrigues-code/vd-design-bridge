@@ -1,0 +1,103 @@
+/**
+ * Card Value — sem tokens `po-*` oficiais (ver nota em PoCardValue.tsx).
+ */
+
+.vd-po-card-value {
+  display: flex;
+  flex-direction: column;
+  gap: 12px; /* Spacing/XSM */
+  width: 280px;
+  padding: 16px; /* Spacing/SM */
+  border-radius: 12px; /* Corner radius/2XSM */
+  background-color: var(--vd-color-surface-card);
+  font-family: 'Lato', sans-serif;
+  box-sizing: border-box;
+}
+
+.vd-po-card-value__overline {
+  display: block;
+  font-size: 12px;
+  color: var(--vd-color-content-03);
+}
+.vd-po-card-value__big-value {
+  display: block;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--vd-color-content-pure);
+}
+
+/* ---------- simple ---------- */
+.vd-po-card-value__simple-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+.vd-po-card-value__tag {
+  padding: 6px 12px;
+  border-radius: 500px;
+  background-color: var(--vd-color-surface-pure);
+  color: var(--vd-color-content-pure);
+  font-size: 13px;
+}
+.vd-po-card-value__simple-row {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Spacing/2XSM */
+}
+
+.vd-po-card-value__chip-dot {
+  flex-shrink: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--vd-color-content-03);
+}
+.vd-po-card-value__chip-dot--success {
+  background-color: var(--vd-color-feedback-success-pure);
+}
+.vd-po-card-value__chip-text {
+  display: flex;
+  flex-direction: column;
+}
+.vd-po-card-value__chip-value {
+  font-size: 14px;
+  color: var(--vd-color-content-pure);
+}
+
+/* ---------- status ---------- */
+.vd-po-card-value--status {
+  gap: 16px; /* Spacing/SM */
+}
+.vd-po-card-value__status-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.vd-po-card-value__status-icon {
+  flex-shrink: 0;
+  display: flex;
+  color: var(--vd-color-feedback-success-highlight);
+}
+.vd-po-card-value--status[data-tone='warning'] .vd-po-card-value__status-icon { color: var(--vd-color-feedback-warning-highlight); }
+.vd-po-card-value--status[data-tone='alert'] .vd-po-card-value__status-icon { color: var(--vd-color-feedback-alert-highlight); }
+
+.vd-po-card-value--status[data-tone='success'] { background-color: var(--vd-color-feedback-success-container); }
+.vd-po-card-value--status[data-tone='warning'] { background-color: var(--vd-color-feedback-warning-container); }
+.vd-po-card-value--status[data-tone='alert'] { background-color: var(--vd-color-feedback-alert-container); }
+
+.vd-po-card-value__breakdown {
+  display: flex;
+  gap: 8px; /* Spacing/2XSM */
+}
+.vd-po-card-value__chip {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px; /* Spacing/2XSM */
+  padding: 8px 12px;
+  border-radius: 12px; /* Corner radius/2XSM */
+  background-color: var(--vd-color-surface-pure);
+}
+.vd-po-card-value__chip[data-tone='alert'] .vd-po-card-value__chip-dot { background-color: var(--vd-color-feedback-alert-pure); }
+.vd-po-card-value__chip[data-tone='success'] .vd-po-card-value__chip-dot { background-color: var(--vd-color-feedback-success-pure); }

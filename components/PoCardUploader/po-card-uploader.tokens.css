@@ -1,0 +1,179 @@
+/**
+ * Card Uploader — sem tokens `po-*` oficiais (ver nota em
+ * PoCardUploader.tsx).
+ */
+
+.vd-po-card-uploader {
+  display: flex;
+  flex-direction: column;
+  gap: 16px; /* Spacing/SM */
+  width: 360px;
+  font-family: 'Lato', sans-serif;
+  box-sizing: border-box;
+}
+
+.vd-po-card-uploader__dropzone {
+  display: flex;
+  align-items: center;
+  gap: 12px; /* Spacing/XSM */
+  padding: 16px; /* Spacing/SM */
+  border: 1.5px dashed var(--vd-color-surface-brand-pure);
+  border-radius: 12px; /* Corner radius/2XSM */
+  background-color: var(--vd-color-surface-card);
+}
+
+.vd-po-card-uploader__panel {
+  display: flex;
+  flex-direction: column;
+  gap: 12px; /* Spacing/XSM */
+  padding: 16px; /* Spacing/SM */
+  border-radius: 12px; /* Corner radius/2XSM */
+  background-color: var(--vd-color-surface-card);
+}
+.vd-po-card-uploader__panel--error {
+  border: 1px solid var(--vd-color-feedback-alert-pure);
+  background-color: var(--vd-color-feedback-alert-container);
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.vd-po-card-uploader__row {
+  display: flex;
+  align-items: center;
+  gap: 12px; /* Spacing/XSM */
+}
+
+.vd-po-card-uploader__icon {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.vd-po-card-uploader__icon--brand {
+  background-color: var(--vd-color-surface-brand-container);
+  color: var(--vd-color-surface-brand-highlight);
+}
+.vd-po-card-uploader__icon--alert {
+  background-color: var(--vd-color-feedback-alert-pure);
+  color: var(--vd-color-content-inverse);
+}
+
+.vd-po-card-uploader__title {
+  flex: 1;
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--vd-color-surface-brand-highlight);
+}
+.vd-po-card-uploader__title--alert {
+  color: var(--vd-color-feedback-alert-highlight);
+}
+
+.vd-po-card-uploader__hint {
+  margin: 4px 0 0;
+  font-size: 12px;
+  color: var(--vd-color-content-03);
+}
+
+.vd-po-card-uploader__close {
+  all: unset;
+  box-sizing: border-box;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--vd-color-surface-pure);
+  color: var(--vd-color-surface-brand-highlight);
+  cursor: pointer;
+}
+
+.vd-po-card-uploader__track {
+  height: 4px;
+  border-radius: 4px;
+  background-color: var(--vd-color-surface-container);
+  overflow: hidden;
+}
+.vd-po-card-uploader__fill {
+  height: 100%;
+  background-color: var(--vd-color-surface-brand-pure);
+}
+
+.vd-po-card-uploader__retry {
+  all: unset;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px; /* Spacing/2XSM Spacing/SM */
+  border-radius: 500px;
+  background-color: var(--vd-color-surface-pure);
+  color: var(--vd-color-surface-brand-highlight);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.vd-po-card-uploader__list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px; /* Spacing/2XSM */
+  padding: 16px; /* Spacing/SM */
+  border-radius: 12px; /* Corner radius/2XSM */
+  background-color: var(--vd-color-surface-card);
+}
+.vd-po-card-uploader__file {
+  display: flex;
+  align-items: center;
+  gap: 12px; /* Spacing/XSM */
+}
+.vd-po-card-uploader__file-text {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+.vd-po-card-uploader__file-name {
+  font-size: 14px;
+  color: var(--vd-color-content-pure);
+}
+.vd-po-card-uploader__file-meta {
+  font-size: 12px;
+  color: var(--vd-color-content-03);
+}
+
+.vd-po-card-uploader__delete {
+  all: unset;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--vd-color-feedback-alert-container);
+  color: var(--vd-color-feedback-alert-highlight);
+  cursor: pointer;
+}
+
+.vd-po-card-uploader__view {
+  all: unset;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px; /* Spacing/2XSM Spacing/SM */
+  border-radius: 500px;
+  background-color: var(--vd-color-surface-pure);
+  color: var(--vd-color-surface-brand-highlight);
+  font-size: 13px;
+  cursor: pointer;
+}

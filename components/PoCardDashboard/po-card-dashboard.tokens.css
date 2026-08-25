@@ -1,0 +1,73 @@
+/**
+ * Card Dashboard — sem tokens `po-*` oficiais (ver nota em
+ * PoCardDashboard.tsx).
+ */
+
+.vd-po-card-dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 8px; /* Spacing/2XSM */
+  width: 280px;
+  padding: 16px; /* Spacing/SM */
+  border-radius: 12px; /* Corner radius/2XSM */
+  background-color: var(--vd-color-surface-card);
+  font-family: 'Lato', sans-serif;
+  box-sizing: border-box;
+}
+
+.vd-po-card-dashboard__header {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Spacing/2XSM */
+}
+.vd-po-card-dashboard__icon {
+  display: flex;
+  color: var(--vd-color-surface-brand-highlight);
+}
+.vd-po-card-dashboard__label {
+  flex: 1;
+  font-size: 14px;
+  color: var(--vd-color-content-pure);
+}
+.vd-po-card-dashboard__menu {
+  all: unset;
+  box-sizing: border-box;
+  display: flex;
+  color: var(--vd-color-surface-brand-highlight);
+  cursor: pointer;
+}
+
+.vd-po-card-dashboard__value-row {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Spacing/2XSM */
+}
+.vd-po-card-dashboard__value {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--vd-color-content-pure);
+}
+.vd-po-card-dashboard__trend {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: 500px;
+  background-color: var(--vd-color-surface-pure);
+  color: var(--vd-color-feedback-success-highlight);
+  font-size: 12px;
+  font-weight: 700;
+}
+.vd-po-card-dashboard__trend[data-trend='down'] {
+  color: var(--vd-color-feedback-alert-highlight);
+}
+
+.vd-po-card-dashboard__supporting {
+  margin: 0;
+  font-size: 12px;
+  color: var(--vd-color-content-03);
+}
+.vd-po-card-dashboard__supporting-value {
+  font-weight: 700;
+  color: var(--vd-color-feedback-success-highlight);
+}

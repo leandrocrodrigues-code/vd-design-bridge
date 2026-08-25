@@ -1,0 +1,52 @@
+/**
+ * Card Invoice — sem tokens `po-*` oficiais (ver nota em PoCardInvoice.tsx).
+ */
+
+.vd-po-card-invoice {
+  display: flex;
+  flex-direction: column;
+  gap: 16px; /* Spacing/SM */
+  width: 260px;
+  padding: 16px; /* Spacing/SM */
+  border-radius: 12px; /* Corner radius/2XSM */
+  background-color: var(--vd-color-surface-card);
+  font-family: 'Lato', sans-serif;
+  box-sizing: border-box;
+}
+
+.vd-po-card-invoice__tag {
+  display: inline-flex;
+  align-self: flex-start;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px; /* Spacing/2XSM Spacing/XSM */
+  border-radius: 500px;
+  background-color: var(--vd-color-feedback-informative-container);
+  color: var(--vd-color-feedback-informative-highlight);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.vd-po-card-invoice__rows {
+  display: flex;
+  flex-direction: column;
+  gap: 12px; /* Spacing/XSM */
+}
+.vd-po-card-invoice__row {
+  display: flex;
+  flex-direction: column;
+}
+.vd-po-card-invoice__overline {
+  font-size: 12px;
+  color: var(--vd-color-content-03);
+}
+.vd-po-card-invoice__label {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--vd-color-content-pure);
+}
+
+.vd-po-card-invoice[data-tone='brand'] .vd-po-card-invoice__tag { background-color: var(--vd-color-surface-brand-container); color: var(--vd-color-surface-brand-highlight); }
+.vd-po-card-invoice[data-tone='success'] .vd-po-card-invoice__tag { background-color: var(--vd-color-feedback-success-container); color: var(--vd-color-feedback-success-highlight); }
+.vd-po-card-invoice[data-tone='warning'] .vd-po-card-invoice__tag { background-color: var(--vd-color-feedback-warning-container); color: var(--vd-color-feedback-warning-highlight); }
+.vd-po-card-invoice[data-tone='alert'] .vd-po-card-invoice__tag { background-color: var(--vd-color-feedback-alert-container); color: var(--vd-color-feedback-alert-highlight); }
