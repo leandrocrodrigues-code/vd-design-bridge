@@ -19,6 +19,8 @@ wrapper fino em cima do \`PoButton\` existente.
 | \`Action Hierarchy=Left/Top\` | ordem normal do array \`actions\` |
 | \`Action Hierarchy=Right/Bottom\` | \`reverse\` |
 | \`Button width=Fill Container\` | \`width="fill"\` |
+
+**Doc PO-UI:** https://po-ui.io — não há uma página específica pra este componente (composição própria, sem \`po-*\` direto).
 `;
 
 const meta = {

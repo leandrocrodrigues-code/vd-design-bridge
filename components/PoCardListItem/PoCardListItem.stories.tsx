@@ -11,6 +11,8 @@ Diferente do já existente **PoListItem** (linha de tabela/lista densa,
 sem card próprio) — aqui é um bloco isolado com fundo e padding de card.
 
 **Não é um componente \`po-*\`** — sem equivalente na PO-UI.
+
+**Doc PO-UI:** https://po-ui.io — não há uma página específica pra este componente (composição própria, sem \`po-*\` direto).
 `;
 
 const meta = {

@@ -9,6 +9,8 @@ genérico de 3 zonas (Header/Content/Action) que os demais Cards seguem
 como base de composição — não é um card final com dados reais.
 
 **Não é um componente \`po-*\`** — sem equivalente na PO-UI.
+
+**Doc PO-UI:** https://po-ui.io — não há uma página específica pra este componente (composição própria, sem \`po-*\` direto).
 `;
 
 const meta = {

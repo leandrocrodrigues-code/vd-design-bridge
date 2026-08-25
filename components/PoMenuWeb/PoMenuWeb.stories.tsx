@@ -17,6 +17,8 @@ rápido", grupos colapsáveis de rotinas numeradas).
 não confirmado nó a nó (página 🚧 travava a leitura via MCP, extraída
 via PDF). Diferente do já existente [[PoSideMenu]] (lista simples, sem
 trilha de ícones nem grupos).
+
+**Doc PO-UI:** https://po-ui.io — não há uma página específica pra este componente (composição própria, sem \`po-*\` direto).
 `;
 
 const Icon = ({ d }: { d: string }) => (

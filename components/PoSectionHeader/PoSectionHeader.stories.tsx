@@ -10,7 +10,7 @@ const meta = {
     docs: {
       description: {
         component:
-          '⚠️ Não é um componente Angular único — é um padrão de composição (avatar + texto + botão), montado com po-avatar/po-button na implementação real. Figma node `12143:8089`, página "Section Header ✅ New!". Cores confirmadas nó a nó.',
+          '⚠️ Não é um componente Angular único — é um padrão de composição (avatar + texto + botão), montado com po-avatar/po-button na implementação real. Figma node `12143:8089`, página "Section Header ✅ New!". Cores confirmadas nó a nó. **Docs PO-UI:** https://po-ui.io/documentation/po-avatar e https://po-ui.io/documentation/po-button (componentes reaproveitados internamente).',
       },
     },
   },

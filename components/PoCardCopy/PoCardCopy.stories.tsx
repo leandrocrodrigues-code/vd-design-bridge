@@ -9,6 +9,8 @@ valor + botão de copiar (com \`navigator.clipboard\`), feedback visual
 "Copiado" por 2s antes de voltar ao normal.
 
 **Não é um componente \`po-*\`** — sem equivalente na PO-UI.
+
+**Doc PO-UI:** https://po-ui.io — não há uma página específica pra este componente (composição própria, sem \`po-*\` direto).
 `;
 
 const meta = {

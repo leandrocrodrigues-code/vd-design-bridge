@@ -20,6 +20,8 @@ Figma. Provavelmente composto internamente de \`po-checkbox\` +
 \`po-input\` + \`po-button\` + \`po-tag\` na implementação Angular real —
 não confirmado nó a nó (o node original travava a leitura via MCP,
 extraído via PDF).
+
+**Doc PO-UI:** https://po-ui.io — não há uma página específica pra este componente (composição própria, sem \`po-*\` direto).
 `;
 
 const items = [

@@ -22,6 +22,8 @@ componente equivalente.
 | Default / Hover / Focus | \`content/pure\` #121212 |
 | Pressed | \`surface/brand/highlight\` #1e3da1 |
 | Disabled | \`content/03\` #8e8e8e |
+
+**Doc PO-UI:** https://po-ui.io — não há uma página específica pra este componente (composição própria, sem \`po-*\` direto).
 `;
 
 const meta = {

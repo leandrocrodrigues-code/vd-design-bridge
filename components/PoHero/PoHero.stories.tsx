@@ -10,7 +10,7 @@ const meta = {
     docs: {
       description: {
         component:
-          '⚠️ Composição (botão voltar + título + busca + tag + botão) — não é `po-hero`. Figma node `5046:9134`, página "Hero ✅".',
+          '⚠️ Composição (botão voltar + título + busca + tag + botão) — não é `po-hero`. Figma node `5046:9134`, página "Hero ✅". **Doc PO-UI:** https://po-ui.io — nenhuma página específica corresponde a este componente.',
       },
     },
   },

@@ -13,6 +13,8 @@ lista de arquivos enviados (com remover/ver arquivo).
 **Não é um componente \`po-*\`.** A PO-UI tem um componente de upload
 diferente e mais simples — não confirmado como equivalente 1:1 desses 4
 estados visuais específicos do Figma.
+
+**Doc PO-UI:** https://po-ui.io — não há uma página específica pra este componente (composição própria, sem \`po-*\` direto).
 `;
 
 const meta = {

@@ -12,6 +12,8 @@ apps (grid) e avatar de usuário.
 **Não é um componente \`po-*\`** — sem equivalente na PO-UI. Diferente do
 já existente [[PoTopBar]] (barra do wallpaper Delphi) — esta é a versão
 web, mais simples.
+
+**Doc PO-UI:** https://po-ui.io — não há uma página específica pra este componente (composição própria, sem \`po-*\` direto).
 `;
 
 const meta = {
