@@ -1,0 +1,232 @@
+/**
+ * Drawer List Control — sem tokens `po-*` oficiais (não é componente
+ * nativo, ver nota em PoDrawer.tsx). Valores usam --vd-color-*
+ * diretamente.
+ *
+ * Fonte: PDF Componentespdf/drawer.pdf, página "Drawer List Control".
+ */
+
+.vd-po-drawer {
+  display: flex;
+  flex-direction: column;
+  width: 360px;
+  height: 560px;
+  border: 1px solid var(--vd-color-surface-container);
+  background-color: var(--vd-color-surface-pure);
+  font-family: 'Lato', sans-serif;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.vd-po-drawer__header {
+  display: flex;
+  align-items: center;
+  gap: 12px; /* Spacing/XSM */
+  padding: 16px; /* Spacing/SM */
+  border-bottom: 1px solid var(--vd-color-surface-container);
+}
+.vd-po-drawer__avatar {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--vd-color-surface-container);
+  color: var(--vd-color-content-pure);
+}
+.vd-po-drawer__header-text {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+.vd-po-drawer__overline {
+  font-size: 12px;
+  color: var(--vd-color-content-03);
+}
+.vd-po-drawer__title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--vd-color-content-pure);
+}
+.vd-po-drawer__close {
+  all: unset;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  display: flex;
+  color: var(--vd-color-surface-brand-highlight);
+  cursor: pointer;
+}
+
+.vd-po-drawer__search-row {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Spacing/2XSM */
+  padding: 16px; /* Spacing/SM */
+}
+.vd-po-drawer__search {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Spacing/2XSM */
+  padding: 8px 12px;
+  border-radius: 500px;
+  border: 1px solid var(--vd-color-surface-container);
+  color: var(--vd-color-content-03);
+}
+.vd-po-drawer__search-input {
+  all: unset;
+  flex: 1;
+  font-size: 14px;
+  color: var(--vd-color-content-pure);
+}
+.vd-po-drawer__action {
+  all: unset;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  padding: 8px 16px; /* Spacing/2XSM Spacing/SM */
+  border-radius: 500px;
+  background-color: var(--vd-color-surface-brand-pure);
+  color: var(--vd-color-content-on-brand);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.vd-po-drawer__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px; /* Spacing/2XSM */
+  padding: 0 16px 16px; /* Spacing/SM */
+}
+.vd-po-drawer__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 500px;
+  background-color: var(--vd-color-surface-container);
+  color: var(--vd-color-content-pure);
+  font-size: 13px;
+}
+.vd-po-drawer__chip button {
+  all: unset;
+  display: flex;
+  cursor: pointer;
+  color: var(--vd-color-content-03);
+}
+
+.vd-po-drawer__list {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+.vd-po-drawer__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px; /* Spacing/XSM */
+  padding: 12px 16px; /* Spacing/XSM Spacing/SM */
+  border-bottom: 1px solid var(--vd-color-surface-container);
+}
+.vd-po-drawer__checkbox {
+  margin-top: 3px;
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  accent-color: var(--vd-color-surface-brand-pure);
+}
+.vd-po-drawer__item-icon {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--vd-color-surface-container);
+  color: var(--vd-color-content-pure);
+}
+.vd-po-drawer__item-icon[data-status='alert'] { background-color: var(--vd-color-feedback-alert-container); color: var(--vd-color-feedback-alert-highlight); }
+.vd-po-drawer__item-icon[data-status='uploading'] { background-color: var(--vd-color-surface-brand-container); color: var(--vd-color-surface-brand-highlight); }
+.vd-po-drawer__item-icon[data-status='success'] { background-color: var(--vd-color-feedback-success-container); color: var(--vd-color-feedback-success-highlight); }
+
+.vd-po-drawer__item-text {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.vd-po-drawer__item-date {
+  font-size: 12px;
+  color: var(--vd-color-content-03);
+}
+.vd-po-drawer__item-label {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--vd-color-content-pure);
+}
+.vd-po-drawer__item-meta {
+  font-size: 11px;
+  color: var(--vd-color-content-03);
+}
+.vd-po-drawer__item-track {
+  margin-top: 2px;
+  height: 3px;
+  border-radius: 4px;
+  background-color: var(--vd-color-surface-container);
+  overflow: hidden;
+}
+.vd-po-drawer__item-fill {
+  display: block;
+  height: 100%;
+  background-color: var(--vd-color-surface-brand-pure);
+}
+
+.vd-po-drawer__item-dot {
+  flex-shrink: 0;
+  margin-top: 6px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--vd-color-surface-brand-pure);
+}
+
+.vd-po-drawer__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px; /* Spacing/SM */
+  border-top: 1px solid var(--vd-color-surface-container);
+}
+.vd-po-drawer__link {
+  all: unset;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--vd-color-surface-brand-highlight);
+  cursor: pointer;
+}
+.vd-po-drawer__footer-actions {
+  display: flex;
+  gap: 8px; /* Spacing/2XSM */
+}
+.vd-po-drawer__button {
+  all: unset;
+  box-sizing: border-box;
+  padding: 8px 16px; /* Spacing/2XSM Spacing/SM */
+  border-radius: 500px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.vd-po-drawer__button--secondary {
+  background-color: var(--vd-color-surface-brand-container);
+  color: var(--vd-color-surface-brand-highlight);
+}
+.vd-po-drawer__button--primary {
+  background-color: var(--vd-color-surface-brand-pure);
+  color: var(--vd-color-content-on-brand);
+}
