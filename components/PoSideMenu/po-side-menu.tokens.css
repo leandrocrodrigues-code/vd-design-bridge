@@ -1,0 +1,85 @@
+/**
+ * po-menu (item de navegação) — tokens customizáveis REAIS da PO-UI.
+ *
+ * Nomes das custom properties do po-menu-item (--color, --background-color,
+ * --color-hover, --background-color-hover, --background-color-actived,
+ * --color-actived, --font-weight-lvl0, --border-radius) são os
+ * documentados oficialmente em https://po-ui.io/documentation/po-menu
+ * (seção "Tokens customizáveis") — não inventar nome novo. Valores
+ * apontam pra --vd-color-* (injetados por tema em .storybook/preview.tsx).
+ *
+ * Fonte das cores: nó do Figma 316:4205 (frame "Side Menu"), estados
+ * Default e Active confirmados via get_design_context — só esses 2
+ * existem no Figma (sem Hover/Focused documentado pro item isolado).
+ *
+ *   Default  bg transparente, border-bottom surface/card, texto content/pure
+ *   Active   bg surface/card, border-left 4px surface/brand/pure,
+ *            texto content/pure em negrito
+ *
+ * Hover é extensão V&D (Figma não documenta essa sub-state pro Side
+ * Menu) — aplicado com o mesmo padrão visual do Active sem o texto em
+ * negrito, seguindo o token --background-color-hover da doc oficial.
+ */
+
+.vd-po-side-menu {
+  --border-color: var(--vd-color-surface-card);
+  --background-color: transparent;
+  --color: var(--vd-color-content-pure);
+
+  --background-color-hover: var(--vd-color-surface-card);
+  --color-hover: var(--vd-color-content-pure);
+
+  --background-color-actived: var(--vd-color-surface-card);
+  --color-actived: var(--vd-color-content-pure);
+
+  --outline-color-focused: rgba(36, 179, 255, 0.16);
+}
+
+/* ---------- Aplicação (shim do preview React) ---------- */
+
+.vd-po-side-menu {
+  display: flex;
+  flex-direction: column;
+  width: 232px;
+  background-color: var(--vd-color-surface-pure);
+  border-left: 1px solid var(--border-color);
+  border-right: 1px solid var(--border-color);
+}
+
+.vd-po-side-menu__item {
+  all: unset;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  min-height: 64px;
+  width: 100%;
+  padding: 0 16px;
+  border-bottom: 1px solid var(--border-color);
+  border-left: 4px solid transparent;
+  background-color: var(--background-color);
+  color: var(--color);
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: background-color 120ms ease, border-color 120ms ease;
+}
+
+.vd-po-side-menu__item:hover {
+  background-color: var(--background-color-hover);
+  color: var(--color-hover);
+}
+
+.vd-po-side-menu__item:focus-visible {
+  outline: none;
+  box-shadow: inset 0 0 0 2px var(--outline-color-focused);
+}
+
+.vd-po-side-menu__item[data-active='true'] {
+  background-color: var(--background-color-actived);
+  border-left-color: var(--vd-color-surface-brand-pure);
+  color: var(--color-actived);
+  font-weight: 700;
+  padding-left: 12px; /* compensa border-left 4px pra manter o texto alinhado */
+}

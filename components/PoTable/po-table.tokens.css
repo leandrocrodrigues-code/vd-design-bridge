@@ -1,0 +1,119 @@
+/**
+ * po-table — tokens customizáveis REAIS da PO-UI.
+ *
+ * Nomes das custom properties (--background-color, --color, --color-line,
+ * --background-color-hover, --background-color-headline,
+ * --background-color-selected) são os documentados oficialmente em
+ * https://po-ui.io/documentation/po-table (seção "Tokens customizáveis")
+ * — não inventar nome novo. Valores apontam pra --vd-color-* (injetados
+ * por tema em .storybook/preview.tsx).
+ *
+ * Fonte do layout: nó do Figma 11485:77009 (frame "Table (Grid)",
+ * variante Scroll=No Scroll, node 5321:52444), página "Table (Grid) ✅".
+ * Header bg surface/card com ícone de ordenação (CaretDown); linhas com
+ * borda inferior surface/card; coluna de ações com ícone Stack + menu
+ * kebab (DotsThreeVertical).
+ */
+
+.vd-po-table {
+  --background-color: var(--vd-color-surface-pure);
+  --color: var(--vd-color-content-pure);
+  --color-line: var(--vd-color-surface-card);
+
+  --background-color-hover: var(--vd-color-surface-brand-container);
+  --background-color-headline: var(--vd-color-surface-card);
+  --background-color-selected: var(--vd-color-surface-brand-container);
+}
+
+/* ---------- Aplicação (shim do preview React) ---------- */
+
+.vd-po-table {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--color-line);
+  border-radius: 8px; /* Corner radius/3XSM */
+  overflow: hidden;
+  font-family: 'Lato', sans-serif;
+  background-color: var(--background-color);
+}
+
+.vd-po-table__row {
+  display: flex;
+  width: 100%;
+}
+.vd-po-table__row:not(.vd-po-table__row--header) {
+  border-bottom: 1px solid var(--color-line);
+}
+.vd-po-table__row:not(.vd-po-table__row--header):hover {
+  background-color: var(--background-color-hover);
+}
+.vd-po-table__row[data-striped='true'] {
+  background-color: var(--vd-color-surface-card);
+}
+.vd-po-table__row--header {
+  background-color: var(--background-color-headline);
+}
+
+.vd-po-table__cell {
+  all: unset;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Spacing/2XSM */
+  min-width: 100px;
+  flex: 1 0 0;
+  height: 48px;
+  padding: 0 8px; /* Spacing/2XSM */
+  font-size: 14px;
+  line-height: 16px;
+  color: var(--color);
+  cursor: default;
+}
+.vd-po-table__cell[data-align='right'] {
+  justify-content: flex-end;
+  text-align: right;
+}
+
+.vd-po-table__cell--header {
+  font-weight: 400;
+  cursor: default;
+}
+.vd-po-table__cell--header:not(:disabled) {
+  cursor: pointer;
+}
+.vd-po-table__cell--header:not(:disabled):hover {
+  text-decoration: underline;
+}
+
+.vd-po-table__sort-icon {
+  flex-shrink: 0;
+  color: var(--color);
+}
+
+.vd-po-table__cell--actions {
+  flex: none;
+  width: 76px;
+  justify-content: flex-end;
+}
+
+.vd-po-table__icon {
+  color: var(--vd-color-content-03);
+  flex-shrink: 0;
+}
+
+.vd-po-table__icon-button {
+  all: unset;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--vd-color-content-03);
+  cursor: pointer;
+  border-radius: 4px;
+}
+.vd-po-table__icon-button:hover {
+  color: var(--vd-color-content-pure);
+}
+.vd-po-table__icon-button:focus-visible {
+  outline: 2px solid var(--vd-color-surface-brand-highlight);
+  outline-offset: 2px;
+}

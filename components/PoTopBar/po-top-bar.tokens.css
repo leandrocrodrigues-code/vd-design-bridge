@@ -1,0 +1,157 @@
+/**
+ * po-top-bar — NÃO é um token oficial da PO-UI (ver nota de divergência
+ * em PoTopBar.tsx). Nomes de variável aqui são internos ao V&D, não
+ * documentados em po-ui.io — mas os valores continuam apontando pros
+ * --vd-color-* do Design System.
+ *
+ * Fonte das cores: nó do Figma 5047:5404 (Hierarchy=N1) e 5050:4941
+ * (Hierarchy=N2), frame "Top Bar (Wallpaper Delphi)", página "Top Bar ✅".
+ *
+ *   bg              surface/brand/highlight (#1E3DA1)
+ *   botão de ícone   surface/brand/container (#A0F2FF)
+ *   texto            content/inverse (branco)
+ *   badge "Beta"     surface/container bg + content/pure texto
+ */
+
+.vd-po-top-bar {
+  --background-color: var(--vd-color-surface-brand-highlight);
+  --icon-button-background: var(--vd-color-surface-brand-container);
+  --text-color: var(--vd-color-content-inverse);
+  --badge-background: var(--vd-color-surface-container);
+  --badge-text-color: var(--vd-color-content-pure);
+  --notification-dot-color: var(--vd-color-feedback-alert-pure);
+}
+
+/* ---------- Aplicação ---------- */
+
+.vd-po-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  min-height: 48px;
+  padding: 0 8px 0 20px;
+  background-color: var(--background-color);
+  border-radius: 8px 8px 0 0; /* Corner radius/3XSM */
+  font-family: 'Lato', sans-serif;
+  color: var(--text-color);
+}
+
+.vd-po-top-bar__leading {
+  display: flex;
+  align-items: center;
+  gap: 12px; /* Spacing/XSM */
+}
+
+.vd-po-top-bar__brand {
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--text-color);
+  letter-spacing: 0.5px;
+}
+
+.vd-po-top-bar__version {
+  font-size: 10px;
+  line-height: 16px;
+  color: var(--text-color);
+  white-space: nowrap;
+}
+
+.vd-po-top-bar__badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 16px;
+  padding: 2px 4px; /* Spacing/3XSM */
+  border-radius: 500px;
+  background-color: var(--badge-background);
+  color: var(--badge-text-color);
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 12px;
+}
+
+.vd-po-top-bar__title {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 4px; /* Spacing/3XSM */
+  font-size: 14px;
+  line-height: 18px;
+  color: var(--text-color);
+  white-space: nowrap;
+}
+.vd-po-top-bar__title-separator {
+  opacity: 0.7;
+}
+
+.vd-po-top-bar__trailing {
+  display: flex;
+  align-items: center;
+  gap: 16px; /* Spacing/SM */
+}
+
+.vd-po-top-bar__record {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Spacing/2XSM */
+  font-size: 12px;
+  color: var(--text-color);
+}
+
+.vd-po-top-bar__notification {
+  position: relative;
+  display: inline-flex;
+}
+.vd-po-top-bar__notification-dot {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--notification-dot-color);
+  border: 1.5px solid var(--background-color);
+  pointer-events: none;
+}
+
+.vd-po-top-bar__icon-button {
+  all: unset;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px; /* Corner radius/3XSM */
+  background-color: var(--icon-button-background);
+  color: var(--vd-color-content-on-brand);
+  cursor: pointer;
+}
+.vd-po-top-bar__icon-button:hover {
+  filter: brightness(0.95);
+}
+.vd-po-top-bar__icon-button:focus-visible {
+  outline: 2px solid var(--vd-color-surface-pure);
+  outline-offset: 2px;
+}
+
+.vd-po-top-bar__window-controls {
+  display: flex;
+  align-items: center;
+}
+.vd-po-top-bar__window-button {
+  all: unset;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 48px;
+  color: var(--text-color);
+  cursor: pointer;
+}
+.vd-po-top-bar__window-button:hover {
+  background-color: rgba(255, 255, 255, 0.12);
+}

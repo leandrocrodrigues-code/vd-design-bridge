@@ -1,0 +1,166 @@
+/**
+ * po-radio-group — tokens customizáveis REAIS da PO-UI.
+ *
+ * Nomes das custom properties (--border-color, --color-unchecked,
+ * --color-checked, --color-hover, --shadow-color-hover,
+ * --outline-color-focused, --color-unchecked-disabled,
+ * --color-checked-disabled) são os documentados oficialmente em
+ * https://po-ui.io/documentation/po-radio-group (seção "Tokens
+ * customizáveis") — idênticos aos do po-checkbox. Valores apontam pra
+ * --vd-color-* (injetados por tema em .storybook/preview.tsx).
+ *
+ * Fonte das cores por estado: nós do Figma 236:859-1025 (frame "Radio",
+ * node 236:883), lidos via get_design_context nó a nó (SM), 8 combos
+ * State x Sub-state confirmadas (MD só muda escala, cor idêntica):
+ *
+ *   Unchecked  Default   surface/pure bg  + surface/container border
+ *              Hover     surface/card bg  + surface/brand/highlight border
+ *              Focused   surface/card bg  + brand/highlight border + glow
+ *              Disabled  surface/container bg (preenchido, sem borda)
+ *   Checked    Default   surface/brand/pure fill + dot content/on-brand
+ *              Hover     surface/brand/highlight fill + dot surface/pure (branco)
+ *              Focused   surface/brand/pure fill + dot content/on-brand + glow
+ *              Disabled  surface/container fill + dot content/03
+ */
+
+.vd-po-radio-group {
+  --border-color: var(--vd-color-surface-container);
+  --color-unchecked: var(--vd-color-surface-pure);
+  --color-checked: var(--vd-color-surface-brand-pure);
+
+  --color-hover: var(--vd-color-surface-brand-highlight);
+  --shadow-color-hover: var(--vd-color-surface-card);
+
+  --outline-color-focused: rgba(36, 179, 255, 0.16);
+
+  --color-unchecked-disabled: var(--vd-color-surface-container);
+  --color-checked-disabled: var(--vd-color-surface-container);
+}
+
+/* ---------- Aplicação (shim do preview React) ---------- */
+
+.vd-po-radio-group {
+  border: none;
+  margin: 0;
+  padding: 0;
+  font-family: 'Lato', sans-serif;
+  min-width: 0;
+}
+
+.vd-po-radio-group__label {
+  padding: 0;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 16px;
+  color: var(--vd-color-content-pure);
+  margin-bottom: 8px; /* Spacing/2XSM */
+}
+.vd-po-radio-group__required {
+  color: var(--vd-color-feedback-alert-pure);
+  margin-left: 2px;
+}
+
+.vd-po-radio-group__grid {
+  display: grid;
+  gap: 12px 24px; /* Spacing/XSM x Spacing/SM */
+}
+
+.vd-po-radio-group__item {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 8px; /* Spacing/2XSM */
+  cursor: pointer;
+}
+.vd-po-radio-group__item[data-disabled='true'] {
+  cursor: not-allowed;
+}
+
+.vd-po-radio-group__circle {
+  box-sizing: border-box;
+  flex-shrink: 0;
+  width: 16px; /* Widths/SM */
+  height: 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border-color);
+  background-color: var(--color-unchecked);
+  transition: background-color 120ms ease, border-color 120ms ease, box-shadow 120ms ease;
+}
+.vd-po-radio-group__item[data-size='medium'] .vd-po-radio-group__circle {
+  width: 24px; /* Widths/MD */
+  height: 24px;
+}
+
+.vd-po-radio-group__dot {
+  width: 50%;
+  height: 50%;
+  border-radius: 50%;
+  background-color: transparent;
+  transition: background-color 120ms ease;
+}
+
+.vd-po-radio-group__item[data-state='checked'] .vd-po-radio-group__circle {
+  border-color: transparent;
+  background-color: var(--color-checked);
+}
+.vd-po-radio-group__item[data-state='checked'] .vd-po-radio-group__dot {
+  background-color: var(--vd-color-content-on-brand);
+}
+
+.vd-po-radio-group__item:not([data-disabled='true']):hover .vd-po-radio-group__circle,
+.vd-po-radio-group__item[data-preview-state='Hover'] .vd-po-radio-group__circle {
+  background-color: var(--color-hover);
+  border-color: var(--color-hover);
+}
+.vd-po-radio-group__item[data-state='unchecked']:not([data-disabled='true']):hover .vd-po-radio-group__circle,
+.vd-po-radio-group__item[data-state='unchecked'][data-preview-state='Hover'] .vd-po-radio-group__circle {
+  background-color: var(--shadow-color-hover);
+}
+.vd-po-radio-group__item[data-state='checked']:not([data-disabled='true']):hover .vd-po-radio-group__dot,
+.vd-po-radio-group__item[data-state='checked'][data-preview-state='Hover'] .vd-po-radio-group__dot {
+  background-color: var(--vd-color-surface-pure);
+}
+
+.vd-po-radio-group__item:not([data-disabled='true']):focus-within .vd-po-radio-group__circle,
+.vd-po-radio-group__item[data-preview-state='Focused'] .vd-po-radio-group__circle {
+  outline: none;
+  border-color: var(--vd-color-surface-brand-highlight);
+  box-shadow: 0 0 0 4px var(--outline-color-focused);
+}
+.vd-po-radio-group__item[data-state='checked']:not([data-disabled='true']):focus-within .vd-po-radio-group__circle,
+.vd-po-radio-group__item[data-state='checked'][data-preview-state='Focused'] .vd-po-radio-group__circle {
+  border-color: transparent;
+}
+
+.vd-po-radio-group__item[data-disabled='true'] .vd-po-radio-group__circle {
+  border-color: transparent;
+  background-color: var(--color-unchecked-disabled);
+}
+.vd-po-radio-group__item[data-disabled='true'][data-state='checked'] .vd-po-radio-group__circle {
+  background-color: var(--color-checked-disabled);
+}
+.vd-po-radio-group__item[data-disabled='true'][data-state='checked'] .vd-po-radio-group__dot {
+  background-color: var(--vd-color-content-03);
+}
+
+.vd-po-radio-group__text {
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16px;
+  color: var(--vd-color-content-pure);
+  padding-top: 1px;
+}
+.vd-po-radio-group__item[data-disabled='true'] .vd-po-radio-group__text {
+  color: var(--vd-color-content-03);
+}
+
+.vd-po-radio-group__help {
+  display: block;
+  margin-top: 8px; /* Spacing/2XSM */
+  font-size: 12px;
+  line-height: 14px;
+  color: var(--vd-color-content-03);
+}
