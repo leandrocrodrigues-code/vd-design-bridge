@@ -1,0 +1,135 @@
+/**
+ * po-modal (Progress) — mesmos tokens base do po-modal padrão
+ * (--border-radius, --background, --shadow, --color-overlay), ver
+ * po-modal.tokens.css. Cores dos passos: done = feedback/success,
+ * active = surface/brand/pure (spinner), locked = surface/container.
+ * Fonte: Componentespdf/modal/Modal Progress.pdf.
+ */
+
+.vd-po-modal-progress-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(18, 18, 18, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+}
+
+.vd-po-modal-progress {
+  position: relative;
+  width: 424px;
+  max-width: calc(100vw - 32px);
+  background: var(--vd-color-surface-pure);
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  padding: 32px; /* Spacing/LG */
+  display: flex;
+  flex-direction: column;
+  gap: 24px; /* Spacing/MD */
+  font-family: 'Lato', sans-serif;
+  box-sizing: border-box;
+}
+
+.vd-po-modal-progress__close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  color: var(--vd-color-surface-brand-highlight);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vd-po-modal-progress__header {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-right: 32px;
+}
+.vd-po-modal-progress__title {
+  font-weight: 700;
+  font-size: 24px;
+  color: var(--vd-color-content-pure);
+}
+.vd-po-modal-progress__paragraph {
+  font-size: 14px;
+  color: var(--vd-color-content-03);
+}
+
+.vd-po-modal-progress__steps {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Spacing/MD */
+}
+.vd-po-modal-progress__step {
+  display: flex;
+  align-items: center;
+  gap: 16px; /* Spacing/SM */
+}
+.vd-po-modal-progress__step-icon {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--vd-color-surface-container);
+  color: var(--vd-color-content-03);
+}
+.vd-po-modal-progress__step[data-status='done'] .vd-po-modal-progress__step-icon {
+  background-color: var(--vd-color-feedback-success-container);
+  color: var(--vd-color-feedback-success-highlight);
+}
+.vd-po-modal-progress__step[data-status='active'] .vd-po-modal-progress__step-icon {
+  color: var(--vd-color-surface-brand-pure);
+}
+.vd-po-modal-progress__step-label {
+  font-size: 16px;
+  color: var(--vd-color-content-pure);
+}
+.vd-po-modal-progress__step[data-status='locked'] .vd-po-modal-progress__step-label {
+  color: var(--vd-color-content-03);
+}
+
+.vd-po-modal-progress__footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 24px; /* Spacing/MD */
+}
+.vd-po-modal-progress__link {
+  all: unset;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--vd-color-surface-brand-highlight);
+  cursor: pointer;
+}
+.vd-po-modal-progress__footer-actions {
+  display: flex;
+  gap: 8px; /* Spacing/2XSM */
+}
+.vd-po-modal-progress__button {
+  all: unset;
+  box-sizing: border-box;
+  padding: 10px 20px;
+  border-radius: 500px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.vd-po-modal-progress__button--secondary {
+  background-color: var(--vd-color-surface-brand-container);
+  color: var(--vd-color-surface-brand-highlight);
+}
+.vd-po-modal-progress__button--primary {
+  background-color: var(--vd-color-surface-brand-pure);
+  color: var(--vd-color-content-on-brand);
+}
