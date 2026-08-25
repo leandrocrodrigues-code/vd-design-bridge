@@ -6,7 +6,8 @@
   display: flex;
   flex-direction: column;
   gap: 12px; /* Spacing/XSM */
-  width: 280px;
+  width: 100%;
+  max-width: 280px;
   padding: 16px; /* Spacing/SM */
   border-radius: 12px; /* Corner radius/2XSM */
   background-color: var(--vd-color-surface-card);

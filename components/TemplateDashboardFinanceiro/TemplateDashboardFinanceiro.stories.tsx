@@ -1,15 +1,5 @@
-import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { PoTopBar } from '../PoTopBar/PoTopBar';
-import { PoHero } from '../PoHero/PoHero';
-import { PoTag } from '../PoTag/PoTag';
-import { PoSearch } from '../PoSearch/PoSearch';
-import { PoSwitch } from '../PoSwitch/PoSwitch';
-import { PoButton } from '../PoButton/PoButton';
-import { PoTabs } from '../PoTabs/PoTabs';
-import { PoCardStatus } from '../PoCardStatus/PoCardStatus';
-import { PoActionBar } from '../PoActionBar/PoActionBar';
-import { PoTable } from '../PoTable/PoTable';
+import { DashboardFinanceiroScreen } from './TemplateDashboardFinanceiro';
 
 const docs = `
 Tela completa montada só com componentes já existentes deste Storybook —
@@ -22,12 +12,21 @@ via MCP pra esta reconstrução.
 
 ### Composição (de cima pra baixo)
 
-1. **PoTopBar** — hierarchy N1
+1. **PoTopBarWeb** — versão web do topo (não a do wallpaper Delphi —
+   essa tela é web, então o topo usa a barra web: hambúrguer, logo,
+   notificações, apps, avatar)
 2. **PoHero** — título + tag + busca + switch + 2 botões (via \`children\`)
 3. **PoTabs** + botão de filtro (ver divergência abaixo)
 4. **4× PoCardStatus** — tons brand (selected)/success/warning/alert
 5. **PoActionBar** — busca + filtro + ação primária
 6. **PoTable** — colunas com sort, striped desligado
+
+### Responsivo
+
+Linhas com \`flexWrap\`, grid de cards com \`repeat(auto-fit, minmax(200px, 1fr))\`,
+tabela num wrapper \`overflow-x: auto\`. Os componentes \`PoCard*\` usados
+aqui usam \`width: 100%\` + \`max-width\` (não largura fixa) — encolha a
+janela do Storybook pra ver funcionando.
 
 ### Divergência real — registrada
 
@@ -41,89 +40,10 @@ dentro da célula — o \`PoTable\` atual só aceita texto simples por
 célula (\`Record<string, string>\`), então o status aparece como texto
 puro aqui. Pra ter a tag de verdade dentro da tabela, o \`PoTable\`
 precisaria aceitar \`ReactNode\` por célula — não implementado ainda.
+
+Veja também: **Construtor de Template ao Vivo**, que usa esta mesma tela
+com um painel de componentes usados e download do código PO-UI.
 `;
-
-function FilterIcon() {
-  return (
-    <svg viewBox="0 0 16 16" width="16" height="16" fill="none">
-      <path d="M2 3h12M4 8h8M6.5 13h3" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
-    </svg>
-  );
-}
-function SearchIcon() {
-  return (
-    <svg viewBox="0 0 16 16" width="16" height="16" fill="none">
-      <circle cx="7" cy="7" r="4.5" stroke="currentColor" strokeWidth="1.4" />
-      <path d="m13 13-2.5-2.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
-    </svg>
-  );
-}
-
-const tabs = [
-  { key: 'active', label: 'Tab active' },
-  { key: 'b', label: 'Tab' },
-  { key: 'c', label: 'Tab' },
-];
-
-const columns = [
-  { label: 'Title', key: 'c1' },
-  { label: 'Title', key: 'c2' },
-  { label: 'Title', key: 'c3' },
-  { label: 'Status', key: 'status' },
-  { label: 'Title', key: 'c4' },
-  { label: 'Title', key: 'c5' },
-  { label: 'Title', key: 'c6' },
-];
-
-const rows = [
-  { c1: 'Label', c2: 'Label', c3: 'Label', status: 'Success', c4: 'Label', c5: 'Label', c6: 'Label' },
-  { c1: 'Label', c2: 'Label', c3: 'Label', status: 'Label', c4: 'Label', c5: 'Label', c6: 'Label' },
-  { c1: 'Label', c2: 'Label', c3: 'Label', status: 'Label', c4: 'Label', c5: 'Label', c6: 'Label' },
-  { c1: 'Label', c2: 'Label', c3: 'Label', status: 'Success', c4: 'Label', c5: 'Label', c6: 'Label' },
-  { c1: 'Label', c2: 'Label', c3: 'Label', status: 'Success', c4: 'Label', c5: 'Label', c6: 'Label' },
-];
-
-function Screen() {
-  const [tab, setTab] = useState('active');
-  return (
-    <div style={{ background: 'var(--vd-color-surface-container)', minHeight: '100vh' }}>
-      <PoTopBar hierarchy="N1" mainPageTitle="Title page" />
-      <PoHero overline={undefined} title="Title page" supportText="Support Text">
-        <PoTag value="Label Tag" type="brand" />
-        <PoSearch placeholder="Search" style={{ width: 200 }} />
-        <PoSwitch />
-        <PoButton label="Secondary" kind="secondary" />
-        <PoButton label="Primary" kind="primary" />
-      </PoHero>
-
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 24px' }}>
-        <PoTabs items={tabs} active={tab} onChange={setTab} />
-        <PoButton label="Filter" kind="secondary" />
-      </div>
-
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px', padding: '0 24px 24px' }}>
-        <PoCardStatus tone="brand" emphasis="selected" overline="" label="Brand" value={70} />
-        <PoCardStatus tone="success" overline="" label="Sucess" value={60} />
-        <PoCardStatus tone="warning" overline="" label="Alert" value={50} />
-        <PoCardStatus tone="alert" overline="" label="Error" value={30} />
-      </div>
-
-      <div style={{ padding: '0 24px 24px' }}>
-        <PoActionBar
-          leadingActions={[
-            { key: 'search', icon: <SearchIcon />, label: 'Buscar' },
-            { key: 'filter', icon: <FilterIcon />, label: 'Filtrar' },
-          ]}
-          primaryLabel="Primary table"
-        />
-      </div>
-
-      <div style={{ padding: '0 24px 24px' }}>
-        <PoTable columns={columns} items={rows} sort />
-      </div>
-    </div>
-  );
-}
 
 const meta = {
   title: 'Templates POUi/Dashboard Financeiro',
@@ -138,5 +58,5 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Playground: Story = {
-  render: () => <Screen />,
+  render: () => <DashboardFinanceiroScreen />,
 };

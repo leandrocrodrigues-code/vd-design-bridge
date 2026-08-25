@@ -83,6 +83,7 @@ const preview: Preview = {
           ['Delphi', 'POUi'],
           'Templates POUi',
           'Templates Delphi',
+          'Construtor de Template ao Vivo',
         ],
       },
     },

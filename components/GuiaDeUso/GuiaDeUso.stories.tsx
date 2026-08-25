@@ -244,28 +244,44 @@ Object.entries(vars).forEach(([key, value]) => {
             especificação (quais componentes, em que ordem, com que props) pra outra ferramenta montar.
           </p>
         </Step>
-        <div
-          style={{
-            padding: '16px',
-            border: '1px dashed #dfe4ec',
-            borderRadius: '8px',
-            background: '#F7F9F9',
-            marginTop: '8px',
-          }}
-        >
-          <p style={{ margin: '0 0 8px', fontWeight: 700, fontSize: '14px' }}>
-            📦 Pacote Vibecode — Engenharia V&D <span style={{ fontWeight: 400, color: '#8e8e8e', fontSize: '12px' }}>(mockup — ainda não existe)</span>
-          </p>
-          <p style={{ fontSize: '13px', color: '#545454', margin: '0 0 8px', lineHeight: '20px' }}>
-            Visão: um pacote instalável que ensina uma IA a montar telas neste Design System sozinha — sem abrir o Figma,
-            sem inventar componente novo, seguindo as mesmas regras da Seção 3 acima. Instalação futura (ilustrativa):
-          </p>
-          <CodeBlock>{`npm install @vd/vibecode-engenharia
+        <p style={{ fontSize: '13px', color: '#8e8e8e', margin: '8px 0 0' }}>
+          Instalação e regras específicas do Vibecode ficam na Seção 5, separadas da instalação da PO-UI (Seção 1) — são
+          duas coisas diferentes: uma instala a lib de componentes, a outra ensina uma IA a usá-la.
+        </p>
+      </Section>
+
+      <Section title="5. Instalação e regras — Vibecode (mockup)">
+        <p style={{ fontSize: '14px', lineHeight: '22px', color: '#363636' }}>
+          ⚠️ <strong>O pacote Vibecode ainda não existe.</strong> Esta seção é a maquete visual de como a documentação vai
+          ficar quando ele sair — separada da instalação da PO-UI (Seção 1) porque resolve um problema diferente: ensinar
+          uma IA a <em>usar</em> este Design System pra montar telas, não instalar os componentes em si.
+        </p>
+        <Step number={1} title="Instale o pacote (ilustrativo)">
+          <CodeBlock label="dentro do projeto, depois da PO-UI já instalada">{`npm install @vd/vibecode-engenharia
 npx vd-vibecode init`}</CodeBlock>
-          <p style={{ fontSize: '12px', color: '#8e8e8e', margin: 0 }}>
-            Sem link de instalação real ainda — este bloco é só a maquete visual do que a documentação vai cobrir quando o
-            pacote existir.
+          <p style={{ fontSize: '13px', color: '#545454', margin: 0 }}>
+            <code style={{ background: '#F7F9F9', padding: '2px 6px', borderRadius: '4px' }}>init</code> geraria um arquivo
+            de contexto (ex. <code style={{ background: '#F7F9F9', padding: '2px 6px', borderRadius: '4px' }}>.vibecode/manifest.json</code>)
+            com a lista de componentes permitidos, props e tokens — pra qualquer IA ler antes de montar uma tela.
           </p>
+        </Step>
+        <Step number={2} title="Aponte a IA pro manifesto, não pro Figma">
+          <p style={{ fontSize: '13px', color: '#545454', margin: 0 }}>
+            Em vez de pedir pra IA abrir o Figma e adivinhar a composição, ela lê o manifesto (ou este próprio Storybook —
+            ver "Templates POUi" e "Construtor de Template ao Vivo") e monta a tela só com o que está na lista permitida.
+          </p>
+        </Step>
+        <Step number={3} title="Gere ou baixe a tela">
+          <p style={{ fontSize: '13px', color: '#545454', margin: 0 }}>
+            Duas saídas: código Angular/PO-UI pronto pra colar no projeto, ou só a especificação (componentes + props +
+            ordem) pra outra ferramenta montar. O <strong>Construtor de Template ao Vivo</strong> já tem uma versão manual
+            disso — o botão "Baixar em PO-UI" exporta o HTML equivalente de um template existente.
+          </p>
+        </Step>
+        <div style={{ marginTop: '8px' }}>
+          <Rule ok>Nunca inventa componente ou prop que não está no manifesto/catálogo — mesma regra da Seção 3.</Rule>
+          <Rule ok>Sempre cita, na tela gerada, quais peças são composição própria (sem \`po-*\` direto) — igual toda story deste Storybook já faz.</Rule>
+          <Rule ok={false}>Não gera tela nova sem antes checar se já existe um Template parecido em "Templates POUi" — reaproveitar bate composição do zero.</Rule>
         </div>
       </Section>
 
