@@ -13,7 +13,7 @@ topo + lista de pares Overline/Label. 5 tonalidades confirmadas no PDF.
 `;
 
 const meta = {
-  title: 'POUi/Cards/Invoice',
+  title: 'Componentes/POUi/Cards/Invoice',
   component: PoCardInvoice,
   tags: ['autodocs'],
   parameters: {

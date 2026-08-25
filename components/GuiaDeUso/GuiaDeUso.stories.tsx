@@ -214,6 +214,61 @@ Object.entries(vars).forEach(([key, value]) => {
         </Rule>
       </Section>
 
+      <Section title="4. Templates e construção de telas com IA">
+        <p style={{ fontSize: '14px', lineHeight: '22px', color: '#363636' }}>
+          Design systems grandes (Material Design, Atlassian Design System, Carbon da IBM) não param no catálogo de
+          componente isolado — eles também publicam <strong>templates</strong>: telas de referência inteiras, montadas só
+          com peças do próprio catálogo, pra mostrar o padrão de composição real (onde fica o header, como agrupar cards,
+          como estruturar uma tabela com ações). A gente segue essa mesma ideia em duas frentes:
+        </p>
+        <Step number={1} title="Templates demo (já existe)">
+          <p style={{ fontSize: '13px', color: '#545454', margin: '0 0 8px' }}>
+            Seção <strong>Templates POUi</strong> (e futuramente <strong>Templates Delphi</strong>) na sidebar — telas
+            completas reconstruídas a partir de referências reais (Figma, PDF, screenshot), usando só componentes que já
+            existem neste catálogo. Serve como exemplo de composição pra pessoa ou IA que for montar uma tela nova: em vez
+            de adivinhar como agrupar os componentes, ela olha um template pronto que já resolveu isso.
+          </p>
+          <p style={{ fontSize: '13px', color: '#545454', margin: 0 }}>
+            Primeiro exemplo: <strong>Templates POUi / Dashboard Financeiro</strong>.
+          </p>
+        </Step>
+        <Step number={2} title="Construtor de template (visão — ainda não construído)">
+          <p style={{ fontSize: '13px', color: '#545454', margin: '0 0 8px' }}>
+            A ideia é ter regiões <strong>fixas</strong> da tela (Top Bar, Side Menu/Menu Web) já resolvidas, e um{' '}
+            <strong>container de conteúdo</strong> onde só entram componentes de uma lista permitida — parecido com um
+            slot restrito, não um canvas livre. Isso reduz o espaço de erro de quem (ou do que) está montando a tela: não
+            dá pra colocar um componente fora do padrão dentro do container.
+          </p>
+          <p style={{ fontSize: '13px', color: '#545454', margin: 0 }}>
+            A partir disso, duas saídas possíveis: gerar a tela final direto (código ou export visual), ou gerar só a
+            especificação (quais componentes, em que ordem, com que props) pra outra ferramenta montar.
+          </p>
+        </Step>
+        <div
+          style={{
+            padding: '16px',
+            border: '1px dashed #dfe4ec',
+            borderRadius: '8px',
+            background: '#F7F9F9',
+            marginTop: '8px',
+          }}
+        >
+          <p style={{ margin: '0 0 8px', fontWeight: 700, fontSize: '14px' }}>
+            📦 Pacote Vibecode — Engenharia V&D <span style={{ fontWeight: 400, color: '#8e8e8e', fontSize: '12px' }}>(mockup — ainda não existe)</span>
+          </p>
+          <p style={{ fontSize: '13px', color: '#545454', margin: '0 0 8px', lineHeight: '20px' }}>
+            Visão: um pacote instalável que ensina uma IA a montar telas neste Design System sozinha — sem abrir o Figma,
+            sem inventar componente novo, seguindo as mesmas regras da Seção 3 acima. Instalação futura (ilustrativa):
+          </p>
+          <CodeBlock>{`npm install @vd/vibecode-engenharia
+npx vd-vibecode init`}</CodeBlock>
+          <p style={{ fontSize: '12px', color: '#8e8e8e', margin: 0 }}>
+            Sem link de instalação real ainda — este bloco é só a maquete visual do que a documentação vai cobrir quando o
+            pacote existir.
+          </p>
+        </div>
+      </Section>
+
       <Section title="Links úteis">
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
           <LinkCard href="https://po-ui.io" title="po-ui.io" description="Documentação oficial da PO-UI — catálogo completo de componentes Angular." />

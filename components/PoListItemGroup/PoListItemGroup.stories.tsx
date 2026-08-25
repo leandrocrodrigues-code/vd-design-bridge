@@ -23,7 +23,7 @@ const items = Array.from({ length: 6 }, (_, i) => ({
 }));
 
 const meta = {
-  title: 'POUi/List Item Group',
+  title: 'Componentes/POUi/List Item Group',
   component: PoListItemGroup,
   tags: ['autodocs'],
   parameters: {

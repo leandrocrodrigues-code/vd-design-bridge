@@ -76,7 +76,14 @@ const preview: Preview = {
     },
     options: {
       storySort: {
-        order: ['Guia de Uso', 'Fundamentals', 'Delphi', 'POUi'],
+        order: [
+          'Guia de Uso',
+          'Fundamentals',
+          'Componentes',
+          ['Delphi', 'POUi'],
+          'Templates POUi',
+          'Templates Delphi',
+        ],
       },
     },
   },

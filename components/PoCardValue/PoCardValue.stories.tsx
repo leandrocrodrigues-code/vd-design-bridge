@@ -15,7 +15,7 @@ observados: \`simple\` (valor + tag + 1 linha de detalhamento) e \`status\`
 `;
 
 const meta = {
-  title: 'POUi/Cards/Value',
+  title: 'Componentes/POUi/Cards/Value',
   component: PoCardValue,
   tags: ['autodocs'],
   parameters: {

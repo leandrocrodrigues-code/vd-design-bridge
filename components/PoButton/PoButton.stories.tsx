@@ -50,7 +50,7 @@ do Figma — as cores abaixo não são convenção nossa, são o que está no ar
 `;
 
 const meta = {
-  title: 'POUi/Button',
+  title: 'Componentes/POUi/Button',
   component: PoButton,
   tags: ['autodocs'],
   parameters: {

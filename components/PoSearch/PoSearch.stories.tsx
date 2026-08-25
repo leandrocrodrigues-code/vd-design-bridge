@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { PoSearch } from './PoSearch';
 
 const meta = {
-  title: 'POUi/Search',
+  title: 'Componentes/POUi/Search',
   component: PoSearch,
   tags: ['autodocs'],
   parameters: {

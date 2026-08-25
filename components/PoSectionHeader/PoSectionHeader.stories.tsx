@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { PoSectionHeader } from './PoSectionHeader';
 
 const meta = {
-  title: 'POUi/Section Header (composição)',
+  title: 'Componentes/POUi/Section Header (composição)',
   component: PoSectionHeader,
   tags: ['autodocs'],
   parameters: {

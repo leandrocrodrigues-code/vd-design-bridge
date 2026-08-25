@@ -6,7 +6,7 @@ const meta = {
   // Menu Delphi da sidebar. O contrato continua sendo o TWTButton nativo.
   // ATENÇÃO: a rota pública mudou de /?path=/docs/components-button--docs
   // para /?path=/docs/delphi-button--docs ao separar os menus Delphi/POUi.
-  title: 'Delphi/Button',
+  title: 'Componentes/Delphi/Button',
   component: TWTButton,
   tags: ['autodocs'],
   parameters: {

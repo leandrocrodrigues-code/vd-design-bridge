@@ -34,7 +34,7 @@ não foram baixados byte-a-byte nesta rodada.
 `;
 
 const meta = {
-  title: 'POUi/Top Bar',
+  title: 'Componentes/POUi/Top Bar',
   component: PoTopBar,
   tags: ['autodocs'],
   parameters: {

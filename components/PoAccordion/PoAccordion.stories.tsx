@@ -8,7 +8,7 @@ const items = [
 ];
 
 const meta = {
-  title: 'POUi/Accordion',
+  title: 'Componentes/POUi/Accordion',
   component: PoAccordion,
   tags: ['autodocs'],
   parameters: {

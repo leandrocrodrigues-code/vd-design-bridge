@@ -19,7 +19,7 @@ wrapper de biblioteca externa.
 `;
 
 const meta = {
-  title: 'POUi/Cards/Status',
+  title: 'Componentes/POUi/Cards/Status',
   component: PoCardStatus,
   tags: ['autodocs'],
   parameters: {

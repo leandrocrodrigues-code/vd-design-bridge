@@ -24,7 +24,7 @@ wrapper fino em cima do \`PoButton\` existente.
 `;
 
 const meta = {
-  title: 'POUi/Buttons Group (composição)',
+  title: 'Componentes/POUi/Buttons Group (composição)',
   component: PoButtonsGroup,
   tags: ['autodocs'],
   parameters: {

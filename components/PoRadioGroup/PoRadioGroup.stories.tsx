@@ -37,7 +37,7 @@ CSS puro): outer fill \`#00DBFF\` (surface/brand/pure) + dot \`#002233\`
 `;
 
 const meta = {
-  title: 'POUi/Radio Group',
+  title: 'Componentes/POUi/Radio Group',
   component: PoRadioGroup,
   tags: ['autodocs'],
   parameters: {

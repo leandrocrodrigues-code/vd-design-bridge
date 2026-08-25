@@ -15,7 +15,7 @@ nó só para Alert; os demais status seguem por analogia com Button/Tag.
 `;
 
 const meta = {
-  title: 'POUi/Badge',
+  title: 'Componentes/POUi/Badge',
   component: PoBadge,
   tags: ['autodocs'],
   parameters: {

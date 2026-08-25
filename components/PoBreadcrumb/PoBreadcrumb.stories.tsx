@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { PoBreadcrumb } from './PoBreadcrumb';
 
 const meta = {
-  title: 'POUi/Breadcrumb',
+  title: 'Componentes/POUi/Breadcrumb',
   component: PoBreadcrumb,
   tags: ['autodocs'],
   parameters: {

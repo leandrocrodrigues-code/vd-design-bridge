@@ -10,7 +10,7 @@ const options = [
 ];
 
 const meta = {
-  title: 'POUi/Combo (Combobox)',
+  title: 'Componentes/POUi/Combo (Combobox)',
   component: PoCombo,
   tags: ['autodocs'],
   parameters: {

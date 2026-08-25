@@ -23,7 +23,7 @@ const steps = [
 ];
 
 const meta = {
-  title: 'POUi/Modal (Progress)',
+  title: 'Componentes/POUi/Modal (Progress)',
   component: PoModalProgress,
   tags: ['autodocs'],
   parameters: {

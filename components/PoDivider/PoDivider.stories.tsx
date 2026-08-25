@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { PoDivider } from './PoDivider';
 
 const meta = {
-  title: 'POUi/Divider',
+  title: 'Componentes/POUi/Divider',
   component: PoDivider,
   tags: ['autodocs'],
   parameters: {

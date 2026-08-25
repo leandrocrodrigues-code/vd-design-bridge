@@ -18,7 +18,7 @@ estados visuais específicos do Figma.
 `;
 
 const meta = {
-  title: 'POUi/Cards/Uploader',
+  title: 'Componentes/POUi/Cards/Uploader',
   component: PoCardUploader,
   tags: ['autodocs'],
   parameters: {

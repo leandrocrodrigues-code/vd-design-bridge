@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { PoHero } from './PoHero';
 
 const meta = {
-  title: 'POUi/Hero (composição)',
+  title: 'Componentes/POUi/Hero (composição)',
   component: PoHero,
   tags: ['autodocs'],
   parameters: {

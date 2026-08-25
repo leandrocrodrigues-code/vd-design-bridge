@@ -12,7 +12,7 @@ Preview do **po-tag** (Figma "Tag", node \`316:3942\`, página "Tag ✅").
 `;
 
 const meta = {
-  title: 'POUi/Tag',
+  title: 'Componentes/POUi/Tag',
   component: PoTag,
   tags: ['autodocs'],
   parameters: {

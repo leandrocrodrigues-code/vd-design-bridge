@@ -19,7 +19,7 @@ Doc oficial: https://po-ui.io/documentation/po-list-view
 `;
 
 const meta = {
-  title: 'POUi/List Item',
+  title: 'Componentes/POUi/List Item',
   component: PoListItem,
   tags: ['autodocs'],
   parameters: {

@@ -40,7 +40,7 @@ Side Menu, então foi aplicado seguindo o padrão do token oficial
 `;
 
 const meta = {
-  title: 'POUi/Side Menu',
+  title: 'Componentes/POUi/Side Menu',
   component: PoSideMenu,
   tags: ['autodocs'],
   parameters: {

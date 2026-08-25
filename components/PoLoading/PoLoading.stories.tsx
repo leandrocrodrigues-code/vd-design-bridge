@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { PoLoading } from './PoLoading';
 
 const meta = {
-  title: 'POUi/Loading',
+  title: 'Componentes/POUi/Loading',
   component: PoLoading,
   tags: ['autodocs'],
   parameters: {

@@ -33,7 +33,7 @@ escala proporcional.
 `;
 
 const meta = {
-  title: 'POUi/Switch (Toggle)',
+  title: 'Componentes/POUi/Switch (Toggle)',
   component: PoSwitch,
   tags: ['autodocs'],
   parameters: {

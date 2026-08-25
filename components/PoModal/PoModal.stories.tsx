@@ -21,7 +21,7 @@ Doc oficial: https://po-ui.io/documentation/po-modal
 `;
 
 const meta = {
-  title: 'POUi/Modal (Feedback)',
+  title: 'Componentes/POUi/Modal (Feedback)',
   component: PoModal,
   tags: ['autodocs'],
   parameters: {
