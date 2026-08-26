@@ -1,0 +1,203 @@
+{
+  "$schema": "vd-design-bridge/starship-screen-manifest/v1",
+  "generatedAt": "2026-08-26",
+  "howToUse": "Pra uma IA gerar esta tela em PO-UI (Angular, @po-ui/ng-components) com máxima fidelidade: 1) leia o node do Figma abaixo via MCP pra confirmar textos/posições atuais (o handoff pode ter mudado); 2) leia este arquivo inteiro — ele já resolve as 3 coisas que mais causam alucinação: paleta exata (NÃO usar tokens --vd-color-*, essa tela é fora do Design System V&D), mapeamento de cada ícone pro nome real 'an an-*' da fonte de ícones da PO-UI, e o componente po-* real de cada bloco; 3) gere o Angular usando exatamente os valores daqui, sem inventar cor, ícone ou texto que não estejam listados.",
+  "source": {
+    "figmaFileKey": "bAwoyH6RCBT6Ajrxi9rwwe",
+    "figmaFile": "Handoff Starship - Assistente Piso de Loja (Copy)",
+    "nodeId": "2214:44338",
+    "nodeName": "Tela de aterrissagem - Resumo de loja full width",
+    "figmaUrl": "https://www.figma.com/design/bAwoyH6RCBT6Ajrxi9rwwe/Handoff-Starship---Assistente-Piso-de-Loja--Copy-?node-id=2214-44338"
+  },
+  "screen": {
+    "name": "Assistente Piso de Loja",
+    "width": 1328,
+    "height": 962,
+    "brand": "Starship",
+    "note": "Marca própria, FORA do Design System V&D deste Storybook — não sobrescrever com --vd-color-*. Todas as cores em 'colors' abaixo são os hex exatos confirmados no Figma. Reconstrução React de referência: Starship/Piso de Loja neste Storybook."
+  },
+  "typography": {
+    "fontFamilyUi": "Inter, sans-serif",
+    "fontFamilyBody": "'Nunito Sans', sans-serif",
+    "note": "Cabeçalho/tabs/context bar usam Nunito Sans; o corpo do conteúdo (cards, diagnóstico, footer da IA) usa Inter — confirmado nó a nó."
+  },
+  "colors": {
+    "headerBg": "#f9f9fa",
+    "headerBorderBottom": "#4545a1",
+    "brand": "#4545a1",
+    "textDark": "#1d1d30",
+    "textDarkerActiveTab": "#030330",
+    "textNeutralDescriptions": "#36364a",
+    "tabInactiveBg": "#ececee",
+    "tabActiveBg": "#c2c2e5",
+    "tabBorder": "#d0d0d7",
+    "cardBorder": "#d0d0d7",
+    "contentBg": "#f2f5f8",
+    "headerDivider": "#e7e7e7",
+    "badgeHomologacaoBg": "#ececf7",
+    "metricGreenMargem": "#059669",
+    "metricAmberDesconto": "#b45309",
+    "toastBg": "#fcf6e3",
+    "toastBorder": "rgba(232,177,110,0.8)",
+    "toastIconBg": "#efba2a",
+    "iaAssistantBorder": "#a650ff",
+    "logoLynnGradient": ["#a650ff", "#5e69ff", "#00aeef"]
+  },
+  "icons": {
+    "note": "Todos os nomes 'an an-*' abaixo foram CONFIRMADOS existentes na fonte de ícones real da PO-UI (@po-ui/style/css/po-theme-default.min.css). Use exatamente estes — não trocar por outro glyph parecido.",
+    "map": [
+      { "role": "logo-totvs", "usage": "header esquerda", "type": "asset", "assetFile": "assets/logo-totvs.svg", "poIcon": null },
+      { "role": "menu-apps", "usage": "header direita, grid de apps", "type": "po-icon", "poIcon": "an an-squares-four" },
+      { "role": "mais-opcoes", "usage": "header direita, kebab", "type": "po-icon", "poIcon": "an an-dots-three-vertical" },
+      { "role": "notificacao", "usage": "header direita, sino com badge '9+'", "type": "po-icon", "poIcon": "an an-bell", "note": "o badge numérico não é parte do ícone — implementar como po-tag ou span posicionado sobre o po-icon, nunca embutido na mesma glyph" },
+      { "role": "usuario", "usage": "header direita, avatar", "type": "po-icon", "poIcon": "an an-user" },
+      { "role": "fechar-aba", "usage": "aba ativa 'Performance piso de loja'", "type": "po-icon", "poIcon": "an an-x" },
+      { "role": "exibir-opcoes", "usage": "context bar, chevron do botão", "type": "po-icon", "poIcon": "an an-caret-up-down" },
+      { "role": "data", "usage": "context bar", "type": "po-icon", "poIcon": "an an-calendar" },
+      { "role": "empresa", "usage": "context bar", "type": "po-icon", "poIcon": "an an-map-pin" },
+      { "role": "aviso-toast", "usage": "ícone dentro do quadrado âmbar do toaster", "type": "po-icon", "poIcon": "an an-warning-circle" },
+      { "role": "fechar-toast", "usage": "botão X do toaster", "type": "po-icon", "poIcon": "an an-x" },
+      { "role": "anexar", "usage": "footer da IA", "type": "po-icon", "poIcon": "an an-paperclip", "note": "no handoff do Figma este ícone aponta pro mesmo asset genérico usado no de gravar áudio — divergência real, corrigida na reconstrução React pra usar o glyph certo" },
+      { "role": "gravar-audio", "usage": "footer da IA", "type": "po-icon", "poIcon": "an an-microphone", "note": "mesma divergência do item acima" },
+      { "role": "enviar", "usage": "footer da IA, botão de enviar pergunta", "type": "po-icon", "poIcon": "an an-paper-plane-tilt" }
+    ]
+  },
+  "elements": [
+    {
+      "figmaNodeId": "2214:44339",
+      "figmaName": "Ani Global Header",
+      "role": "header",
+      "size": { "width": 1328, "height": 60 },
+      "background": "colors.headerBg",
+      "borderBottom": "2px solid colors.headerBorder",
+      "pouiComponent": "po-toolbar (customizado) ou composição manual — não existe um po-* pronto que já inclua logo + tag + 4 ícones + avatar juntos",
+      "content": {
+        "left": ["logo-totvs (svg)", "po-tag value=\"Homologação\" — bg colors.badgeHomologacaoBg, texto colors.brand"],
+        "right": ["po-icon an-squares-four", "po-icon an-dots-three-vertical", "po-icon an-bell + badge '9+'", "po-icon an-user"]
+      }
+    },
+    {
+      "figmaNodeId": "2214:44340",
+      "figmaName": "Ani Tabs",
+      "role": "navigation",
+      "size": { "width": 1328, "height": 56 },
+      "background": "colors.headerBg",
+      "borderBottom": "1px solid colors.tabBorder",
+      "pouiComponent": "po-tabs / po-tab",
+      "content": {
+        "tabs": [
+          { "label": "TOTVS News", "active": false, "bg": "colors.tabInactiveBg", "text": "colors.brand" },
+          { "label": "Meu TOTVS", "active": false, "bg": "colors.tabInactiveBg", "text": "colors.brand" },
+          { "label": "Performance piso de loja", "active": true, "bg": "colors.tabActiveBg", "text": "colors.textDarkerActiveTab", "closable": true }
+        ]
+      }
+    },
+    {
+      "figmaNodeId": "2214:44341",
+      "figmaName": "Ani Context Bar",
+      "role": "toolbar",
+      "size": { "width": 1328, "height": 60 },
+      "background": "colors.headerBg",
+      "borderBottom": "1px solid colors.tabBorder",
+      "pouiComponent": "composição manual (po-button secondary + spans) — sem componente po-* dedicado pra 'context bar'",
+      "content": {
+        "button": { "label": "Exibir opções", "kind": "secondary", "iconTrailing": "an-caret-up-down (PO-UI só tem ícone à esquerda — divergência aceita)" },
+        "fields": [
+          { "icon": "an-calendar", "label": "Data:", "value": "01/01/2025" },
+          { "icon": "an-map-pin", "label": "Empresa:", "value": "TOTVS" },
+          { "label": "Filial:", "value": "São Paulo - Santana", "icon": null }
+        ]
+      }
+    },
+    {
+      "figmaNodeId": "2214:44351",
+      "figmaName": "Ani Page Header (saudação)",
+      "role": "page-header",
+      "pouiComponent": "composição manual",
+      "content": {
+        "logo": "logo-lynn.svg (gradiente colors.logoLynnGradient)",
+        "title": "Bom dia, Matheus. O cenário já está preparado para hoje.",
+        "subtitle": "Confira o diagnóstico de sua loja - Última atualização 21/06/2026, 8:18"
+      }
+    },
+    {
+      "figmaNodeId": "2214:44373",
+      "figmaName": "Metric-Row",
+      "role": "summary-cards",
+      "size": { "width": 1280, "height": 160 },
+      "itemCount": 4,
+      "pouiComponent": "po-widget (ou 4x div — ver nota) — cada card é: label 12px bold uppercase, valor 32px bold, descrição 13px",
+      "content": {
+        "cards": [
+          { "label": "Faturamento", "value": "R$ 900,5k", "valueColor": "colors.brand", "description": "Volume total vendido pela equipe no período." },
+          { "label": "Ticket Médio", "value": "R$ 360", "valueColor": "colors.textDark", "description": "Base para avaliar qualidade da venda e venda agregada." },
+          { "label": "Margem Média", "value": "31,2%", "valueColor": "colors.metricGreenMargem", "description": "Saudável, mas pressionada por descontos altos em parte da equipe." },
+          { "label": "Desconto Médio", "value": "10,6%", "valueColor": "colors.metricAmberDesconto", "description": "Principal sintoma para investigar no ranking de vendedores." }
+        ]
+      }
+    },
+    {
+      "figmaNodeId": "2214:44393",
+      "figmaName": "Card de diagnóstico (texto da IA)",
+      "role": "content-card",
+      "pouiComponent": "po-widget",
+      "content": {
+        "headline": "Sua loja vendeu bem, mas parte do resultado veio com desconto alto.",
+        "paragraphs": [
+          "Hoje a loja fechou com **R$ 900,5k em faturamento**, um volume forte para o período. O ponto de atenção está na qualidade dessa venda: o [desconto médio ficou em 10,6%](colors.metricAmberDesconto)",
+          "O melhor exemplo positivo foi **Maria Santos**: maior faturamento da equipe, **R$ 87,5 mil**, maior ticket médio, **R$ 485**, margem de [38,2%](colors.metricGreenMargem) e desconto baixo, **5,3%**. Ela é a principal referência para entender o que funcionou.",
+          "Já **Bruno Martins** e **Rodrigo Nunes** precisam de atenção. Eles venderam bastante, mas operaram com descontos de [18,5% e 19,2%](colors.metricAmberDesconto), derrubando a qualidade do resultado. O diagnóstico é claro: **a loja performou em volume, mas precisa proteger melhor margem e desconto para crescer com rentabilidade.**"
+        ],
+        "note": "**negrito** = font-weight 700 colors.textDark; [texto](cor) = negrito na cor indicada."
+      }
+    },
+    {
+      "figmaNodeId": "2214:44465",
+      "figmaName": "Ani Toaster",
+      "role": "alert",
+      "pouiComponent": "po-toaster p-type=\"warning\"",
+      "content": {
+        "message": "Bruno Martins e Rodrigo Nunes: Alto faturamento (R$ 78k e R$ 71k) mas margem crítica (<25%) por desconto excessivo",
+        "actionLabel": "Ver detalhes",
+        "closable": true
+      },
+      "interaction": {
+        "note": "No Figma o toaster está com opacity:0 (oculto por padrão) — comportamento definido pelo usuário, não pelo arquivo: aparece 15s depois do carregamento da tela e some sozinho 15s depois de aparecer (ou ao clicar em fechar, o que vier primeiro)."
+      }
+    },
+    {
+      "figmaNodeId": "2214:44466",
+      "figmaName": "IA-Footer",
+      "role": "footer",
+      "size": { "width": 1328, "height": 89 },
+      "pouiComponent": "composição manual — campo de texto + 3 po-icon buttons dentro de uma borda arredondada colors.iaAssistantBorder",
+      "content": {
+        "placeholder": "Como estamos de meta no mês?",
+        "actions": ["an-paperclip (anexar)", "an-microphone (gravar áudio)", "an-paper-plane-tilt (enviar)"]
+      },
+      "layoutNote": "Este footer NÃO deve usar position:sticky/fixed sobrepondo o card de diagnóstico — ele deve ficar em fluxo normal, abaixo do card, nunca cobrindo conteúdo."
+    }
+  ],
+  "gaps": [
+    {
+      "element": "Enviar (footer da IA)",
+      "issue": "Botão 'Ani Button/Primary' sem cor de fundo definida nos nós lidos do Figma — só o ícone roxo (colors.brand).",
+      "recommendation": "Implementar sem preenchimento (ícone sobre fundo transparente). Não inventar uma cor de fundo."
+    },
+    {
+      "element": "Anexar / Gravar áudio",
+      "issue": "No arquivo original do Figma os dois ícones apontam pro mesmo asset genérico ('agrobusiness', não são paperclip/microphone de verdade).",
+      "recommendation": "Usar an-paperclip e an-microphone reais (é o que a reconstrução React já faz) — não replicar o erro do handoff aqui."
+    },
+    {
+      "element": "Notificação com badge",
+      "issue": "O asset SVG do handoff já vem com o badge '9+' desenhado dentro do próprio ícone (viewBox 33x31, não 24x24).",
+      "recommendation": "Em PO-UI real, não existe glyph de sino com badge embutido — implementar an-bell + badge separado (po-tag ou span posicionado), não tentar achar um ícone 'bell-with-badge'."
+    }
+  ],
+  "references": {
+    "storybook": "https://leandrocrodrigues-code.github.io/vd-design-bridge/?path=/story/starship-piso-de-loja--playground",
+    "repo": "https://github.com/leandrocrodrigues-code/vd-design-bridge",
+    "reactReferenceComponent": "components/Starship/PisoDeLoja/PisoDeLoja.tsx"
+  }
+}
