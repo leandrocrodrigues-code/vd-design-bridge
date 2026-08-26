@@ -145,6 +145,7 @@ export function PisoDeLojaScreen() {
   const [activeTab, setActiveTab] = useState<'news' | 'meu-totvs' | 'performance'>('performance');
   const [tabOpen, setTabOpen] = useState(true);
   const [toastOpen, setToastOpen] = useState(false);
+  const [question, setQuestion] = useState('');
 
   useEffect(() => {
     const showTimer = setTimeout(() => setToastOpen(true), 15000);
@@ -158,7 +159,25 @@ export function PisoDeLojaScreen() {
   }, [toastOpen]);
 
   return (
-    <div style={{ ...starshipTheme, border: `1px solid ${c.tabBorder}`, display: 'flex', flexDirection: 'column', fontFamily: "'Nunito Sans', sans-serif", background: c.contentBg }}>
+    <div className="starship-piso-de-loja" style={{ ...starshipTheme, border: `1px solid ${c.tabBorder}`, display: 'flex', flexDirection: 'column', fontFamily: "'Nunito Sans', sans-serif", background: c.contentBg }}>
+      {/* O hover padrão do po-button.tokens.css preenche com
+          --vd-color-surface-brand-highlight (mesma cor usada pro texto
+          default) — no V&D isso dá contraste, mas na paleta Starship
+          (#4545a1) fica pesado demais em botões que aparecem repetidos
+          (ícones do header/footer). Sobrescrito aqui só pra hover/pressed,
+          escopado a esta tela — o resto (bg/texto padrão, focus) continua
+          vindo do token real. */}
+      <style>{`
+        .starship-piso-de-loja .vd-po-button {
+          --background-hover: #ececf7;
+          --color-hover: #4545a1;
+          --background-pressed: #ececf7;
+          --color-pressed: #4545a1;
+        }
+        .starship-piso-de-loja input::placeholder {
+          color: rgba(54, 54, 74, 0.5);
+        }
+      `}</style>
       {/* Ani Global Header — sem componente po-* dedicado (logo + tag + ícones
           + avatar juntos); os ícones e a tag SÃO os componentes reais. */}
       <div style={{ background: c.headerBg, borderBottom: `2px solid ${c.headerBorder}`, display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 60, padding: '0 16px' }}>
@@ -305,9 +324,23 @@ export function PisoDeLojaScreen() {
             {/* IA Footer — fluxo normal (não sobrepõe o card acima) */}
             <div style={{ background: c.contentBg, display: 'flex', justifyContent: 'center', padding: '16px 24px 24px' }}>
               <div style={{ display: 'flex', alignItems: 'flex-end', gap: 8, width: '100%', maxWidth: 720, border: `1.667px solid ${c.iaBorder}`, borderRadius: 12, padding: '12px 12px 12px 18px' }}>
-                <p style={{ flex: 1, margin: 0, fontFamily: 'Inter, sans-serif', fontSize: 14, lineHeight: '21px', color: 'rgba(54,54,74,0.5)' }}>
-                  Como estamos de meta no mês?
-                </p>
+                <input
+                  type="text"
+                  value={question}
+                  onChange={e => setQuestion(e.target.value)}
+                  placeholder="Como estamos de meta no mês?"
+                  style={{
+                    flex: 1,
+                    margin: 0,
+                    border: 'none',
+                    outline: 'none',
+                    background: 'transparent',
+                    fontFamily: 'Inter, sans-serif',
+                    fontSize: 14,
+                    lineHeight: '21px',
+                    color: c.textDark
+                  }}
+                />
                 <PoButton kind="tertiary" size="small" icon={<PaperclipIcon />} ariaLabel="Anexar" />
                 <PoButton kind="tertiary" size="small" icon={<MicrophoneIcon />} ariaLabel="Gravar áudio" />
                 <PoButton kind="tertiary" size="small" icon={<SendIcon />} ariaLabel="Enviar" />
