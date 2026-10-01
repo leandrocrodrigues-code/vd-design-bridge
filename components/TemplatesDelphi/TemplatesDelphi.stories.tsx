@@ -2,9 +2,9 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 
 const docs = `
 🚧 **Em construção.** Ainda não temos nenhuma tela de referência montada
-com os componentes Delphi (\`TWTButton\`, \`TWTCheckBox\`) — o catálogo
-Delphi neste Storybook tem só 2 componentes até agora, poucos pra montar
-uma tela completa.
+com os componentes Delphi (\`TWTButton\`, \`TWTCheckBox\`, \`TWTCard\`,
+\`TWTModal\`) — o catálogo Delphi neste Storybook tem 4 componentes até
+agora, poucos pra montar uma tela completa.
 
 Segue o mesmo padrão de **Templates POUi**: quando o usuário mandar uma
 tela de referência (Figma, PDF ou screenshot) montada com componentes
