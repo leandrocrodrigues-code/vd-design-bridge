@@ -37,6 +37,12 @@ V&D — UI KIT Desktop\`
 cuja anatomia documentada é: **Header** (slot opcional) + **Content** (slot
 opcional) + **Action** (slot opcional).
 
+**Regra de fidelidade:** o **Figma é a fonte da verdade visual**, sempre.
+O PDF do TDN documenta o contrato de propriedades do componente nativo
+Delphi; o Figma documenta como o Design System V&D está modernizando o
+visual desse componente. Quando os dois divergem (ou quando o PDF
+simplesmente não mostra um visual, como aqui), o Figma vence.
+
 \`Header\`, \`Content\` e \`Actions\` existem só para documentação/inspeção no
 Storybook — o \`TWTModal\` Delphi não nomeia slots explicitamente, é o form
 inteiro que é exibido via \`ShowModal\`.

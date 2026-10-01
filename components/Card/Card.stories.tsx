@@ -18,15 +18,20 @@ referenciam um índice de \`ImageList\`; aqui viram um \`ReactNode\` só para
 fins de documentação visual. \`PreviewState\` existe apenas para inspeção
 no Storybook.
 
-**Fonte visual:** geometria, espaçamentos e cores (avatar 32px, barra de
-4px, tipografia overline + label) confirmados via Figma MCP no componente
-**Card Status** (também rotulado "Card Template" internamente) do arquivo
-\`MCP Design System V&D — UI KIT Desktop\`
+**Regra de fidelidade:** o **Figma é a fonte da verdade visual**, sempre.
+O PDF do TDN documenta o contrato de propriedades do componente nativo
+Delphi (\`TWTCard\`, nomes e tipos reais); o Figma documenta como o
+Design System V&D está modernizando o visual desse componente. Quando os
+dois divergem, o Figma vence — não é uma pendência para o time de design
+decidir depois, é a regra de trabalho deste catálogo.
+
+Geometria, espaçamentos e cores (avatar 32px, barra de 4px, tipografia
+overline + label) confirmados via Figma MCP no componente **Card Status**
+(também rotulado "Card Template" internamente) do arquivo \`MCP Design
+System V&D — UI KIT Desktop\`
 ([node 11959:4835](https://www.figma.com/design/LO37QXwojd3vklS4R2mGqJ?node-id=11959-4835)
 Default, [node 11959:4990](https://www.figma.com/design/LO37QXwojd3vklS4R2mGqJ?node-id=11959-4990)
-Active) — essa é a referência visual atual do Design System V&D pra esse
-componente, e substitui nossa leitura inicial (feita só a partir das
-imagens do PDF) sempre que as duas divergem.
+Active).
 
 ### Divergências reais (não inventadas)
 
@@ -36,16 +41,15 @@ imagens do PDF) sempre que as duas divergem.
   do próprio \`Cor\` é o mecanismo documentado para o visual desabilitado.
   O Figma não tem um tipo "Desabilitado" equivalente — usamos o tipo mais
   próximo (\`Neutral\`, cinza) como referência de tom, não um recorte 1:1.
-- **Seleção (\`ManterSelecao\`) — divergência entre as duas fontes:** as
-  páginas do PDF (TDN) mostram, ao clicar, o card inteiro preenchendo com
-  a cor pura sólida e o texto virando branco. Já o componente atual no
-  Figma ("Card Status", variante Active) usa um tratamento mais sutil —
-  fundo levemente tintado (\`.../card\`) + borda de 1px na cor pura, sem
-  preencher o card inteiro nem trocar a cor do texto. Esta implementação
-  segue o Figma (fonte visual vigente do Design System V&D); o
-  comportamento do PDF fica registrado aqui para o time de design decidir
-  se o visual legado do Delphi precisa ser atualizado ou se é um gap
-  intencional entre as duas gerações do componente.
+- **Seleção (\`ManterSelecao\`):** o PDF do TDN (visual legado do Delphi)
+  mostra, ao clicar, o card inteiro preenchendo com a cor pura sólida e o
+  texto virando branco. O componente atual no Figma ("Card Status",
+  variante Active) já modernizou esse estado para um tratamento mais
+  sutil — fundo levemente tintado (\`.../card\`) + borda de 1px na cor
+  pura, sem preencher o card inteiro nem trocar a cor do texto. Por regra
+  de fidelidade ao Figma, é isso que está implementado aqui; o
+  preenchimento sólido do PDF é só o registro histórico de como o
+  componente nativo Delphi ainda renderiza esse estado.
 `;
 
 const meta = {
