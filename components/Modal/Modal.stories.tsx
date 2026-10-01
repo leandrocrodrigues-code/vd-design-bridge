@@ -27,14 +27,27 @@ begin
 end;
 \`\`\`
 
+**Fonte visual:** o PDF do TDN não traz uma imagem do visual renderizado —
+só a tabela de propriedades e o exemplo de código acima. A geometria e o
+estilo abaixo (sombra \`0px 6px 16px rgba(0,0,0,.08)\`, padding 32px, raio
+12px, botão de fechar 40×40 flutuante no canto superior direito) vêm do
+Figma MCP, componente **Modal (Template)** do arquivo \`MCP Design System
+V&D — UI KIT Desktop\`
+([node 13095:53662](https://www.figma.com/design/LO37QXwojd3vklS4R2mGqJ?node-id=13095-53662)),
+cuja anatomia documentada é: **Header** (slot opcional) + **Content** (slot
+opcional) + **Action** (slot opcional).
+
+\`Header\`, \`Content\` e \`Actions\` existem só para documentação/inspeção no
+Storybook — o \`TWTModal\` Delphi não nomeia slots explicitamente, é o form
+inteiro que é exibido via \`ShowModal\`.
+
 ### Divergência real (documentada, não inventada)
 
-O PDF do TDN **não traz uma imagem do visual renderizado** — só a tabela de
-propriedades e o exemplo de código acima. O chrome visual (overlay,
-cabeçalho, borda, alça de arrasto) é uma interpretação nossa para tornar as
-4 props inspecionáveis, estruturada a partir do padrão já usado no
-\`PoModal\`, e não deve ser lida como um recorte literal de uma imagem do
-PDF — porque essa imagem não existe na fonte.
+\`Movable\` (arrastável pelo usuário) **não tem indicador visual em nenhuma
+das duas fontes** (nem no PDF do TDN, nem no componente do Figma) — por
+isso esta preview não desenha nenhum afford visual para essa prop. Ela
+continua existindo no contrato (\`TWTModalProps.Movable\`), documentada como
+real, mas sem representação visual inventada.
 `;
 
 const meta = {
@@ -47,11 +60,12 @@ const meta = {
   },
   argTypes: {
     FullHeight: { control: 'boolean', description: 'Propriedade FullHeight do TWTModal.' },
-    Movable: { control: 'boolean', description: 'Propriedade Movable do TWTModal (arrasto não implementado nesta preview).' },
+    Movable: { control: 'boolean', description: 'Propriedade Movable do TWTModal. Sem representação visual (ver nota de divergência).' },
     RoundedBorder: { control: 'boolean', description: 'Propriedade RoundedBorder do TWTModal.' },
     ShowCloseButton: { control: 'boolean', description: 'Propriedade ShowCloseButton do TWTModal.' },
-    Title: { control: 'text', description: 'Apenas para documentação/inspeção no Storybook.' },
-    children: { control: 'text', description: 'Apenas para documentação/inspeção no Storybook.' },
+    Header: { control: 'text', description: 'Apenas para documentação/inspeção no Storybook — slot Header da anatomia do Figma.' },
+    Content: { control: 'text', description: 'Apenas para documentação/inspeção no Storybook — slot Content da anatomia do Figma.' },
+    Actions: { control: 'text', description: 'Apenas para documentação/inspeção no Storybook — slot Action da anatomia do Figma.' },
     OnClose: { action: 'OnClose' },
   },
   args: {
@@ -59,7 +73,9 @@ const meta = {
     Movable: false,
     RoundedBorder: true,
     ShowCloseButton: true,
-    Title: 'Titulo do modal',
+    Header: 'Header',
+    Content: 'Content',
+    Actions: 'Action',
   },
 } satisfies Meta<typeof TWTModal>;
 
@@ -72,8 +88,8 @@ export const RoundedBorderOffVsOn: Story = {
   name: 'RoundedBorder: false vs true',
   render: () => (
     <div className="flex flex-wrap gap-6">
-      <TWTModal Title="RoundedBorder = false" RoundedBorder={false} />
-      <TWTModal Title="RoundedBorder = true" RoundedBorder />
+      <TWTModal Header="RoundedBorder = false" RoundedBorder={false} />
+      <TWTModal Header="RoundedBorder = true" RoundedBorder />
     </div>
   ),
 };
@@ -83,19 +99,19 @@ export const SemBotaoFechar: Story = {
   args: { ShowCloseButton: false },
 };
 
-export const Movel: Story = {
-  name: 'Movable = true',
-  parameters: {
-    docs: {
-      description: {
-        story: 'A alça (⠿) sinaliza `Movable = true`; o arrasto em si não é implementado nesta preview estática.',
-      },
-    },
-  },
-  args: { Movable: true },
-};
-
 export const AlturaTotal: Story = {
   name: 'FullHeight = true',
   args: { FullHeight: true },
+};
+
+export const SemAction: Story = {
+  name: 'Has Action = false (anatomia)',
+  parameters: {
+    docs: {
+      description: {
+        story: 'Os três slots (Header/Content/Action) são opcionais na anatomia documentada no Figma — aqui com o slot Action omitido.',
+      },
+    },
+  },
+  args: { Actions: undefined },
 };

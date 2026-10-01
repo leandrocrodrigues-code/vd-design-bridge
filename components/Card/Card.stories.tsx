@@ -13,21 +13,39 @@ Representação visual do **TWTCard** da biblioteca Delphi
 
 Os nomes \`Cor\`, \`Titulo\`, \`Descricao\`, \`ManterSelecao\`, \`Valor\`,
 \`ValorMaximo\`, \`ExibeBarra\` e \`OnClick\` seguem o contrato nativo do
-Delphi. \`Icone\`/\`IconeSelecionado\` no Delphi referenciam um índice de
-\`ImageList\`; aqui viram um \`ReactNode\` só para fins de documentação visual.
-\`PreviewState\` existe apenas para inspeção no Storybook.
+Delphi, confirmado no PDF. \`Icone\`/\`IconeSelecionado\` no Delphi
+referenciam um índice de \`ImageList\`; aqui viram um \`ReactNode\` só para
+fins de documentação visual. \`PreviewState\` existe apenas para inspeção
+no Storybook.
+
+**Fonte visual:** geometria, espaçamentos e cores (avatar 32px, barra de
+4px, tipografia overline + label) confirmados via Figma MCP no componente
+**Card Status** (também rotulado "Card Template" internamente) do arquivo
+\`MCP Design System V&D — UI KIT Desktop\`
+([node 11959:4835](https://www.figma.com/design/LO37QXwojd3vklS4R2mGqJ?node-id=11959-4835)
+Default, [node 11959:4990](https://www.figma.com/design/LO37QXwojd3vklS4R2mGqJ?node-id=11959-4990)
+Active) — essa é a referência visual atual do Design System V&D pra esse
+componente, e substitui nossa leitura inicial (feita só a partir das
+imagens do PDF) sempre que as duas divergem.
 
 ### Divergências reais (não inventadas)
 
 - **\`Anchors\` (TAnchors)** não tem representação visual aqui — é ancoragem
   de layout com o container pai, fora do escopo de uma preview isolada.
-- O demo visual do PDF rotula o exemplo de \`tcLaranja\` como "card amarelo",
-  mas o nome do enum documentado é \`tcLaranja\`. Usamos o enum real.
 - O PDF não documenta uma propriedade \`Enabled\`; o valor \`tcDesabilitado\`
   do próprio \`Cor\` é o mecanismo documentado para o visual desabilitado.
-- **Seleção (\`ManterSelecao\`):** ao clicar, o card inteiro preenche com a
-  cor pura, texto e ícone viram brancos e a barra de progresso também fica
-  branca — comportamento confirmado visualmente nas páginas de exemplo do PDF.
+  O Figma não tem um tipo "Desabilitado" equivalente — usamos o tipo mais
+  próximo (\`Neutral\`, cinza) como referência de tom, não um recorte 1:1.
+- **Seleção (\`ManterSelecao\`) — divergência entre as duas fontes:** as
+  páginas do PDF (TDN) mostram, ao clicar, o card inteiro preenchendo com
+  a cor pura sólida e o texto virando branco. Já o componente atual no
+  Figma ("Card Status", variante Active) usa um tratamento mais sutil —
+  fundo levemente tintado (\`.../card\`) + borda de 1px na cor pura, sem
+  preencher o card inteiro nem trocar a cor do texto. Esta implementação
+  segue o Figma (fonte visual vigente do Design System V&D); o
+  comportamento do PDF fica registrado aqui para o time de design decidir
+  se o visual legado do Delphi precisa ser atualizado ou se é um gap
+  intencional entre as duas gerações do componente.
 `;
 
 const meta = {
@@ -56,11 +74,11 @@ const meta = {
     OnClick: { action: 'OnClick' },
   },
   args: {
-    Titulo: 'Titulo',
-    Descricao: 'Descricao',
+    Titulo: 'Overline',
+    Descricao: 'Label Text',
     Cor: 'tcAzul',
     ManterSelecao: false,
-    Valor: 65,
+    Valor: 50,
     ValorMaximo: 100,
     ExibeBarra: true,
     PreviewState: 'Default',
@@ -77,11 +95,11 @@ export const Cores: Story = {
   name: 'Cores (TCardColor)',
   render: () => (
     <div className="flex flex-wrap gap-3">
-      <TWTCard Titulo="Titulo" Descricao="Card azul" Cor="tcAzul" Valor={65} />
-      <TWTCard Titulo="Titulo" Descricao="Card verde" Cor="tcVerde" Valor={65} />
-      <TWTCard Titulo="Titulo" Descricao="Card laranja" Cor="tcLaranja" Valor={65} />
-      <TWTCard Titulo="Titulo" Descricao="Card vermelho" Cor="tcVermelho" Valor={65} />
-      <TWTCard Titulo="Titulo" Descricao="Card desabilitado" Cor="tcDesabilitado" Valor={65} />
+      <TWTCard Titulo="Overline" Descricao="Card azul" Cor="tcAzul" Valor={65} />
+      <TWTCard Titulo="Overline" Descricao="Card verde" Cor="tcVerde" Valor={65} />
+      <TWTCard Titulo="Overline" Descricao="Card laranja" Cor="tcLaranja" Valor={65} />
+      <TWTCard Titulo="Overline" Descricao="Card vermelho" Cor="tcVermelho" Valor={65} />
+      <TWTCard Titulo="Overline" Descricao="Card desabilitado" Cor="tcDesabilitado" Valor={65} />
     </div>
   ),
 };
@@ -91,14 +109,14 @@ export const Selecionado: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Clique no card para alternar o estado selecionado — só ocorre quando `ManterSelecao` é `true`.',
+        story: 'Clique no card para alternar o estado selecionado — só ocorre quando `ManterSelecao` é `true`. Visual conforme o Figma (fundo tintado + borda); ver nota de divergência com o PDF acima.',
       },
     },
   },
   render: () => (
     <div className="flex flex-wrap gap-3">
-      <TWTCard Titulo="Titulo" Descricao="Clique para selecionar" Cor="tcAzul" Valor={65} ManterSelecao />
-      <TWTCard Titulo="Titulo" Descricao="Clique para selecionar" Cor="tcVerde" Valor={40} ManterSelecao />
+      <TWTCard Titulo="Overline" Descricao="Clique para selecionar" Cor="tcAzul" Valor={65} ManterSelecao />
+      <TWTCard Titulo="Overline" Descricao="Clique para selecionar" Cor="tcVerde" Valor={40} ManterSelecao />
     </div>
   ),
 };
@@ -112,9 +130,9 @@ export const Progresso: Story = {
   name: 'Progresso (Valor / ValorMaximo)',
   render: () => (
     <div className="flex flex-wrap gap-3">
-      <TWTCard Titulo="Titulo" Descricao="20%" Cor="tcAzul" Valor={20} ValorMaximo={100} />
-      <TWTCard Titulo="Titulo" Descricao="50%" Cor="tcAzul" Valor={50} ValorMaximo={100} />
-      <TWTCard Titulo="Titulo" Descricao="90%" Cor="tcAzul" Valor={90} ValorMaximo={100} />
+      <TWTCard Titulo="Overline" Descricao="20%" Cor="tcAzul" Valor={20} ValorMaximo={100} />
+      <TWTCard Titulo="Overline" Descricao="50%" Cor="tcAzul" Valor={50} ValorMaximo={100} />
+      <TWTCard Titulo="Overline" Descricao="90%" Cor="tcAzul" Valor={90} ValorMaximo={100} />
     </div>
   ),
 };

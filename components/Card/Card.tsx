@@ -58,14 +58,15 @@ function resolveTone(cor: TCardColor): Tone {
  * visual. A classe Delphi (`TWTCard`, herda de `TCustomControl`) continua
  * sendo a implementação nativa de produto.
  *
+ * A geometria e os tokens (avatar 32px, barra de 4px, cores por tom) foram
+ * confirmados via Figma MCP no componente "Card Status" / "Card Template"
+ * do arquivo `MCP Design System V&D — UI KIT Desktop`
+ * (node 11955:9325, https://www.figma.com/design/LO37QXwojd3vklS4R2mGqJ?node-id=11959-4835),
+ * que é a fonte visual atual do Design System V&D para este componente.
+ *
  * ⚠️ `Anchors` (TAnchors, ancoragem com o controle pai) não tem
  * representação visual aqui — é uma propriedade de layout do container
  * Delphi, fora do escopo de uma preview isolada de componente.
- *
- * ⚠️ O doc oficial chama o valor `tcLaranja` de "amarelo" na legenda do
- * demo visual ("Demonstração card amarelo") mas o nome real do enum é
- * `tcLaranja` — usamos a cor real capturada no PDF (amber/warning), não
- * o nome da legenda.
  */
 export function TWTCard({
   Icone,
@@ -97,64 +98,72 @@ export function TWTCard({
 
   const containerStyle: CSSProperties = {
     fontFamily: tokens.typography.family.paragraph.value,
-    width: '240px',
+    width: '256px',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '16px',
     padding: '16px',
     borderRadius: tokens.radius.xsm.value,
     cursor: 'pointer',
-    outline: visibleState === 'Focus' ? `2px solid ${tone.highlight}` : 'none',
+    outline: visibleState === 'Focus' ? `2px solid ${tone.pure}` : 'none',
     outlineOffset: '2px',
     transition: 'background-color .15s ease, border-color .15s ease',
-    backgroundColor: selected ? tone.pure : tokens.color.surface.pure.value,
+    backgroundColor: selected ? tone.card : tokens.color.surface.card.value,
     border: selected
       ? `1px solid ${tone.pure}`
       : visibleState === 'Hover'
         ? `1px solid ${tone.pure}`
-        : `1px solid ${tokens.color.surface.container.value}`,
+        : '1px solid transparent',
     ...style,
   };
 
+  const rowStyle: CSSProperties = { display: 'flex', alignItems: 'center', gap: '8px' };
+
   const iconWrapStyle: CSSProperties = {
-    width: '48px',
-    height: '48px',
-    borderRadius: '50%',
+    width: '32px',
+    height: '32px',
+    borderRadius: tokens.radius.smd.value,
     display: 'inline-flex',
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: '12px',
-    fontSize: '22px',
-    backgroundColor: selected ? 'rgba(255,255,255,.24)' : tone.card,
-    color: selected ? tokens.color.content.inverse.value : tone.pure,
+    flexShrink: 0,
+    fontSize: '16px',
+    backgroundColor: tone.container,
+    color: tone.pure,
   };
 
+  const textColStyle: CSSProperties = { display: 'flex', flexDirection: 'column', minWidth: 0, flex: 1 };
+
   const titleStyle: CSSProperties = {
-    display: 'block',
-    fontSize: '14px',
-    lineHeight: '1.3',
-    color: selected ? tokens.color.content.inverse.value : tokens.color.content['01'].value,
+    fontSize: '12px',
+    lineHeight: '16px',
+    color: tokens.color.content['02'].value,
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
   };
 
   const descStyle: CSSProperties = {
-    display: 'block',
-    fontWeight: 700,
     fontSize: '14px',
-    lineHeight: '1.3',
-    marginTop: '2px',
-    color: selected ? tokens.color.content.inverse.value : tone.highlight,
+    lineHeight: '18px',
+    color: tone.highlight,
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
   };
 
   const trackStyle: CSSProperties = {
-    marginTop: '12px',
-    height: '6px',
-    borderRadius: '999px',
-    backgroundColor: selected ? 'rgba(255,255,255,.35)' : tokens.color.surface.container.value,
+    height: '4px',
+    borderRadius: tokens.radius['3xsm'].value,
+    backgroundColor: tokens.color.surface.container.value,
     overflow: 'hidden',
   };
 
   const fillStyle: CSSProperties = {
     height: '100%',
     width: `${progressPct}%`,
-    borderRadius: '999px',
-    backgroundColor: selected ? tokens.color.content.inverse.value : tone.pure,
+    borderRadius: tokens.radius['3xsm'].value,
+    backgroundColor: tone.pure,
   };
 
   return (
@@ -185,15 +194,19 @@ export function TWTCard({
         onBlur?.(event);
       }}
     >
-      <span aria-hidden="true" style={iconWrapStyle}>
-        {displayedIcon ?? (
-          <svg viewBox="0 0 24 24" width="22" height="22" fill="none">
-            <path d="M12 3l8 4v5c0 5-3.4 7.9-8 9-4.6-1.1-8-4-8-9V7l8-4Z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
-          </svg>
-        )}
-      </span>
-      <span style={titleStyle}>{Titulo}</span>
-      <span style={descStyle}>{Descricao}</span>
+      <div style={rowStyle}>
+        <span aria-hidden="true" style={iconWrapStyle}>
+          {displayedIcon ?? (
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none">
+              <path d="M12 3l8 4v5c0 5-3.4 7.9-8 9-4.6-1.1-8-4-8-9V7l8-4Z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
+            </svg>
+          )}
+        </span>
+        <span style={textColStyle}>
+          <span style={titleStyle}>{Titulo}</span>
+          <span style={descStyle}>{Descricao}</span>
+        </span>
+      </div>
       {ExibeBarra ? (
         <div style={trackStyle}>
           <div style={fillStyle} />
